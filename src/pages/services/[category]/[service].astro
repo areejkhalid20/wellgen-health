@@ -1,0 +1,30 @@
+---
+// Placeholder: the real Service template is built in phase 2.
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { categories, categoryUrl, servicesHubUrl, type Category, type Service } from '../../../data/services';
+import { site } from '../../../data/site';
+
+export function getStaticPaths() {
+  return categories.flatMap((category) =>
+    category.services.map((service) => ({
+      params: { category: category.slug, service: service.slug },
+      props: { category, service },
+    })),
+  );
+}
+const { category, service } = Astro.props as { category: Category; service: Service };
+---
+<BaseLayout title={service.name}>
+  <div class="mx-auto max-w-7xl px-6 py-12">
+    <Breadcrumbs items={[
+      { label: 'Services', href: servicesHubUrl },
+      { label: category.name, href: categoryUrl(category) },
+      { label: service.name },
+    ]} />
+    <h1 class="mt-4 text-4xl font-medium text-navy">{service.name}</h1>
+    <p class="mt-3 text-muted">Placeholder page. The full service page is built in phase 2.</p>
+    <p class="mt-6 text-sm text-muted">Old WordPress URL{service.oldPaths.length > 1 ? 's' : ''} that will redirect here: {service.oldPaths.join(', ')}</p>
+    <a href={site.bookingUrl} class="mt-8 inline-block rounded-md bg-cta px-6 py-3 font-semibold text-white hover:bg-cta-dark">Book Online</a>
+  </div>
+</BaseLayout>

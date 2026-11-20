@@ -1,0 +1,77 @@
+---
+import Logo from './Logo.astro';
+import { categories, categoryUrl, servicesHubUrl } from '../data/services';
+import { site, locations, telHref, companyLinks, moreLinks, legalLinks } from '../data/site';
+
+const year = new Date().getFullYear();
+const socials = Object.entries(site.social).filter(([, url]) => url);
+---
+<footer class="bg-navy text-white/80">
+  <div class="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-2 lg:grid-cols-[1.2fr_1.6fr_1fr_1fr]">
+    <!-- Brand -->
+    <div>
+      <Logo variant="light" />
+      <p class="mt-4 max-w-xs text-sm">{site.tagline}. Primary and specialty care across six clinics in Texas.</p>
+      <div class="mt-6 space-y-2 text-sm">
+        <a href={site.phone.href} class="block font-semibold text-white hover:text-brand">{site.phone.label}</a>
+        <a href={`mailto:${site.email}`} class="block hover:text-white">{site.email}</a>
+      </div>
+      <a href={site.bookingUrl} class="mt-6 inline-block rounded-md bg-cta px-5 py-2.5 text-sm font-semibold text-white hover:bg-cta-dark">Book Online</a>
+      {socials.length > 0 && (
+        <ul class="mt-6 flex gap-4 text-sm">
+          {socials.map(([name, url]) => (
+            <li><a href={url} class="capitalize hover:text-white" rel="noopener" target="_blank">{name}</a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    <!-- Locations -->
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-white">Locations</h2>
+      <ul class="mt-4 grid gap-4 text-sm sm:grid-cols-2">
+        {locations.map((l) => (
+          <li>
+            <a href={`/locations/${l.slug}/`} class="font-medium text-white hover:text-brand">{l.name}</a>
+            <span class="block">{l.street}</span>
+            <span class="block">{l.city}</span>
+            <a href={telHref(l.phone)} class="block hover:text-white">{l.phone}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Services -->
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-white">Services</h2>
+      <ul class="mt-4 space-y-2 text-sm">
+        {categories.map((c) => <li><a href={categoryUrl(c)} class="hover:text-white">{c.name}</a></li>)}
+        <li><a href={servicesHubUrl} class="font-medium text-brand hover:text-white">All services →</a></li>
+      </ul>
+      <h2 class="mt-8 text-sm font-semibold uppercase tracking-wider text-white">Find care</h2>
+      <ul class="mt-4 space-y-2 text-sm">
+        <li><a href="/providers/" class="hover:text-white">Providers</a></li>
+        <li><a href="/locations/" class="hover:text-white">Locations</a></li>
+        {moreLinks.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+      </ul>
+    </div>
+
+    <!-- Company -->
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-white">Company</h2>
+      <ul class="mt-4 space-y-2 text-sm">
+        {companyLinks.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+        <li><a href="/blog/" class="hover:text-white">Resources</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-xs sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {site.name}. All rights reserved.</p>
+      <ul class="flex flex-wrap gap-x-5 gap-y-2">
+        {legalLinks.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</footer>

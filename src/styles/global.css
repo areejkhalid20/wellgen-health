@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* Brand tokens, taken from the current wellgen-health.com theme. */
+@theme {
+  --font-sans: "Rubik Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #4ab3f4;       /* sky blue: accents, borders, icons */
+  --color-brand-dark: #1c91c4;  /* hover state for brand fills */
+  --color-brand-ink: #0b6a99;   /* blue for text links (readable on white) */
+  --color-brand-soft: #eaf6fe;  /* pale blue panels */
+  --color-navy: #081832;        /* headings, nav text, footer background */
+  --color-cta: #e31c25;         /* Book Online button */
+  --color-cta-dark: #b8141c;
+  --color-ink: #212121;         /* body text */
+  --color-muted: #54595f;       /* secondary text */
+  --color-surface: #f7f9fb;     /* light section background */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-ink;
+  }
+}

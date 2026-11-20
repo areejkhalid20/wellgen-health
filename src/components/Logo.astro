@@ -1,0 +1,30 @@
+---
+// Shows public/images/wellgen-logo.png when that file exists, otherwise a text logo.
+// To switch: save the logo from the WordPress media library as public/images/wellgen-logo.png.
+import fs from 'node:fs';
+import path from 'node:path';
+import { site } from '../data/site';
+
+interface Props {
+  variant?: 'dark' | 'light';
+  class?: string;
+}
+const { variant = 'dark', class: className = '' } = Astro.props;
+const logoFile = path.join(process.cwd(), 'public', 'images', 'wellgen-logo.png');
+const hasLogo = fs.existsSync(logoFile);
+---
+<a href="/" class={`inline-flex items-center ${className}`} aria-label={`${site.name} home`}>
+  {hasLogo ? (
+    <img
+      src="/images/wellgen-logo.png"
+      alt={site.name}
+      width="250"
+      height="100"
+      class={`h-12 w-auto lg:h-14 ${variant === 'light' ? 'rounded-md bg-white px-2 py-1' : ''}`}
+    />
+  ) : (
+    <span class={`text-2xl font-semibold tracking-tight ${variant === 'light' ? 'text-white' : 'text-navy'}`}>
+      Well<span class="text-brand">Gen</span> <span class="font-normal">Health</span>
+    </span>
+  )}
+</a>

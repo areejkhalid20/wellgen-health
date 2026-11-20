@@ -1,0 +1,223 @@
+---
+import Logo from './Logo.astro';
+import { categories, categoryUrl, serviceUrl, servicesHubUrl } from '../data/services';
+import { site, companyLinks, moreLinks } from '../data/site';
+
+const current = Astro.url.pathname;
+const isActive = (href: string) => current === href || (href !== '/' && current.startsWith(href));
+
+const simpleLinks = [
+  { label: 'Locations', href: '/locations/' },
+  { label: 'Providers', href: '/providers/' },
+  { label: 'Resources', href: '/blog/' },
+];
+const aboutLinks = [...companyLinks, ...moreLinks];
+---
+<header class="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(8,24,50,0.08)]">
+  <!-- Top bar -->
+  <div class="hidden bg-navy text-sm text-white/90 md:block">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-2">
+      <p class="truncate">{site.address}</p>
+      <div class="flex shrink-0 items-center gap-6">
+        <a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a>
+        <a href={site.phone.href} class="font-medium text-white hover:text-brand">Call {site.phone.label}</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main bar -->
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3">
+    <Logo />
+
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="flex items-center gap-1 text-[15px] text-navy">
+        <!-- Services mega menu -->
+        <li class="relative" data-dropdown>
+          <button
+            type="button"
+            class:list={['flex items-center gap-1 rounded-md px-3 py-2 font-medium hover:text-brand-ink', isActive(servicesHubUrl) && 'text-brand-ink']}
+            aria-expanded="false"
+            aria-controls="menu-services"
+            data-dropdown-trigger
+          >
+            Services
+            <svg class="size-4 transition-transform" data-chevron viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.2 7.2a.75.75 0 0 1 1.06 0L10 10.94l3.74-3.74a.75.75 0 1 1 1.06 1.06l-4.27 4.27a.75.75 0 0 1-1.06 0L5.2 8.26a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
+          </button>
+          <div
+            id="menu-services"
+            class="invisible absolute left-1/2 top-full w-[min(56rem,92vw)] -translate-x-1/3 pt-3 opacity-0 transition duration-150 data-[open=true]:visible data-[open=true]:opacity-100"
+            data-dropdown-panel
+          >
+            <div class="rounded-xl border border-navy/10 bg-white p-6 shadow-xl">
+              <div class="grid grid-cols-3 gap-8">
+                {categories.map((c) => (
+                  <div>
+                    <a href={categoryUrl(c)} class="group block">
+                      <span class="block font-semibold text-navy group-hover:text-brand-ink">{c.name}</span>
+                      <span class="mt-1 block text-sm text-muted">{c.summary}</span>
+                    </a>
+                    <ul class="mt-4 space-y-1 border-l-2 border-brand/30 pl-4">
+                      {c.services.map((s) => (
+                        <li>
+                          <a
+                            href={serviceUrl(c, s)}
+                            class:list={['block py-1 text-sm text-ink hover:text-brand-ink', current === serviceUrl(c, s) && 'font-medium text-brand-ink']}
+                          >{s.name}</a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <div class="mt-6 flex items-center justify-between rounded-lg bg-brand-soft px-4 py-3 text-sm">
+                <span class="text-navy">Not sure where to start? See every service we offer.</span>
+                <a href={servicesHubUrl} class="font-semibold text-brand-ink hover:underline">All services →</a>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        {simpleLinks.map((l) => (
+          <li>
+            <a href={l.href} class:list={['rounded-md px-3 py-2 font-medium hover:text-brand-ink', isActive(l.href) && 'text-brand-ink']}>{l.label}</a>
+          </li>
+        ))}
+
+        <!-- About dropdown -->
+        <li class="relative" data-dropdown>
+          <button
+            type="button"
+            class="flex items-center gap-1 rounded-md px-3 py-2 font-medium hover:text-brand-ink"
+            aria-expanded="false"
+            aria-controls="menu-about"
+            data-dropdown-trigger
+          >
+            About
+            <svg class="size-4 transition-transform" data-chevron viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.2 7.2a.75.75 0 0 1 1.06 0L10 10.94l3.74-3.74a.75.75 0 1 1 1.06 1.06l-4.27 4.27a.75.75 0 0 1-1.06 0L5.2 8.26a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
+          </button>
+          <div
+            id="menu-about"
+            class="invisible absolute right-0 top-full w-60 pt-3 opacity-0 transition duration-150 data-[open=true]:visible data-[open=true]:opacity-100"
+            data-dropdown-panel
+          >
+            <ul class="rounded-xl border border-navy/10 bg-white p-2 shadow-xl">
+              {aboutLinks.map((l) => (
+                <li><a href={l.href} class="block rounded-md px-3 py-2 text-sm text-ink hover:bg-surface hover:text-brand-ink">{l.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href={site.bookingUrl} class="hidden rounded-md bg-cta px-5 py-2.5 text-sm font-semibold text-white hover:bg-cta-dark sm:inline-block">Book Online</a>
+      <button
+        type="button"
+        class="inline-flex size-11 items-center justify-center rounded-md text-navy hover:bg-surface lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Open menu"
+        data-mobile-toggle
+      >
+        <svg class="size-6" data-icon-open viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg class="hidden size-6" data-icon-close viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu: three levels as nested accordions -->
+  <nav id="mobile-nav" aria-label="Mobile" class="hidden max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-navy/10 bg-white lg:hidden">
+    <div class="px-6 py-4 text-navy">
+      <details class="group border-b border-navy/10">
+        <summary class="flex cursor-pointer list-none items-center justify-between py-3 font-medium">
+          Services
+          <span class="text-xl leading-none text-brand-ink group-open:rotate-45 transition-transform" aria-hidden="true">+</span>
+        </summary>
+        <div class="pb-3">
+          <a href={servicesHubUrl} class="block py-2 text-sm font-semibold text-brand-ink">All services</a>
+          {categories.map((c) => (
+            <details class="group/cat">
+              <summary class="flex cursor-pointer list-none items-center justify-between py-2 pl-3 text-[15px]">
+                {c.name}
+                <span class="text-lg leading-none text-brand-ink group-open/cat:rotate-45 transition-transform" aria-hidden="true">+</span>
+              </summary>
+              <ul class="mb-2 ml-3 border-l-2 border-brand/30 pl-4">
+                <li><a href={categoryUrl(c)} class="block py-1.5 text-sm font-medium text-brand-ink">Overview</a></li>
+                {c.services.map((s) => (
+                  <li><a href={serviceUrl(c, s)} class="block py-1.5 text-sm text-ink">{s.name}</a></li>
+                ))}
+              </ul>
+            </details>
+          ))}
+        </div>
+      </details>
+      {simpleLinks.map((l) => (
+        <a href={l.href} class="block border-b border-navy/10 py-3 font-medium">{l.label}</a>
+      ))}
+      <details class="group border-b border-navy/10">
+        <summary class="flex cursor-pointer list-none items-center justify-between py-3 font-medium">
+          About
+          <span class="text-xl leading-none text-brand-ink group-open:rotate-45 transition-transform" aria-hidden="true">+</span>
+        </summary>
+        <ul class="pb-3 pl-3">
+          {aboutLinks.map((l) => <li><a href={l.href} class="block py-1.5 text-sm text-ink">{l.label}</a></li>)}
+        </ul>
+      </details>
+      <div class="mt-5 grid gap-3">
+        <a href={site.bookingUrl} class="rounded-md bg-cta px-5 py-3 text-center font-semibold text-white">Book Online</a>
+        <a href={site.phone.href} class="rounded-md border border-navy/20 px-5 py-3 text-center font-medium text-navy">Call {site.phone.label}</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Desktop dropdowns: open on hover or click, close on Escape, outside click or focus leaving.
+  const dropdowns = document.querySelectorAll<HTMLElement>('[data-dropdown]');
+  const setOpen = (dd: HTMLElement, open: boolean) => {
+    const trigger = dd.querySelector<HTMLButtonElement>('[data-dropdown-trigger]')!;
+    const panel = dd.querySelector<HTMLElement>('[data-dropdown-panel]')!;
+    trigger.setAttribute('aria-expanded', String(open));
+    panel.dataset.open = String(open);
+    dd.querySelector('[data-chevron]')?.classList.toggle('rotate-180', open);
+  };
+  const closeAll = (except?: HTMLElement) => dropdowns.forEach((d) => d !== except && setOpen(d, false));
+
+  dropdowns.forEach((dd) => {
+    let timer: number | undefined;
+    const trigger = dd.querySelector<HTMLButtonElement>('[data-dropdown-trigger]')!;
+    trigger.addEventListener('click', () => {
+      const open = trigger.getAttribute('aria-expanded') !== 'true';
+      closeAll(dd);
+      setOpen(dd, open);
+    });
+    dd.addEventListener('mouseenter', () => { clearTimeout(timer); closeAll(dd); setOpen(dd, true); });
+    dd.addEventListener('mouseleave', () => { timer = window.setTimeout(() => setOpen(dd, false), 150); });
+    dd.addEventListener('focusout', (e) => {
+      if (!dd.contains(e.relatedTarget as Node)) setOpen(dd, false);
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const openTrigger = document.querySelector<HTMLButtonElement>('[data-dropdown-trigger][aria-expanded="true"]');
+    closeAll();
+    openTrigger?.focus();
+  });
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('[data-dropdown]')) closeAll();
+  });
+
+  // Mobile menu toggle.
+  const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');
+  const mobileNav = document.getElementById('mobile-nav');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    mobileNav?.classList.toggle('hidden', !open);
+    toggle.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
+    toggle.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
+    document.body.classList.toggle('overflow-hidden', open);
+  });
+</script>
