@@ -1,6 +1,5 @@
 {
   "_howTo": "One entry per page URL. Update monthly: 1 focusKeyword + 9 keywords, like All in One SEO. title up to 60 characters, description 120-160. Run `npm run seo:check` to see which keywords each page uses.",
-
   "/services/": {
     "title": "Primary Care & Medical Services in Texas",
     "description": "Primary care services at six WellGen Health clinics in Texas: chronic conditions, physicals, diagnostic testing and women's health. Book online.",
@@ -17,7 +16,6 @@
       "hypertension treatment"
     ]
   },
-
   "/services/primary-preventive-care/": {
     "title": "Primary and Preventive Care in Dallas, TX",
     "description": "Primary and preventive care for diabetes, high blood pressure, heart and lung conditions, arthritis, chronic pain and mental health in Texas.",
@@ -34,7 +32,6 @@
       "chronic care management"
     ]
   },
-
   "/services/primary-preventive-care/diabetes-and-endocrinology/": {
     "title": "Diabetes Doctor in Dallas, TX | Endocrinology Care",
     "description": "See a diabetes doctor in Dallas at WellGen Health: A1C testing, continuous glucose monitoring, treatment plans and nutrition support. Book online.",
@@ -49,6 +46,86 @@
       "prediabetes",
       "gestational diabetes",
       "thyroid doctor"
+    ]
+  },
+  "/services/primary-preventive-care/diabetes-and-endocrinology/understanding-diabetes/": {
+    "title": "Understanding Diabetes: Types, Signs & Symptoms",
+    "description": "Understanding diabetes: type 1, type 2 and gestational diabetes, how each affects your body, and the early signs to watch for. From WellGen Health.",
+    "focusKeyword": "understanding diabetes",
+    "keywords": [
+      "type 1 diabetes",
+      "type 2 diabetes",
+      "gestational diabetes",
+      "signs of diabetes",
+      "diabetes symptoms",
+      "prediabetes",
+      "diabetic neuropathy",
+      "diabetic retinopathy",
+      "diabetes complications"
+    ]
+  },
+  "/services/primary-preventive-care/diabetes-and-endocrinology/causes-and-risk-factors/": {
+    "title": "Diabetes Causes and Risk Factors",
+    "description": "Diabetes risk factors include family history, weight, diet, low activity, PCOS, stress and sleep. Learn which ones you can change with WellGen Health.",
+    "focusKeyword": "diabetes risk factors",
+    "keywords": [
+      "causes of diabetes",
+      "is diabetes hereditary",
+      "insulin resistance",
+      "PCOS and diabetes",
+      "stress and blood sugar",
+      "prediabetes",
+      "diabetes prevention",
+      "metabolic health",
+      "weight and diabetes"
+    ]
+  },
+  "/services/primary-preventive-care/diabetes-and-endocrinology/diagnosing-diabetes/": {
+    "title": "Diagnosing Diabetes: A1C & Blood Sugar Tests",
+    "description": "Diagnosing diabetes at WellGen Health: A1C, fasting glucose and glucose tolerance tests, continuous glucose monitoring and hormone panels explained.",
+    "focusKeyword": "diagnosing diabetes",
+    "keywords": [
+      "A1C test",
+      "fasting blood glucose",
+      "oral glucose tolerance test",
+      "continuous glucose monitoring",
+      "C-peptide test",
+      "prediabetes range",
+      "blood sugar test",
+      "hormone panel",
+      "endocrinologist"
+    ]
+  },
+  "/services/primary-preventive-care/diabetes-and-endocrinology/managing-diabetes/": {
+    "title": "Managing Diabetes: Treatment & Daily Care",
+    "description": "Managing diabetes with WellGen Health: medication and insulin, nutrition therapy, exercise and regular checks to prevent complications.",
+    "focusKeyword": "managing diabetes",
+    "keywords": [
+      "type 2 diabetes treatment",
+      "insulin therapy",
+      "GLP-1",
+      "metformin",
+      "medical nutrition therapy",
+      "diabetes complications",
+      "thyroid disorders",
+      "diabetes education",
+      "continuous glucose monitoring"
+    ]
+  },
+  "/services/primary-preventive-care/diabetes-and-endocrinology/take-charge-of-your-health/": {
+    "title": "Take Charge of Your Diabetes & Hormone Health",
+    "description": "From your first endocrinology visit to long-term support: how WellGen Health helps you take charge of diabetes, thyroid and other hormone conditions.",
+    "focusKeyword": "take charge of your health",
+    "keywords": [
+      "endocrinology visit",
+      "hormone imbalance",
+      "thyroid conditions",
+      "PCOS treatment",
+      "adrenal disorders",
+      "osteoporosis",
+      "diabetes support",
+      "personalized care plan",
+      "health coaching"
     ]
   }
 }

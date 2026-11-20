@@ -1,15 +1,16 @@
 ---
+// Service overview page. If the service has detail pages (src/content/topics/<service>/), they appear as a numbered path.
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
-import Toc from '../../../components/Toc.astro';
+import TopicChapters from '../../../components/TopicChapters.astro';
 import Faq from '../../../components/Faq.astro';
 import ServiceCard from '../../../components/ServiceCard.astro';
 import LocationsStrip from '../../../components/LocationsStrip.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import { categories, categoryUrl, servicesHubUrl, serviceUrl, type Category, type Service } from '../../../data/services';
+import { getTopics, topicUrl } from '../../../lib/topics';
 import { breadcrumbLd, faqLd, medicalPageLd } from '../../../lib/schema';
-import { site } from '../../../data/site';
 
 export function getStaticPaths() {
   return categories.flatMap((category) =>
@@ -22,12 +23,17 @@ export function getStaticPaths() {
 const { category, service } = Astro.props as { category: Category; service: Service };
 const path = serviceUrl(category, service);
 
-// Page content lives in src/content/services/<slug>.md. Pages without a file yet show a short version.
+// Overview text: src/content/services/<slug>.md. Pages without a file yet show a short version.
 const entry = (await getCollection('services')).find((e) => e.id === service.slug);
 const rendered = entry ? await render(entry) : undefined;
-const toc = (rendered?.headings ?? []).filter((h) => h.depth === 2);
 const faqs = entry?.data.faqs ?? [];
-if (faqs.length) toc.push({ depth: 2, slug: 'related-questions', text: 'Related questions' });
+const topics = await getTopics(service.slug);
+const chapters = topics.map((t) => ({
+  href: topicUrl(category, service, t.slug),
+  title: t.data.title,
+  summary: t.data.summary,
+  points: t.data.points,
+}));
 
 const related = category.services.filter((s) => s.slug !== service.slug).slice(0, 3);
 const crumbs = [
@@ -55,38 +61,31 @@ const jsonLd = [
   />
 
   {rendered ? (
-    <div class="mx-auto grid max-w-7xl gap-12 px-6 pb-8 pt-20 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-14 lg:pt-28 xl:grid-cols-[14rem_minmax(0,1fr)_18rem]">
-      <aside class="hidden lg:block">
-        <Toc items={toc} />
-      </aside>
-      <div>
-        <article class="prose-wellgen">
-          <rendered.Content />
-        </article>
-        {faqs.length > 0 && (
-          <div class="mt-20 max-w-[68ch]">
-            <Faq faqs={faqs} />
-          </div>
-        )}
-      </div>
-      <aside class="hidden xl:block">
-        <div class="sticky top-28 overflow-hidden rounded-[2rem] bg-brand-dark px-6 pb-7 pt-9 text-center text-white">
-          <div aria-hidden="true" class="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(60%_80%_at_50%_0%,var(--color-sky)_0%,transparent_70%)] opacity-40"></div>
-          <p class="relative font-display text-2xl font-medium leading-snug">Book a {service.name.toLowerCase()} visit</p>
-          <p class="relative mt-3 text-[15px] text-white/85">Choose a time online, or call and we'll help you find the nearest clinic.</p>
-          <a href={site.bookingUrl} class="relative mt-6 block rounded-full bg-white py-3 font-semibold text-brand-dark transition hover:bg-mist">Book online</a>
-          <a href={site.phone.href} class="relative mt-3 block rounded-full py-3 font-semibold text-white ring-1 ring-white/50 transition hover:bg-white/10">{site.phone.label}</a>
-        </div>
-      </aside>
-    </div>
+    <section class="mx-auto max-w-7xl px-6 pt-20 lg:pt-28">
+      <article class="prose-wellgen mx-auto lg:mx-0">
+        <rendered.Content />
+      </article>
+    </section>
   ) : (
-    <div class="mx-auto max-w-3xl px-6 py-24 text-center">
+    <div class="mx-auto max-w-3xl px-6 pt-24 text-center">
       <p class="text-lg text-muted">The full {service.name} page is on its way. In the meantime, call us or book a visit and our team will help.</p>
     </div>
   )}
 
+  {chapters.length > 0 && (
+    <div class="mx-auto max-w-5xl px-6 pt-20 lg:pt-24">
+      <TopicChapters serviceName={service.name} chapters={chapters} />
+    </div>
+  )}
+
+  {faqs.length > 0 && (
+    <div class="mx-auto max-w-7xl px-6 pt-24">
+      <Faq faqs={faqs} />
+    </div>
+  )}
+
   {related.length > 0 && (
-    <section class="mx-auto max-w-7xl px-6 py-20">
+    <section class="mx-auto max-w-7xl px-6 py-24">
       <div class="flex flex-wrap items-end justify-between gap-4">
         <h2 class="text-3xl font-medium text-navy lg:text-4xl">Related care</h2>
         <a href={categoryUrl(category)} class="font-semibold text-brand-dark hover:text-navy">All {category.name.toLowerCase()}</a>

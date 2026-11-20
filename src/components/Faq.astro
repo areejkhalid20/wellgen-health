@@ -1,39 +1,100 @@
 ---
-// "Related questions": an accordion. Also gives Google FAQ structured data via the page's jsonLd.
+// "Questions people ask": questions on the left, the answer on the right as a reply from the care team.
+// On phones it becomes a list where each question opens its answer underneath.
+// All answers stay in the page HTML, so Google can read them (FAQ structured data comes from the page).
+import { site } from '../data/site';
+
 interface Props {
   faqs: { q: string; a: string }[];
   title?: string;
+  id?: string;
 }
-const { faqs, title = 'Related questions' } = Astro.props;
+const { faqs, title = 'Questions people ask', id = 'questions' } = Astro.props;
+const n = faqs.length;
 ---
-<section id="related-questions" class="scroll-mt-28">
-  <h2 class="text-3xl font-medium text-navy lg:text-[2.125rem]">{title}</h2>
-  <div class="mt-8 divide-y divide-ice overflow-hidden rounded-2xl bg-white ring-1 ring-ice">
+<section id={id} class="scroll-mt-28" data-qa>
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <h2 class="text-3xl font-medium text-navy lg:text-[2.25rem]">{title}</h2>
+    <p class="text-[15px] text-muted">{n} questions. Choose one to see the answer.</p>
+  </div>
+
+  <div class="qa-grid mt-8 lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-x-8" style={`--qa-rows: ${n}`}>
     {faqs.map((f, i) => (
-      <details class="faq group" open={i === 0}>
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 text-left text-[17px] font-medium text-navy transition hover:bg-mist/60 [&::-webkit-details-marker]:hidden">
-          {f.q}
-          <span class="grid size-8 shrink-0 place-items-center rounded-full bg-mist text-brand-dark transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
-            <svg class="size-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 4v12M4 10h12"/></svg>
-          </span>
-        </summary>
-        <div class="faq-body px-6 pb-6 text-[16px] leading-relaxed text-muted">
-          <p>{f.a}</p>
+      <>
+        <button
+          type="button"
+          id={`${id}-q${i}`}
+          class="qa-q group flex w-full items-center gap-4 border-b border-ice py-4 text-left lg:col-start-1 lg:rounded-xl lg:border-0 lg:px-4 lg:py-3.5 lg:transition lg:hover:bg-mist lg:aria-expanded:bg-brand-dark lg:aria-expanded:text-white"
+          aria-expanded={i === 0 ? 'true' : 'false'}
+          aria-controls={`${id}-a${i}`}
+          data-qa-q={i}
+        >
+          <span class="grid size-8 shrink-0 place-items-center rounded-full bg-mist text-sm font-semibold text-brand-dark transition group-aria-expanded:bg-brand group-aria-expanded:text-white lg:group-aria-expanded:bg-white/15">?</span>
+          <span class="flex-1 text-[16px] font-medium leading-snug text-navy group-aria-expanded:text-brand-dark lg:group-aria-expanded:text-white">{f.q}</span>
+          <svg class="size-5 shrink-0 text-brand-dark transition-transform group-aria-expanded:rotate-180 lg:hidden" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.2 7.2a.75.75 0 0 1 1.06 0L10 10.94l3.74-3.74a.75.75 0 1 1 1.06 1.06l-4.27 4.27a.75.75 0 0 1-1.06 0L5.2 8.26a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
+          <svg class="hidden size-5 shrink-0 opacity-0 transition group-aria-expanded:opacity-100 lg:block" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.64l-3.97-3.97a.75.75 0 1 1 1.06-1.06l5.25 5.25a.75.75 0 0 1 0 1.06l-5.25 5.25a.75.75 0 1 1-1.06-1.06l3.97-3.97H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
+        </button>
+        <div
+          id={`${id}-a${i}`}
+          role="region"
+          aria-labelledby={`${id}-q${i}`}
+          class="qa-a lg:col-start-2 lg:row-start-1"
+          hidden={i !== 0}
+          data-qa-a={i}
+        >
+          <div class="qa-card relative mb-4 mt-1 rounded-3xl bg-mist p-6 lg:sticky lg:top-28 lg:mb-0 lg:mt-0 lg:p-8">
+            <div class="flex items-center gap-3">
+              <span class="grid size-11 place-items-center rounded-full bg-brand text-white">
+                <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>
+              </span>
+              <span class="text-sm leading-tight"><strong class="block font-semibold text-navy">WellGen care team</strong><span class="text-muted">Answer</span></span>
+            </div>
+            <p class="hidden pt-5 font-display text-2xl leading-snug text-navy lg:block">{f.q}</p>
+            <p class="pt-4 text-[17px] leading-relaxed text-ink">{f.a}</p>
+            <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-ice pt-5 text-[15px]">
+              <span class="text-muted">Want to talk it through?</span>
+              <a href={site.bookingUrl} class="font-semibold text-brand-dark hover:text-navy">Book a visit</a>
+              <a href={site.phone.href} class="font-semibold text-brand-dark hover:text-navy">Call {site.phone.label}</a>
+            </div>
+          </div>
         </div>
-      </details>
+      </>
     ))}
   </div>
 </section>
 
 <style>
-  /* Smooth open/close where the browser supports it */
-  details.faq::details-content {
-    block-size: 0;
-    overflow: hidden;
-    transition: block-size 0.3s ease, content-visibility 0.3s allow-discrete;
+  /* Desktop: every answer shares the right-hand column, spanning all question rows */
+  @media (min-width: 1024px) {
+    .qa-grid .qa-a { grid-row: 1 / span var(--qa-rows); }
+    .qa-grid .qa-q { margin-bottom: 0.25rem; }
   }
-  details.faq[open]::details-content { block-size: auto; }
-  @supports (interpolate-size: allow-keywords) {
-    :root { interpolate-size: allow-keywords; }
-  }
+  .qa-card { animation: qa-in 0.35s cubic-bezier(.2,.7,.2,1); }
+  @keyframes qa-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-qa]').forEach((root) => {
+    const qs = [...root.querySelectorAll<HTMLButtonElement>('[data-qa-q]')];
+    const as = [...root.querySelectorAll<HTMLElement>('[data-qa-a]')];
+    const desktop = window.matchMedia('(min-width: 1024px)');
+
+    const show = (i: number, toggle = false) => {
+      const isOpen = qs[i].getAttribute('aria-expanded') === 'true';
+      // On phones a second tap closes the answer; on desktop one answer is always shown.
+      const closeOnly = toggle && isOpen && !desktop.matches;
+      qs.forEach((q, j) => {
+        const open = !closeOnly && j === i;
+        q.setAttribute('aria-expanded', String(open));
+        as[j].hidden = !open;
+      });
+    };
+    qs.forEach((q, i) => {
+      q.addEventListener('click', () => show(i, true));
+      q.addEventListener('keydown', (e) => {
+        const next = e.key === 'ArrowDown' ? i + 1 : e.key === 'ArrowUp' ? i - 1 : -1;
+        if (next >= 0 && next < qs.length) { e.preventDefault(); qs[next].focus(); if (desktop.matches) show(next); }
+      });
+    });
+  });
+</script>

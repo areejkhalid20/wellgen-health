@@ -1,0 +1,138 @@
+---
+// Detail page under a service, e.g. /services/primary-preventive-care/diabetes-and-endocrinology/causes-and-risk-factors/
+import { render } from 'astro:content';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import Faq from '../../../../components/Faq.astro';
+import LocationsStrip from '../../../../components/LocationsStrip.astro';
+import CtaBand from '../../../../components/CtaBand.astro';
+import { categories, categoryUrl, servicesHubUrl, serviceUrl, type Category, type Service } from '../../../../data/services';
+import { getTopics, topicUrl, type Topic } from '../../../../lib/topics';
+import { breadcrumbLd, faqLd, medicalPageLd } from '../../../../lib/schema';
+import { site } from '../../../../data/site';
+
+export async function getStaticPaths() {
+  const all = await getTopics();
+  return categories.flatMap((category) =>
+    category.services.flatMap((service) => {
+      const siblings = all.filter((t) => t.serviceSlug === service.slug);
+      return siblings.map((topic) => ({
+        params: { category: category.slug, service: service.slug, topic: topic.slug },
+        props: { category, service, topic, siblings },
+      }));
+    }),
+  );
+}
+const { category, service, topic, siblings } = Astro.props as {
+  category: Category; service: Service; topic: Topic; siblings: Topic[];
+};
+const { Content } = await render(topic);
+const path = topicUrl(category, service, topic.slug);
+const index = siblings.findIndex((t) => t.slug === topic.slug);
+const prev = siblings[index - 1];
+const next = siblings[index + 1];
+const faqs = topic.data.faqs;
+
+const crumbs = [
+  { label: 'Services', href: servicesHubUrl },
+  { label: category.name, href: categoryUrl(category) },
+  { label: service.name, href: serviceUrl(category, service) },
+  { label: topic.data.title },
+];
+const jsonLd = [
+  breadcrumbLd(crumbs.map((c) => ({ label: c.label, href: c.href ?? path }))),
+  medicalPageLd(topic.data.title, topic.data.summary, path),
+  ...(faqs.length ? [faqLd(faqs)] : []),
+];
+---
+<BaseLayout title={`${topic.data.title}: ${service.name}`} description={topic.data.summary} jsonLd={jsonLd}>
+  <!-- Header band -->
+  <section class="relative overflow-hidden bg-mist">
+    <div aria-hidden="true" class="absolute -right-20 -top-28 size-96 rounded-[3rem] bg-brand/15 rotate-12"></div>
+    <div aria-hidden="true" class="absolute -right-6 top-24 size-56 rounded-[2.5rem] bg-brand rotate-12 opacity-90 max-lg:hidden"></div>
+    <div class="relative mx-auto max-w-7xl px-6 pb-14 pt-8 lg:pb-20 lg:pt-12">
+      <div class="hero-rise"><Breadcrumbs items={crumbs} /></div>
+      <p class="hero-rise mt-8 inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm text-navy ring-1 ring-ice">
+        <span class="font-semibold text-brand-dark">Guide {index + 1} of {siblings.length}</span>
+        <span class="text-muted">in {service.name}</span>
+      </p>
+      <h1 class="hero-rise mt-5 max-w-3xl text-[2.6rem] font-medium leading-[1.05] tracking-[-0.01em] text-navy sm:text-5xl lg:text-[3.6rem]">{topic.data.title}</h1>
+      <p class="hero-rise-2 mt-5 max-w-[60ch] text-lg leading-relaxed text-muted">{topic.data.lead}</p>
+    </div>
+  </section>
+
+  <div class="mx-auto grid max-w-7xl gap-12 px-6 pb-8 pt-16 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-14 lg:pt-20 xl:grid-cols-[15rem_minmax(0,1fr)_17rem]">
+    <!-- Guides in this service -->
+    <nav aria-label={`${service.name} guides`} class="lg:sticky lg:top-28 lg:self-start">
+      <a href={serviceUrl(category, service)} class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-dark hover:text-navy">
+        <svg class="size-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M17 10a.75.75 0 0 1-.75.75H5.61l3.97 3.97a.75.75 0 1 1-1.06 1.06l-5.25-5.25a.75.75 0 0 1 0-1.06l5.25-5.25a.75.75 0 1 1 1.06 1.06L5.61 9.25h10.64A.75.75 0 0 1 17 10Z" clip-rule="evenodd"/></svg>
+        {service.name} overview
+      </a>
+      <ol class="mt-5 space-y-1">
+        {siblings.map((t, i) => {
+          const active = t.slug === topic.slug;
+          return (
+            <li>
+              <a
+                href={topicUrl(category, service, t.slug)}
+                aria-current={active ? 'page' : undefined}
+                class:list={[
+                  'flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] transition',
+                  active ? 'bg-brand-dark font-medium text-white' : 'text-muted hover:bg-mist hover:text-navy',
+                ]}
+              >
+                <span class:list={['grid size-7 shrink-0 place-items-center rounded-full text-xs font-semibold', active ? 'bg-white/20 text-white' : 'bg-mist text-brand-dark']}>{i + 1}</span>
+                {t.data.title}
+              </a>
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+
+    <div class="min-w-0">
+      <article class="prose-wellgen">
+        <Content />
+      </article>
+
+      <!-- Previous / next guide -->
+      <div class="mt-16 grid max-w-[68ch] gap-4 sm:grid-cols-2">
+        {prev ? (
+          <a href={topicUrl(category, service, prev.slug)} class="group rounded-2xl p-5 ring-1 ring-ice transition hover:bg-mist hover:ring-brand/40">
+            <span class="text-sm text-muted">Previous guide</span>
+            <span class="mt-1 block font-display text-xl text-navy group-hover:text-brand-dark">{prev.data.title}</span>
+          </a>
+        ) : <span class="hidden sm:block" />}
+        {next ? (
+          <a href={topicUrl(category, service, next.slug)} class="group rounded-2xl bg-brand-dark p-5 text-right text-white transition hover:bg-navy">
+            <span class="text-sm text-white/80">Next guide</span>
+            <span class="mt-1 block font-display text-xl">{next.data.title}</span>
+          </a>
+        ) : (
+          <a href={site.bookingUrl} class="group rounded-2xl bg-cta p-5 text-right text-white transition hover:bg-cta-dark">
+            <span class="text-sm text-white/85">You've read every guide</span>
+            <span class="mt-1 block font-display text-xl">Book a visit</span>
+          </a>
+        )}
+      </div>
+    </div>
+
+    <aside class="hidden xl:block">
+      <div class="sticky top-28 rounded-[2rem] bg-brand-dark px-6 py-8 text-center text-white">
+        <p class="font-display text-2xl font-medium leading-snug">Talk to a {service.name.toLowerCase()} provider</p>
+        <p class="mt-3 text-[15px] text-white/85">Book online, or call and we'll help you find the nearest clinic.</p>
+        <a href={site.bookingUrl} class="mt-6 block rounded-full bg-white py-3 font-semibold text-brand-dark transition hover:bg-mist">Book online</a>
+        <a href={site.phone.href} class="mt-3 block rounded-full py-3 font-semibold text-white ring-1 ring-white/50 transition hover:bg-white/10">{site.phone.label}</a>
+      </div>
+    </aside>
+  </div>
+
+  {faqs.length > 0 && (
+    <div class="mx-auto max-w-7xl px-6 pt-20">
+      <Faq faqs={faqs} />
+    </div>
+  )}
+
+  <div class="pt-20"><LocationsStrip /></div>
+  <CtaBand />
+</BaseLayout>

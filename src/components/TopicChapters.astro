@@ -1,0 +1,42 @@
+---
+// The detail pages of a service, shown as a numbered path on the service overview page.
+interface Props {
+  serviceName: string;
+  chapters: { href: string; title: string; summary: string; points: string[] }[];
+}
+const { serviceName, chapters } = Astro.props;
+---
+<section id="learn-more" class="scroll-mt-28">
+  <h2 class="max-w-2xl text-4xl font-medium leading-tight text-navy lg:text-5xl">Learn about {serviceName.toLowerCase()}, step by step</h2>
+  <p class="mt-4 max-w-[60ch] text-lg text-muted">{chapters.length} short guides, written by our care team. Start at the beginning or jump to what you need.</p>
+
+  <ol class="relative mt-12 space-y-6 before:absolute before:bottom-8 before:left-[1.4rem] before:top-8 before:w-0.5 before:bg-gradient-to-b before:from-brand before:to-ice sm:before:left-[1.9rem]">
+    {chapters.map((c, i) => (
+      <li class="relative grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6">
+        <span class="relative z-10 grid size-12 place-items-center rounded-full bg-white font-display text-2xl font-medium text-brand-dark ring-2 ring-brand sm:size-16 sm:text-3xl">{i + 1}</span>
+        <a href={c.href} class="group block rounded-3xl bg-white p-6 ring-1 ring-ice transition hover:shadow-[0_24px_40px_-28px_rgba(23,50,77,0.5)] hover:ring-brand/50 sm:p-8">
+          <div class="grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center">
+            <div>
+              <h3 class="text-2xl font-medium text-navy group-hover:text-brand-dark lg:text-[1.75rem]">{c.title}</h3>
+              <p class="mt-2 text-[16px] leading-relaxed text-muted">{c.summary}</p>
+              <span class="mt-5 inline-flex items-center gap-2 rounded-full bg-brand-dark px-5 py-2.5 text-sm font-semibold text-white transition group-hover:bg-navy">
+                Read: {c.title.toLowerCase()}
+                <svg class="size-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.64l-3.97-3.97a.75.75 0 1 1 1.06-1.06l5.25 5.25a.75.75 0 0 1 0 1.06l-5.25 5.25a.75.75 0 1 1-1.06-1.06l3.97-3.97H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
+              </span>
+            </div>
+            {c.points.length > 0 && (
+              <ul class="space-y-2.5 rounded-2xl bg-mist p-5 text-[15px] text-navy">
+                {c.points.map((p) => (
+                  <li class="flex gap-2.5">
+                    <svg class="mt-0.5 size-5 shrink-0 text-brand" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.7-9.3a1 1 0 0 0-1.4-1.4L9 10.6 7.7 9.3a1 1 0 1 0-1.4 1.4l2 2a1 1 0 0 0 1.4 0l4-4Z" clip-rule="evenodd"/></svg>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </a>
+      </li>
+    ))}
+  </ol>
+</section>
