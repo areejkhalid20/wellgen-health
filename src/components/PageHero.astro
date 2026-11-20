@@ -41,12 +41,6 @@ const { title, lead, crumbs, image, highlights = [] } = Astro.props;
       <div class="hero-photo relative ml-auto mr-0 -translate-y-0 aspect-[5/6] overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-30px_rgba(23,50,77,0.6)]">
         <Photo folder={image.folder} name={image.name} alt={image.alt} loading="eager" widths={[480, 720, 960]} sizes="(min-width: 1024px) 40vw, 90vw" />
       </div>
-      <div class="hero-rise-3 absolute -bottom-8 right-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-lg ring-1 ring-ice sm:right-6">
-        <span class="grid size-10 place-items-center rounded-full bg-brand text-white">
-          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
-        </span>
-        <span class="text-sm leading-tight text-navy"><strong class="block font-semibold">6 clinics in Texas</strong>Dallas, Arlington, Mesquite and more</span>
-      </div>
     </div>
   </div>
 </section>
