@@ -9,7 +9,7 @@ interface Props {
 }
 const { href, name, summary, image } = Astro.props;
 ---
-<a href={href} class="group flex flex-col overflow-hidden rounded-[1.75rem_1.75rem_1rem_1rem] bg-white ring-1 ring-ice transition hover:-translate-y-1 hover:shadow-[0_24px_40px_-24px_rgba(23,50,77,0.45)] hover:ring-brand/50">
+<a href={href} class="group flex flex-col overflow-hidden rounded-[1.5rem] bg-white ring-1 ring-ice transition hover:-translate-y-1 hover:shadow-[0_24px_40px_-24px_rgba(23,50,77,0.45)] hover:ring-brand/50">
   <div class="aspect-[16/10] overflow-hidden bg-mist">
     <div class="h-full transition duration-500 group-hover:scale-[1.04]">
       <Photo folder={image.folder} name={image.name} alt="" widths={[400, 640]} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw" />

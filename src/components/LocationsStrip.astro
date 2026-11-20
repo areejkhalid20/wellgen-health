@@ -14,7 +14,7 @@ const { title = 'Find a clinic near you' } = Astro.props;
     <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {locations.map((l) => (
         <li class="group flex gap-4 rounded-2xl bg-white p-3 ring-1 ring-ice transition hover:ring-brand/50">
-          <div class="size-24 shrink-0 overflow-hidden rounded-[999px_999px_0.75rem_0.75rem] bg-mist">
+          <div class="size-24 shrink-0 overflow-hidden rounded-xl bg-mist">
             <Photo folder="locations" name={l.slug} alt="" widths={[200]} sizes="96px" hint={false} />
           </div>
           <div class="py-1 text-[15px] leading-snug">

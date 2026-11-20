@@ -72,7 +72,7 @@ const steps = [
     <div class="mt-8 grid gap-6 md:grid-cols-2">
       {others.map((c) => (
         <a href={categoryUrl(c)} class="group flex items-center gap-6 rounded-3xl bg-mist p-4 pr-8 transition hover:bg-ice/60">
-          <div class="size-28 shrink-0 overflow-hidden rounded-[999px_999px_1rem_1rem] bg-white sm:size-32">
+          <div class="size-28 shrink-0 overflow-hidden rounded-2xl bg-white sm:size-32">
             <Photo folder="services" name={c.slug} alt="" widths={[240]} sizes="128px" hint={false} />
           </div>
           <div>

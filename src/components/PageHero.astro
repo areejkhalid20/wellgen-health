@@ -1,5 +1,5 @@
 ---
-// Page banner: text on the left, photo in an arch on the right, over a steel-blue band.
+// Page banner: text on the left, photo on the right with a steel-blue block offset behind it.
 import Breadcrumbs from './Breadcrumbs.astro';
 import Photo from './Photo.astro';
 import { site } from '../data/site';
@@ -14,10 +14,7 @@ interface Props {
 const { title, lead, crumbs, image, highlights = [] } = Astro.props;
 ---
 <section class="relative overflow-hidden bg-mist">
-  <!-- steel-blue band behind the arch -->
-  <div aria-hidden="true" class="absolute inset-y-0 right-0 hidden w-[38%] bg-brand lg:block"></div>
-  <div aria-hidden="true" class="absolute -right-24 top-10 hidden size-72 rounded-full border-[28px] border-sky/30 lg:block"></div>
-
+  
   <div class="relative mx-auto grid max-w-7xl gap-10 px-6 pb-14 pt-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20 lg:pt-12">
     <div class="flex flex-col justify-center">
       <div class="hero-rise"><Breadcrumbs items={crumbs} /></div>
@@ -39,11 +36,12 @@ const { title, lead, crumbs, image, highlights = [] } = Astro.props;
       )}
     </div>
 
-    <div class="relative mx-auto w-full max-w-md lg:max-w-none">
-      <div class="hero-arch relative aspect-[4/5] overflow-hidden rounded-[999px_999px_1.5rem_1.5rem] shadow-[0_30px_60px_-30px_rgba(23,50,77,0.6)] ring-8 ring-white">
+    <div class="relative mx-auto w-full max-w-md pb-6 pl-6 lg:max-w-none">
+      <div aria-hidden="true" class="hero-rise-2 absolute bottom-0 left-0 h-[80%] w-[80%] rounded-[2rem] bg-brand"></div>
+      <div class="hero-photo relative ml-auto mr-0 -translate-y-0 aspect-[5/6] overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-30px_rgba(23,50,77,0.6)]">
         <Photo folder={image.folder} name={image.name} alt={image.alt} loading="eager" widths={[480, 720, 960]} sizes="(min-width: 1024px) 40vw, 90vw" />
       </div>
-      <div class="hero-rise-3 absolute -bottom-5 left-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-lg ring-1 ring-ice sm:left-0">
+      <div class="hero-rise-3 absolute -bottom-8 right-4 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-lg ring-1 ring-ice sm:right-6">
         <span class="grid size-10 place-items-center rounded-full bg-brand text-white">
           <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
         </span>

@@ -9,7 +9,7 @@
 
   --color-brand: #4682b3;       /* steel blue: bands, large buttons, accents */
   --color-brand-dark: #2f6390;  /* links, small buttons, hover */
-  --color-navy: #17324d;        /* deep blue: headings, footer, top bar */
+  --color-navy: #081832;        /* deep blue: headings, footer, top bar */
   --color-sky: #4ab3f4;         /* bright highlight, mostly on dark backgrounds */
   --color-mist: #eef4f9;        /* pale section background */
   --color-ice: #d6e6f3;         /* borders and dividers on light backgrounds */
@@ -18,12 +18,12 @@
   --color-ink: #1f2933;         /* body text */
   --color-muted: #52606d;       /* secondary text */
   --color-surface: #f7f9fb;
+  --color-grey: #96949D;  /*grey color*/
 
   /* Kept for older class names */
   --color-brand-ink: #2f6390;
   --color-brand-soft: #eef4f9;
 
-  --radius-arch: 999px 999px 1.5rem 1.5rem;
 }
 
 @layer base {
@@ -68,8 +68,8 @@
 
 /* Hero entrance: one orchestrated moment on page load */
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-@keyframes arch-in { from { opacity: 0; transform: scale(0.96); clip-path: inset(30% 0 0 0 round 999px 999px 24px 24px); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0 round 999px 999px 24px 24px); } }
+@keyframes photo-in { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: none; } }
 .hero-rise { animation: rise 0.7s cubic-bezier(.2,.7,.2,1) both; }
 .hero-rise-2 { animation: rise 0.7s 0.12s cubic-bezier(.2,.7,.2,1) both; }
 .hero-rise-3 { animation: rise 0.7s 0.24s cubic-bezier(.2,.7,.2,1) both; }
-.hero-arch { animation: arch-in 1s 0.1s cubic-bezier(.2,.7,.2,1) both; }
+.hero-photo { animation: photo-in 0.9s 0.1s cubic-bezier(.2,.7,.2,1) both; }

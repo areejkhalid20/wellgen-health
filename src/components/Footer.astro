@@ -6,14 +6,14 @@ import { site, locations, telHref, companyLinks, moreLinks, legalLinks } from '.
 const year = new Date().getFullYear();
 const socials = Object.entries(site.social).filter(([, url]) => url);
 ---
-<footer class="relative bg-navy text-white/80 before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-gradient-to-r before:from-brand before:via-sky before:to-brand">
+<footer class="relative bg-brand text-white/80 before:absolute before:inset-x-0 before:top-0 before:h-1 before:bg-gradient-to-r before:from-brand before:via-sky before:to-brand">
   <div class="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-2 lg:grid-cols-[1.2fr_1.6fr_1fr_1fr]">
     <!-- Brand -->
     <div>
       <Logo variant="light" />
       <p class="mt-4 max-w-xs text-sm">{site.tagline}. Primary and specialty care across six clinics in Texas.</p>
       <div class="mt-6 space-y-2 text-sm">
-        <a href={site.phone.href} class="block font-semibold text-white hover:text-brand">{site.phone.label}</a>
+        <a href={site.phone.href} class="block font-semibold text-white hover:text-cta">{site.phone.label}</a>
         <a href={`mailto:${site.email}`} class="block hover:text-white">{site.email}</a>
       </div>
       <a href={site.bookingUrl} class="mt-6 inline-block rounded-full bg-cta px-5 py-2.5 text-sm font-semibold text-white hover:bg-cta-dark">Book online</a>
@@ -28,11 +28,11 @@ const socials = Object.entries(site.social).filter(([, url]) => url);
 
     <!-- Locations -->
     <div>
-      <h2 class="font-display text-lg font-medium text-sky">Locations</h2>
+      <h2 class="font-display text-lg font-medium text-white">Locations</h2>
       <ul class="mt-4 grid gap-4 text-sm sm:grid-cols-2">
         {locations.map((l) => (
           <li>
-            <a href={`/locations/${l.slug}/`} class="font-medium text-white hover:text-brand">{l.name}</a>
+            <a href={`/locations/${l.slug}/`} class="font-medium text-white hover:text-cta">{l.name}</a>
             <span class="block">{l.street}</span>
             <span class="block">{l.city}</span>
             <a href={telHref(l.phone)} class="block hover:text-white">{l.phone}</a>
@@ -43,25 +43,25 @@ const socials = Object.entries(site.social).filter(([, url]) => url);
 
     <!-- Services -->
     <div>
-      <h2 class="font-display text-lg font-medium text-sky">Services</h2>
+      <h2 class="font-display text-lg font-medium text-white">Services</h2>
       <ul class="mt-4 space-y-2 text-sm">
-        {categories.map((c) => <li><a href={categoryUrl(c)} class="hover:text-white">{c.name}</a></li>)}
-        <li><a href={servicesHubUrl} class="font-medium text-sky hover:text-white">All services</a></li>
+        {categories.map((c) => <li><a href={categoryUrl(c)} class="hover:text-cta">{c.name}</a></li>)}
+        <li><a href={servicesHubUrl} class="font-medium text-navy hover:text-cta">All services</a></li>
       </ul>
-      <h2 class="mt-8 font-display text-lg font-medium text-sky">Find care</h2>
+      <h2 class="mt-8 font-display text-lg font-medium text-white">Find care</h2>
       <ul class="mt-4 space-y-2 text-sm">
-        <li><a href="/providers/" class="hover:text-white">Providers</a></li>
-        <li><a href="/locations/" class="hover:text-white">Locations</a></li>
-        {moreLinks.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+        <li><a href="/providers/" class="hover:text-cta">Providers</a></li>
+        <li><a href="/locations/" class="hover:text-cta">Locations</a></li>
+        {moreLinks.map((l) => <li><a href={l.href} class="hover:text-cta">{l.label}</a></li>)}
       </ul>
     </div>
 
     <!-- Company -->
     <div>
-      <h2 class="font-display text-lg font-medium text-sky">Company</h2>
+      <h2 class="font-display text-lg font-medium text-white">Company</h2>
       <ul class="mt-4 space-y-2 text-sm">
-        {companyLinks.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
-        <li><a href="/blog/" class="hover:text-white">Resources</a></li>
+        {companyLinks.map((l) => <li><a href={l.href} class="hover:text-cta">{l.label}</a></li>)}
+        <li><a href="/blog/" class="hover:text-cta">Resources</a></li>
       </ul>
     </div>
   </div>
