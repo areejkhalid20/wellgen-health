@@ -1,29 +1,75 @@
 @import "tailwindcss";
 
-/* Brand tokens, taken from the current wellgen-health.com theme. */
+/* WellGen brand tokens.
+   Steel blue #4682B3 is the brand color. White text on it is only used large and bold
+   (4.1:1 contrast); small text and links use brand-dark (6.4:1). */
 @theme {
   --font-sans: "Rubik Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Newsreader Variable", ui-serif, Georgia, serif;
 
-  --color-brand: #4682B3;       /* sky blue: accents, borders, icons */
-  --color-brand-dark: #1c91c4;  /* hover state for brand fills */
-  --color-brand-ink: #0b6a99;   /* blue for text links (readable on white) */
-  --color-brand-soft: #eaf6fe;  /* pale blue panels */
-  --color-navy: #081832;        /* headings, nav text, footer background */
-  --color-cta: #e31c25;         /* Book Online button */
+  --color-brand: #4682b3;       /* steel blue: bands, large buttons, accents */
+  --color-brand-dark: #2f6390;  /* links, small buttons, hover */
+  --color-navy: #17324d;        /* deep blue: headings, footer, top bar */
+  --color-sky: #4ab3f4;         /* bright highlight, mostly on dark backgrounds */
+  --color-mist: #eef4f9;        /* pale section background */
+  --color-ice: #d6e6f3;         /* borders and dividers on light backgrounds */
+  --color-cta: #e31c25;         /* Book Online */
   --color-cta-dark: #b8141c;
-  --color-ink: #212121;         /* body text */
-  --color-muted: #54595f;       /* secondary text */
-  --color-surface: #f7f9fb;     /* light section background */
+  --color-ink: #1f2933;         /* body text */
+  --color-muted: #52606d;       /* secondary text */
+  --color-surface: #f7f9fb;
+
+  /* Kept for older class names */
+  --color-brand-ink: #2f6390;
+  --color-brand-soft: #eef4f9;
+
+  --radius-arch: 999px 999px 1.5rem 1.5rem;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
   }
   body {
     @apply bg-white font-sans text-ink antialiased;
   }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-brand-ink;
+    @apply outline-2 outline-offset-2 outline-brand-dark;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
 }
+
+/* Long-form text on service pages */
+@layer components {
+  .prose-wellgen { @apply max-w-[68ch] text-[17px] leading-[1.75] text-ink; }
+  .prose-wellgen h2 { @apply mt-16 scroll-mt-28 text-3xl font-medium leading-tight text-navy first:mt-0 lg:text-[2.125rem]; }
+  .prose-wellgen h3 { @apply mt-9 text-xl font-semibold text-navy; font-family: var(--font-sans); }
+  .prose-wellgen p { @apply mt-4; }
+  .prose-wellgen ul { @apply mt-4 space-y-2.5; }
+  .prose-wellgen ul > li { @apply relative pl-6; }
+  .prose-wellgen ul > li::before { content: ""; @apply absolute left-0 top-[0.7em] size-2 rounded-full bg-brand; }
+  .prose-wellgen strong { @apply font-semibold text-navy; }
+  .prose-wellgen a { @apply font-medium text-brand-dark underline decoration-brand/40 underline-offset-4 hover:decoration-brand-dark; }
+  .prose-wellgen table { @apply mt-6 w-full overflow-hidden rounded-xl text-left text-[15px] ring-1 ring-ice; }
+  .prose-wellgen thead { @apply bg-mist text-navy; }
+  .prose-wellgen th { @apply px-4 py-3 font-semibold; }
+  .prose-wellgen td { @apply border-t border-ice px-4 py-3 align-top; }
+}
+
+/* Hero entrance: one orchestrated moment on page load */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes arch-in { from { opacity: 0; transform: scale(0.96); clip-path: inset(30% 0 0 0 round 999px 999px 24px 24px); } to { opacity: 1; transform: none; clip-path: inset(0 0 0 0 round 999px 999px 24px 24px); } }
+.hero-rise { animation: rise 0.7s cubic-bezier(.2,.7,.2,1) both; }
+.hero-rise-2 { animation: rise 0.7s 0.12s cubic-bezier(.2,.7,.2,1) both; }
+.hero-rise-3 { animation: rise 0.7s 0.24s cubic-bezier(.2,.7,.2,1) both; }
+.hero-arch { animation: arch-in 1s 0.1s cubic-bezier(.2,.7,.2,1) both; }

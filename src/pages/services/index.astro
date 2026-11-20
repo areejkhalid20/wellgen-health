@@ -1,23 +1,104 @@
 ---
-// Placeholder: the real Services hub template is built in phase 2.
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Photo from '../../components/Photo.astro';
+import CtaBand from '../../components/CtaBand.astro';
 import { categories, categoryUrl, serviceUrl } from '../../data/services';
+import { breadcrumbLd } from '../../lib/schema';
+
+const total = categories.reduce((n, c) => n + c.services.length, 0);
 ---
-<BaseLayout title="Services">
-  <div class="mx-auto max-w-7xl px-6 py-12">
-    <Breadcrumbs items={[{ label: 'Services' }]} />
-    <h1 class="mt-4 text-4xl font-medium text-navy">Our services</h1>
-    <p class="mt-3 text-muted">Placeholder page. The full Services hub is built in phase 2.</p>
-    <div class="mt-10 grid gap-8 md:grid-cols-3">
-      {categories.map((c) => (
-        <div>
-          <a href={categoryUrl(c)} class="text-lg font-medium text-navy hover:text-brand-ink">{c.name}</a>
-          <ul class="mt-3 space-y-1 text-sm">
-            {c.services.map((s) => <li><a href={serviceUrl(c, s)} class="text-brand-ink hover:underline">{s.name}</a></li>)}
+<BaseLayout
+  title="Our services"
+  jsonLd={[breadcrumbLd([{ label: 'Services', href: '/services/' }])]}
+>
+  <!-- Hero with live search -->
+  <section class="relative overflow-hidden bg-navy text-white">
+    <div aria-hidden="true" class="absolute -right-32 -top-40 size-[34rem] rounded-full bg-brand/60 blur-3xl"></div>
+    <div aria-hidden="true" class="absolute -bottom-48 left-1/3 size-[28rem] rounded-full bg-sky/20 blur-3xl"></div>
+    <div class="relative mx-auto max-w-7xl px-6 pb-16 pt-10 lg:pb-24 lg:pt-14">
+      <div class="hero-rise [&_a]:text-white/70 [&_a:hover]:text-white [&_li]:text-white/60 [&_[aria-current]]:text-white">
+        <Breadcrumbs items={[{ label: 'Services' }]} />
+      </div>
+      <h1 class="hero-rise mt-6 max-w-3xl text-5xl font-medium leading-[1.04] tracking-[-0.01em] lg:text-[4.25rem]">Primary care services for every part of your health</h1>
+      <p class="hero-rise-2 mt-5 max-w-[58ch] text-lg text-white/80">From checkups and chronic conditions to physicals and testing: {total} primary care services across six clinics in Texas, all with one team that knows your history.</p>
+
+      <div class="hero-rise-3 mt-10 max-w-2xl">
+        <label for="service-search" class="sr-only">Find a service</label>
+        <div class="flex items-center gap-3 rounded-full bg-white p-2 pl-6 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.5)] ring-4 ring-white/10 focus-within:ring-sky/50">
+          <svg class="size-5 shrink-0 text-brand-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="service-search" type="search" placeholder="Find a service, e.g. diabetes, sleep, physical" autocomplete="off" class="w-full bg-transparent py-2.5 text-[17px] text-navy placeholder:text-muted/80 focus:outline-none" />
+        </div>
+        <p class="mt-3 text-sm text-white/70" aria-live="polite" data-search-status></p>
+      </div>
+
+      <ul class="hero-rise-3 mt-8 flex flex-wrap gap-2">
+        {categories.map((c) => (
+          <li><a href={`#${c.slug}`} class="inline-block rounded-full bg-white/10 px-4 py-2 text-sm text-white ring-1 ring-white/20 transition hover:bg-white/20">{c.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <div class="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+    {categories.map((c, i) => (
+      <section id={c.slug} class="scroll-mt-28 border-t border-ice py-14 first:border-t-0 first:pt-0 lg:py-20" data-category>
+        <div class:list={['grid gap-10 lg:gap-16', i % 2 === 1 ? 'lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]' : 'lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]']}>
+          <div class:list={['lg:sticky lg:top-28 lg:self-start', i % 2 === 1 && 'lg:order-2']}>
+            <div class="aspect-[5/4] overflow-hidden rounded-[999px_999px_1.5rem_1.5rem] bg-mist">
+              <Photo folder="services" name={c.slug} alt="" widths={[480, 800]} sizes="(min-width: 1024px) 35vw, 90vw" />
+            </div>
+            <h2 class="mt-8 text-4xl font-medium leading-tight text-navy">
+              <a href={categoryUrl(c)} class="hover:text-brand-dark">{c.name}</a>
+            </h2>
+            <p class="mt-3 text-[17px] leading-relaxed text-muted">{c.intro}</p>
+            <a href={categoryUrl(c)} class="mt-5 inline-flex items-center gap-1.5 font-semibold text-brand-dark hover:text-navy">
+              Category overview
+              <svg class="size-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.64l-3.97-3.97a.75.75 0 1 1 1.06-1.06l5.25 5.25a.75.75 0 0 1 0 1.06l-5.25 5.25a.75.75 0 1 1-1.06-1.06l3.97-3.97H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
+            </a>
+          </div>
+          <ul class="grid content-start gap-3 sm:grid-cols-2">
+            {c.services.map((s) => (
+              <li data-service data-terms={`${s.name} ${s.summary} ${c.name}`.toLowerCase()}>
+                <a href={serviceUrl(c, s)} class="group flex h-full gap-4 rounded-2xl bg-white p-5 ring-1 ring-ice transition hover:bg-mist hover:ring-brand/40">
+                  <span class="mt-1 size-2.5 shrink-0 rounded-full bg-brand transition group-hover:scale-150 group-hover:bg-sky" aria-hidden="true"></span>
+                  <span>
+                    <span class="block text-[17px] font-medium text-navy group-hover:text-brand-dark">{s.name}</span>
+                    <span class="mt-1 block text-[15px] leading-snug text-muted">{s.summary}</span>
+                  </span>
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
-      ))}
-    </div>
+      </section>
+    ))}
+    <p class="hidden rounded-2xl bg-mist p-8 text-center text-lg text-navy" data-no-results>
+      No service matches that search. Try another word, or call <a href="tel:+18448867362" class="font-semibold text-brand-dark underline">(844) 886-7362</a> and we'll point you to the right care.
+    </p>
   </div>
+
+  <CtaBand title="Not sure which service you need?" text="Book a visit with a primary care provider. They will look at the whole picture and refer you to the right care." />
 </BaseLayout>
+
+<script>
+  const input = document.getElementById('service-search') as HTMLInputElement | null;
+  const items = [...document.querySelectorAll<HTMLElement>('[data-service]')];
+  const groups = [...document.querySelectorAll<HTMLElement>('[data-category]')];
+  const empty = document.querySelector<HTMLElement>('[data-no-results]');
+  const status = document.querySelector<HTMLElement>('[data-search-status]');
+
+  input?.addEventListener('input', () => {
+    const words = input.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    items.forEach((li) => {
+      const match = words.every((w) => li.dataset.terms!.includes(w));
+      li.hidden = !match;
+      if (match) shown++;
+    });
+    groups.forEach((g) => (g.hidden = !g.querySelector('[data-service]:not([hidden])')));
+    empty?.classList.toggle('hidden', shown > 0);
+    if (status) status.textContent = words.length ? `${shown} service${shown === 1 ? '' : 's'} found` : '';
+  });
+</script>

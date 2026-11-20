@@ -1,0 +1,26 @@
+---
+import Photo from './Photo.astro';
+
+interface Props {
+  href: string;
+  name: string;
+  summary: string;
+  image: { folder: string; name: string };
+}
+const { href, name, summary, image } = Astro.props;
+---
+<a href={href} class="group flex flex-col overflow-hidden rounded-[1.75rem_1.75rem_1rem_1rem] bg-white ring-1 ring-ice transition hover:-translate-y-1 hover:shadow-[0_24px_40px_-24px_rgba(23,50,77,0.45)] hover:ring-brand/50">
+  <div class="aspect-[16/10] overflow-hidden bg-mist">
+    <div class="h-full transition duration-500 group-hover:scale-[1.04]">
+      <Photo folder={image.folder} name={image.name} alt="" widths={[400, 640]} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw" />
+    </div>
+  </div>
+  <div class="flex flex-1 flex-col p-6">
+    <h3 class="text-xl font-medium leading-snug text-navy group-hover:text-brand-dark">{name}</h3>
+    <p class="mt-2 flex-1 text-[15px] leading-relaxed text-muted">{summary}</p>
+    <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-dark">
+      Learn more
+      <svg class="size-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.64l-3.97-3.97a.75.75 0 1 1 1.06-1.06l5.25 5.25a.75.75 0 0 1 0 1.06l-5.25 5.25a.75.75 0 1 1-1.06-1.06l3.97-3.97H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd"/></svg>
+    </span>
+  </div>
+</a>

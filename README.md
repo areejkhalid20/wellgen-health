@@ -41,9 +41,33 @@ Restart `npm run dev`. The header and footer switch from the text logo to the im
 | Footer | `src/components/Footer.astro` |
 | Page wrapper, SEO tags | `src/layouts/BaseLayout.astro` |
 | 404 page | `src/pages/404.astro` |
-| Service pages (placeholders until phase 2) | `src/pages/services/` |
+| Service page templates | `src/pages/services/` |
+| Service page text | `src/content/services/` |
+| Page photos (resized automatically) | `src/assets/images/` |
+| SEO titles, descriptions, keywords | `src/data/seo.json` |
 
 Adding a service: add one line to `src/data/services.ts`. The menu, mobile menu and pages update together.
+
+## SEO and keywords (update monthly)
+
+Every page's SEO lives in `src/data/seo.json`, keyed by URL:
+
+- `title`: up to 60 characters
+- `description`: 120 to 160 characters
+- `focusKeyword`: 1 focus keyword
+- `keywords`: 9 more keywords
+
+Check them, like the All in One SEO analysis:
+
+```bash
+npm run seo:check
+```
+
+It shows, for every page, whether the focus keyword is in the title, description, H1, URL and first paragraph, and which of the 9 keywords the page text uses. Work missing keywords into the page text or its "Related questions".
+
+## Service page content
+
+Each service page's text is one Markdown file in `src/content/services/<service-slug>.md`. The block at the top holds the lead sentence, banner photo description, three highlights and the "Related questions". Services without a file yet show a short placeholder page.
 
 ## Search engines
 

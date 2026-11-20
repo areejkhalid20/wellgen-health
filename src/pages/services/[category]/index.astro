@@ -1,23 +1,91 @@
 ---
-// Placeholder: the real Category template is built in phase 2.
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import { categories, servicesHubUrl, serviceUrl, type Category } from '../../../data/services';
+import PageHero from '../../../components/PageHero.astro';
+import ServiceCard from '../../../components/ServiceCard.astro';
+import Photo from '../../../components/Photo.astro';
+import LocationsStrip from '../../../components/LocationsStrip.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { categories, categoryUrl, servicesHubUrl, serviceUrl, type Category } from '../../../data/services';
+import { breadcrumbLd, medicalPageLd } from '../../../lib/schema';
 
 export function getStaticPaths() {
   return categories.map((category) => ({ params: { category: category.slug }, props: { category } }));
 }
 const { category } = Astro.props as { category: Category };
+const others = categories.filter((c) => c.slug !== category.slug);
+const path = categoryUrl(category);
+
+const steps = [
+  { title: 'Book a visit', text: 'Book online or call us. We will match you with a provider and the clinic that suits you.' },
+  { title: 'Meet your provider', text: 'Your first visit covers your history, symptoms and any tests you need.' },
+  { title: 'Get your care plan', text: 'You leave with a clear plan: treatment, lifestyle steps and what to watch for.' },
+  { title: 'Follow up', text: 'Regular check-ins keep your plan on track and adjust it as your health changes.' },
+];
 ---
-<BaseLayout title={category.name} description={category.summary}>
-  <div class="mx-auto max-w-7xl px-6 py-12">
-    <Breadcrumbs items={[{ label: 'Services', href: servicesHubUrl }, { label: category.name }]} />
-    <h1 class="mt-4 text-4xl font-medium text-navy">{category.name}</h1>
-    <p class="mt-3 text-muted">Placeholder page. The full category page is built in phase 2.</p>
-    <ul class="mt-8 grid gap-3 md:grid-cols-2">
+<BaseLayout
+  title={category.name}
+  description={category.intro}
+  jsonLd={[
+    breadcrumbLd([{ label: 'Services', href: servicesHubUrl }, { label: category.name, href: path }]),
+    medicalPageLd(category.name, category.intro, path),
+  ]}
+>
+  <PageHero
+    title={category.name}
+    lead={category.intro}
+    crumbs={[{ label: 'Services', href: servicesHubUrl }, { label: category.name }]}
+    image={{ folder: 'services', name: category.slug, alt: category.name }}
+  />
+
+  <!-- Services in this category -->
+  <section class="mx-auto max-w-7xl px-6 pb-8 pt-20 lg:pt-28">
+    <div class="max-w-2xl">
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Services in this area</h2>
+      <p class="mt-4 text-lg text-muted">{category.services.length} ways we can help. Choose a service to learn what's involved and how to book.</p>
+    </div>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {category.services.map((s) => (
-        <li><a href={serviceUrl(category, s)} class="block rounded-lg border border-navy/10 p-4 text-navy hover:border-brand">{s.name}</a></li>
+        <ServiceCard href={serviceUrl(category, s)} name={s.name} summary={s.summary} image={{ folder: 'services', name: s.slug }} />
       ))}
-    </ul>
-  </div>
+    </div>
+  </section>
+
+  <!-- How a visit works: a real sequence, so it is numbered -->
+  <section class="mx-auto max-w-7xl px-6 py-20 lg:py-28">
+    <div class="rounded-[2.5rem] bg-navy px-8 py-14 text-white sm:px-14">
+      <h2 class="max-w-xl text-4xl font-medium leading-tight lg:text-5xl">What happens when you visit</h2>
+      <ol class="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        {steps.map((step, i) => (
+          <li class="relative">
+            <span class="font-display text-6xl font-medium leading-none text-sky">{i + 1}</span>
+            <h3 class="mt-4 font-sans text-lg font-semibold">{step.title}</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-white/75">{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Other categories -->
+  <section class="mx-auto max-w-7xl px-6 pb-20">
+    <h2 class="text-3xl font-medium text-navy">Other care we offer</h2>
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      {others.map((c) => (
+        <a href={categoryUrl(c)} class="group flex items-center gap-6 rounded-3xl bg-mist p-4 pr-8 transition hover:bg-ice/60">
+          <div class="size-28 shrink-0 overflow-hidden rounded-[999px_999px_1rem_1rem] bg-white sm:size-32">
+            <Photo folder="services" name={c.slug} alt="" widths={[240]} sizes="128px" hint={false} />
+          </div>
+          <div>
+            <h3 class="text-2xl font-medium text-navy group-hover:text-brand-dark">{c.name}</h3>
+            <p class="mt-1 text-[15px] text-muted">{c.summary}</p>
+            <p class="mt-2 text-sm font-semibold text-brand-dark">{c.services.length} services</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <LocationsStrip />
+  <CtaBand />
 </BaseLayout>
+

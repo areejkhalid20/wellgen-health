@@ -10,17 +10,20 @@ interface Props {
   class?: string;
 }
 const { variant = 'dark', class: className = '' } = Astro.props;
-const logoFile = path.join(process.cwd(), 'public', 'images', 'wellgen-logo.png');
-const hasLogo = fs.existsSync(logoFile);
+const exists = (f: string) => fs.existsSync(path.join(process.cwd(), 'public', 'images', f));
+// On dark backgrounds use the white logo if it's there (public/images/wellgen-logo-white.png)
+const useWhite = variant === 'light' && exists('wellgen-logo-white.png');
+const hasLogo = useWhite || exists('wellgen-logo.png');
+const src = useWhite ? '/images/wellgen-logo-white.png' : '/images/wellgen-logo.png';
 ---
 <a href="/" class={`inline-flex items-center ${className}`} aria-label={`${site.name} home`}>
   {hasLogo ? (
     <img
-      src="/images/wellgen-logo.png"
+      src={src}
       alt={site.name}
       width="250"
       height="100"
-      class={`h-12 w-auto lg:h-14 ${variant === 'light' ? 'rounded-md bg-white px-2 py-1' : ''}`}
+      class={`h-12 w-auto lg:h-14 ${variant === 'light' && !useWhite ? 'rounded-md bg-white px-2 py-1' : ''}`}
     />
   ) : (
     <span class={`text-2xl font-semibold tracking-tight ${variant === 'light' ? 'text-white' : 'text-navy'}`}>

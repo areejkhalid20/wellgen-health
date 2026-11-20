@@ -1,0 +1,39 @@
+---
+// "Related questions": an accordion. Also gives Google FAQ structured data via the page's jsonLd.
+interface Props {
+  faqs: { q: string; a: string }[];
+  title?: string;
+}
+const { faqs, title = 'Related questions' } = Astro.props;
+---
+<section id="related-questions" class="scroll-mt-28">
+  <h2 class="text-3xl font-medium text-navy lg:text-[2.125rem]">{title}</h2>
+  <div class="mt-8 divide-y divide-ice overflow-hidden rounded-2xl bg-white ring-1 ring-ice">
+    {faqs.map((f, i) => (
+      <details class="faq group" open={i === 0}>
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 text-left text-[17px] font-medium text-navy transition hover:bg-mist/60 [&::-webkit-details-marker]:hidden">
+          {f.q}
+          <span class="grid size-8 shrink-0 place-items-center rounded-full bg-mist text-brand-dark transition-transform duration-300 group-open:rotate-45" aria-hidden="true">
+            <svg class="size-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 4v12M4 10h12"/></svg>
+          </span>
+        </summary>
+        <div class="faq-body px-6 pb-6 text-[16px] leading-relaxed text-muted">
+          <p>{f.a}</p>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  /* Smooth open/close where the browser supports it */
+  details.faq::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size 0.3s ease, content-visibility 0.3s allow-discrete;
+  }
+  details.faq[open]::details-content { block-size: auto; }
+  @supports (interpolate-size: allow-keywords) {
+    :root { interpolate-size: allow-keywords; }
+  }
+</style>

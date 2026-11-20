@@ -1,0 +1,54 @@
+{
+  "_howTo": "One entry per page URL. Update monthly: 1 focusKeyword + 9 keywords, like All in One SEO. title up to 60 characters, description 120-160. Run `npm run seo:check` to see which keywords each page uses.",
+
+  "/services/": {
+    "title": "Primary Care & Medical Services in Texas",
+    "description": "Primary care services at six WellGen Health clinics in Texas: chronic conditions, physicals, diagnostic testing and women's health. Book online.",
+    "focusKeyword": "primary care services",
+    "keywords": [
+      "primary care doctor Dallas",
+      "chronic care management",
+      "DOT physicals",
+      "diagnostic testing",
+      "women's health services",
+      "weight loss management",
+      "telemedicine",
+      "geriatric care",
+      "hypertension treatment"
+    ]
+  },
+
+  "/services/primary-preventive-care/": {
+    "title": "Primary and Preventive Care in Dallas, TX",
+    "description": "Primary and preventive care for diabetes, high blood pressure, heart and lung conditions, arthritis, chronic pain and mental health in Texas.",
+    "focusKeyword": "primary and preventive care",
+    "keywords": [
+      "primary care physician Dallas",
+      "preventive care",
+      "chronic disease management",
+      "diabetes doctor",
+      "hypertension treatment",
+      "geriatric care",
+      "chronic pain management",
+      "mental health care",
+      "chronic care management"
+    ]
+  },
+
+  "/services/primary-preventive-care/diabetes-and-endocrinology/": {
+    "title": "Diabetes Doctor in Dallas, TX | Endocrinology Care",
+    "description": "See a diabetes doctor in Dallas at WellGen Health: A1C testing, continuous glucose monitoring, treatment plans and nutrition support. Book online.",
+    "focusKeyword": "diabetes doctor Dallas",
+    "keywords": [
+      "diabetes specialist",
+      "endocrinologist Dallas",
+      "what does an endocrinologist do",
+      "A1C test",
+      "type 2 diabetes treatment",
+      "continuous glucose monitoring",
+      "prediabetes",
+      "gestational diabetes",
+      "thyroid doctor"
+    ]
+  }
+}

@@ -13,20 +13,20 @@ const simpleLinks = [
 ];
 const aboutLinks = [...companyLinks, ...moreLinks];
 ---
-<header class="sticky top-0 z-50 border-b-2 border-brand bg-white">
+<header class="group/header sticky top-0 z-50 bg-white/95 backdrop-blur transition-shadow data-[scrolled=true]:shadow-[0_8px_24px_-12px_rgba(23,50,77,0.25)]" data-header>
   <!-- Top bar -->
-  <div class="hidden bg-brand text-sm text-navy md:block">
+  <div class="hidden overflow-hidden bg-navy text-sm text-white/85 transition-[max-height] duration-300 md:block max-h-12 group-data-[scrolled=true]/header:max-h-0">
     <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-2">
       <p class="truncate">{site.address}</p>
       <div class="flex shrink-0 items-center gap-6">
-        <a href={`mailto:${site.email}`} class="hover:underline">{site.email}</a>
-        <a href={site.phone.href} class="font-semibold text-navy hover:underline">Call {site.phone.label}</a>
+        <a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a>
+        <a href={site.phone.href} class="font-semibold text-sky hover:text-white">Call {site.phone.label}</a>
       </div>
     </div>
   </div>
 
   <!-- Main bar -->
-  <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3 transition-[padding] duration-300 group-data-[scrolled=true]/header:py-2">
     <Logo />
 
     <nav aria-label="Main" class="hidden lg:block">
@@ -53,7 +53,7 @@ const aboutLinks = [...companyLinks, ...moreLinks];
                 {categories.map((c) => (
                   <div>
                     <a href={categoryUrl(c)} class="group block">
-                      <span class="block font-semibold text-navy group-hover:text-brand-ink">{c.name}</span>
+                      <span class="block font-display text-lg font-medium text-navy group-hover:text-brand-dark">{c.name}</span>
                       <span class="mt-1 block text-sm text-muted">{c.summary}</span>
                     </a>
                     <ul class="mt-4 space-y-1 border-l-2 border-brand/30 pl-4">
@@ -111,7 +111,7 @@ const aboutLinks = [...companyLinks, ...moreLinks];
     </nav>
 
     <div class="flex items-center gap-3">
-      <a href={site.bookingUrl} class="hidden rounded-md bg-cta px-5 py-2.5 text-sm font-semibold text-white hover:bg-cta-dark sm:inline-block">Book Online</a>
+      <a href={site.bookingUrl} class="hidden rounded-full bg-cta px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-cta-dark hover:shadow-md sm:inline-block">Book online</a>
       <button
         type="button"
         class="inline-flex size-11 items-center justify-center rounded-md text-navy hover:bg-surface lg:hidden"
@@ -165,8 +165,8 @@ const aboutLinks = [...companyLinks, ...moreLinks];
         </ul>
       </details>
       <div class="mt-5 grid gap-3">
-        <a href={site.bookingUrl} class="rounded-md bg-cta px-5 py-3 text-center font-semibold text-white">Book Online</a>
-        <a href={site.phone.href} class="rounded-md border border-navy/20 px-5 py-3 text-center font-medium text-navy">Call {site.phone.label}</a>
+        <a href={site.bookingUrl} class="rounded-full bg-cta px-5 py-3 text-center font-semibold text-white">Book online</a>
+        <a href={site.phone.href} class="rounded-full border border-navy/20 px-5 py-3 text-center font-medium text-navy">Call {site.phone.label}</a>
       </div>
     </div>
   </nav>
@@ -207,6 +207,12 @@ const aboutLinks = [...companyLinks, ...moreLinks];
   document.addEventListener('click', (e) => {
     if (!(e.target as Element).closest('[data-dropdown]')) closeAll();
   });
+
+  // Header shrinks and the top bar folds away once the page scrolls.
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const onScroll = () => { if (header) header.dataset.scrolled = String(window.scrollY > 40); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 
   // Mobile menu toggle.
   const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-toggle]');

@@ -1,0 +1,40 @@
+---
+// A responsive photo. Astro resizes it and serves AVIF/WebP at the right width.
+// If the file is missing, shows a soft placeholder naming the file to add.
+import { Picture } from 'astro:assets';
+import { findImage } from '../lib/images';
+
+interface Props {
+  folder: string;
+  name: string;
+  alt: string;
+  widths?: number[];
+  sizes?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  /** Show the 'Add photo' hint when the file is missing (off for small thumbnails) */
+  hint?: boolean;
+}
+const { folder, name, alt, widths = [480, 800, 1200], sizes = '(min-width: 1024px) 50vw, 100vw', class: className = '', loading = 'lazy', hint = true } = Astro.props;
+const image = findImage(folder, name);
+---
+{image ? (
+  <Picture
+    src={image}
+    alt={alt}
+    widths={widths.filter((w) => w <= image.width).concat(widths.some((w) => w > image.width) ? [image.width] : [])}
+    sizes={sizes}
+    formats={['avif', 'webp']}
+    loading={loading}
+    fetchpriority={loading === 'eager' ? 'high' : 'auto'}
+    class={`h-full w-full object-cover ${className}`}
+  />
+) : (
+  <div
+    role="img"
+    aria-label={alt}
+    class={`flex h-full w-full items-end bg-[radial-gradient(120%_90%_at_20%_10%,var(--color-sky)_0%,var(--color-brand)_45%,var(--color-navy)_100%)] p-4 ${className}`}
+  >
+    {hint && <span class="rounded-md bg-white/85 px-2 py-1 text-xs text-navy">Add photo: src/assets/images/{folder}/{name}.jpg</span>}
+  </div>
+)}

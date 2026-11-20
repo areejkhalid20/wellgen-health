@@ -1,8 +1,14 @@
 ---
-// Placeholder: the real Service template is built in phase 2.
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import { categories, categoryUrl, servicesHubUrl, type Category, type Service } from '../../../data/services';
+import PageHero from '../../../components/PageHero.astro';
+import Toc from '../../../components/Toc.astro';
+import Faq from '../../../components/Faq.astro';
+import ServiceCard from '../../../components/ServiceCard.astro';
+import LocationsStrip from '../../../components/LocationsStrip.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { categories, categoryUrl, servicesHubUrl, serviceUrl, type Category, type Service } from '../../../data/services';
+import { breadcrumbLd, faqLd, medicalPageLd } from '../../../lib/schema';
 import { site } from '../../../data/site';
 
 export function getStaticPaths() {
@@ -14,17 +20,85 @@ export function getStaticPaths() {
   );
 }
 const { category, service } = Astro.props as { category: Category; service: Service };
+const path = serviceUrl(category, service);
+
+// Page content lives in src/content/services/<slug>.md. Pages without a file yet show a short version.
+const entry = (await getCollection('services')).find((e) => e.id === service.slug);
+const rendered = entry ? await render(entry) : undefined;
+const toc = (rendered?.headings ?? []).filter((h) => h.depth === 2);
+const faqs = entry?.data.faqs ?? [];
+if (faqs.length) toc.push({ depth: 2, slug: 'related-questions', text: 'Related questions' });
+
+const related = category.services.filter((s) => s.slug !== service.slug).slice(0, 3);
+const crumbs = [
+  { label: 'Services', href: servicesHubUrl },
+  { label: category.name, href: categoryUrl(category) },
+  { label: service.name },
+];
+const jsonLd = [
+  breadcrumbLd([
+    { label: 'Services', href: servicesHubUrl },
+    { label: category.name, href: categoryUrl(category) },
+    { label: service.name, href: path },
+  ]),
+  medicalPageLd(service.name, service.summary, path),
+  ...(faqs.length ? [faqLd(faqs)] : []),
+];
 ---
-<BaseLayout title={service.name}>
-  <div class="mx-auto max-w-7xl px-6 py-12">
-    <Breadcrumbs items={[
-      { label: 'Services', href: servicesHubUrl },
-      { label: category.name, href: categoryUrl(category) },
-      { label: service.name },
-    ]} />
-    <h1 class="mt-4 text-4xl font-medium text-navy">{service.name}</h1>
-    <p class="mt-3 text-muted">Placeholder page. The full service page is built in phase 2.</p>
-    <p class="mt-6 text-sm text-muted">Old WordPress URL{service.oldPaths.length > 1 ? 's' : ''} that will redirect here: {service.oldPaths.join(', ')}</p>
-    <a href={site.bookingUrl} class="mt-8 inline-block rounded-md bg-cta px-6 py-3 font-semibold text-white hover:bg-cta-dark">Book Online</a>
-  </div>
+<BaseLayout title={service.name} description={service.summary} jsonLd={jsonLd}>
+  <PageHero
+    title={service.name}
+    lead={entry?.data.lead ?? service.summary}
+    crumbs={crumbs}
+    image={{ folder: 'services', name: service.slug, alt: entry?.data.heroAlt ?? service.name }}
+    highlights={entry?.data.highlights}
+  />
+
+  {rendered ? (
+    <div class="mx-auto grid max-w-7xl gap-12 px-6 pb-8 pt-20 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-14 lg:pt-28 xl:grid-cols-[14rem_minmax(0,1fr)_18rem]">
+      <aside class="hidden lg:block">
+        <Toc items={toc} />
+      </aside>
+      <div>
+        <article class="prose-wellgen">
+          <rendered.Content />
+        </article>
+        {faqs.length > 0 && (
+          <div class="mt-20 max-w-[68ch]">
+            <Faq faqs={faqs} />
+          </div>
+        )}
+      </div>
+      <aside class="hidden xl:block">
+        <div class="sticky top-28 overflow-hidden rounded-[999px_999px_1.5rem_1.5rem] bg-brand-dark px-6 pb-7 pt-16 text-center text-white">
+          <div aria-hidden="true" class="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(60%_80%_at_50%_0%,var(--color-sky)_0%,transparent_70%)] opacity-40"></div>
+          <p class="relative font-display text-2xl font-medium leading-snug">Book a {service.name.toLowerCase()} visit</p>
+          <p class="relative mt-3 text-[15px] text-white/85">Choose a time online, or call and we'll help you find the nearest clinic.</p>
+          <a href={site.bookingUrl} class="relative mt-6 block rounded-full bg-white py-3 font-semibold text-brand-dark transition hover:bg-mist">Book online</a>
+          <a href={site.phone.href} class="relative mt-3 block rounded-full py-3 font-semibold text-white ring-1 ring-white/50 transition hover:bg-white/10">{site.phone.label}</a>
+        </div>
+      </aside>
+    </div>
+  ) : (
+    <div class="mx-auto max-w-3xl px-6 py-24 text-center">
+      <p class="text-lg text-muted">The full {service.name} page is on its way. In the meantime, call us or book a visit and our team will help.</p>
+    </div>
+  )}
+
+  {related.length > 0 && (
+    <section class="mx-auto max-w-7xl px-6 py-20">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 class="text-3xl font-medium text-navy lg:text-4xl">Related care</h2>
+        <a href={categoryUrl(category)} class="font-semibold text-brand-dark hover:text-navy">All {category.name.toLowerCase()}</a>
+      </div>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {related.map((s) => (
+          <ServiceCard href={serviceUrl(category, s)} name={s.name} summary={s.summary} image={{ folder: 'services', name: s.slug }} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <LocationsStrip />
+  <CtaBand />
 </BaseLayout>
