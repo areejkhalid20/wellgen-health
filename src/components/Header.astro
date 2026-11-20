@@ -13,14 +13,14 @@ const simpleLinks = [
 ];
 const aboutLinks = [...companyLinks, ...moreLinks];
 ---
-<header class="sticky top-0 z-50 bg-white shadow-[0_1px_0_rgba(8,24,50,0.08)]">
+<header class="sticky top-0 z-50 border-b-2 border-brand bg-white">
   <!-- Top bar -->
-  <div class="hidden bg-navy text-sm text-white/90 md:block">
+  <div class="hidden bg-brand text-sm text-navy md:block">
     <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-2">
       <p class="truncate">{site.address}</p>
       <div class="flex shrink-0 items-center gap-6">
-        <a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a>
-        <a href={site.phone.href} class="font-medium text-white hover:text-brand">Call {site.phone.label}</a>
+        <a href={`mailto:${site.email}`} class="hover:underline">{site.email}</a>
+        <a href={site.phone.href} class="font-semibold text-navy hover:underline">Call {site.phone.label}</a>
       </div>
     </div>
   </div>

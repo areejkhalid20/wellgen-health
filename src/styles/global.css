@@ -4,7 +4,7 @@
 @theme {
   --font-sans: "Rubik Variable", ui-sans-serif, system-ui, sans-serif;
 
-  --color-brand: #4ab3f4;       /* sky blue: accents, borders, icons */
+  --color-brand: #4682B3;       /* sky blue: accents, borders, icons */
   --color-brand-dark: #1c91c4;  /* hover state for brand fills */
   --color-brand-ink: #0b6a99;   /* blue for text links (readable on white) */
   --color-brand-soft: #eaf6fe;  /* pale blue panels */
