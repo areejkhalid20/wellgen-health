@@ -32,7 +32,7 @@ const chapters = topics.map((t) => ({
   href: topicUrl(category, service, t.slug),
   title: t.data.title,
   summary: t.data.summary,
-  points: t.data.points,
+  slug: t.slug,
 }));
 
 const related = category.services.filter((s) => s.slug !== service.slug).slice(0, 3);
@@ -74,7 +74,7 @@ const jsonLd = [
 
   {chapters.length > 0 && (
     <div class="mx-auto max-w-5xl px-6 pt-20 lg:pt-24">
-      <TopicChapters serviceName={service.name} chapters={chapters} />
+      <TopicChapters serviceName={service.name} serviceSlug={service.slug} chapters={chapters} />
     </div>
   )}
 

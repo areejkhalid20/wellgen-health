@@ -1,10 +1,7 @@
 ---
 lead: Diabetes and hormone conditions affect your energy, heart, kidneys and eyes. Our diabetes doctors in Dallas and across Texas help you understand what is happening in your body, and build a plan to manage it for the long term.
 heroAlt: WellGen Health provider reviewing blood sugar results with a patient
-highlights:
-  - A1C, fasting glucose and hormone testing
-  - Continuous glucose monitoring (CGM)
-  - Nutrition, exercise and medication plans
+
 faqs:
   - q: When should I see a diabetes doctor?
     a: See a doctor if you have signs like increased thirst, frequent urination or constant tiredness, or if you have risk factors such as a family history of diabetes or excess weight. A simple blood test can show whether your blood sugar is in a healthy range.

@@ -3,6 +3,7 @@
 import { render } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import Photo from '../../../../components/Photo.astro';
 import Faq from '../../../../components/Faq.astro';
 import LocationsStrip from '../../../../components/LocationsStrip.astro';
 import CtaBand from '../../../../components/CtaBand.astro';
@@ -46,18 +47,36 @@ const jsonLd = [
 ];
 ---
 <BaseLayout title={`${topic.data.title}: ${service.name}`} description={topic.data.summary} jsonLd={jsonLd}>
-  <!-- Header band -->
+  <!-- Banner: text on the left, the guide's landscape photo on the right.
+       Photo file: src/assets/images/topics/<service-slug>/<guide-slug>.png (or .jpg) -->
   <section class="relative overflow-hidden bg-mist">
-    <div aria-hidden="true" class="absolute -right-20 -top-28 size-96 rounded-[3rem] bg-brand/15 rotate-12"></div>
-    <div aria-hidden="true" class="absolute -right-6 top-24 size-56 rounded-[2.5rem] bg-brand rotate-12 opacity-90 max-lg:hidden"></div>
-    <div class="relative mx-auto max-w-7xl px-6 pb-14 pt-8 lg:pb-20 lg:pt-12">
-      <div class="hero-rise"><Breadcrumbs items={crumbs} /></div>
-      <p class="hero-rise mt-8 inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm text-navy ring-1 ring-ice">
-        <span class="font-semibold text-brand-dark">Guide {index + 1} of {siblings.length}</span>
-        <span class="text-muted">in {service.name}</span>
-      </p>
-      <h1 class="hero-rise mt-5 max-w-3xl text-[2.6rem] font-medium leading-[1.05] tracking-[-0.01em] text-navy sm:text-5xl lg:text-[3.6rem]">{topic.data.title}</h1>
-      <p class="hero-rise-2 mt-5 max-w-[60ch] text-lg leading-relaxed text-muted">{topic.data.lead}</p>
+    <div class="relative mx-auto grid max-w-7xl items-center gap-10 px-6 pb-14 pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14 lg:pb-20 lg:pt-12">
+      <div>
+        <div class="hero-rise"><Breadcrumbs items={crumbs} /></div>
+        <p class="hero-rise mt-7 inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm text-navy ring-1 ring-ice">
+          <span class="font-semibold text-brand-dark">Guide {index + 1} of {siblings.length}</span>
+          <span class="text-muted">in {service.name}</span>
+        </p>
+        <h1 class="hero-rise mt-5 text-[2.4rem] font-medium leading-[1.06] tracking-[-0.01em] text-navy sm:text-5xl lg:text-[3.25rem]">{topic.data.title}</h1>
+        <p class="hero-rise-2 mt-5 max-w-[60ch] text-lg leading-relaxed text-muted">{topic.data.lead}</p>
+        <div class="hero-rise-3 mt-7 flex flex-wrap gap-3">
+          <a href={site.bookingUrl} class="rounded-full bg-cta px-6 py-3 font-semibold text-white shadow-[0_10px_24px_-10px_rgba(227,28,37,0.7)] transition hover:-translate-y-0.5 hover:bg-cta-dark">Book a visit</a>
+          <a href={site.phone.href} class="rounded-full bg-white px-6 py-3 font-semibold text-brand-dark ring-1 ring-ice transition hover:ring-brand">Call {site.phone.label}</a>
+        </div>
+      </div>
+      <div class="relative pb-5 pl-5 lg:pb-6 lg:pl-6">
+        <div aria-hidden="true" class="hero-rise-2 absolute bottom-0 left-0 h-[82%] w-[82%] rounded-[2rem] bg-brand"></div>
+        <div class="hero-photo relative aspect-[16/10] overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-30px_rgba(23,50,77,0.6)]">
+          <Photo
+            folder={`topics/${service.slug}`}
+            name={topic.slug}
+            alt={`${topic.data.title}: ${service.name} at WellGen Health`}
+            loading="eager"
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 1024px) 50vw, 95vw"
+          />
+        </div>
+      </div>
     </div>
   </section>
 

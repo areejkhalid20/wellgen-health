@@ -127,5 +127,454 @@
       "personalized care plan",
       "health coaching"
     ]
+  },
+  "/services/primary-preventive-care/hypertension/": {
+    "title": "Hypertension Care in Dallas, TX",
+    "description": "Understand hypertension, its silent risks, and how WellGen Health helps protect your heart, brain, and kidneys from long-term damage.",
+    "focusKeyword": "hypertension",
+    "keywords": [
+      "understanding hypertension",
+      "wellgen health management",
+      "key causes",
+      "proactive prevention",
+      "diagnosing hypertension",
+      "precision diagnostic tools",
+      "early detection & management",
+      "treating and managing hypertension",
+      "precision treatment & organ protection"
+    ]
+  },
+  "/services/primary-preventive-care/hypertension/understanding-hypertension/": {
+    "title": "Understanding Hypertension",
+    "description": "Understand hypertension, one of the most common chronic conditions, and how sustained high blood pressure affects your health.",
+    "focusKeyword": "understanding hypertension",
+    "keywords": [
+      "primary hypertension",
+      "secondary hypertension",
+      "identifying triggers and risk factors"
+    ]
+  },
+  "/services/primary-preventive-care/hypertension/causes-and-risk-factors-of-hypertension/": {
+    "title": "Causes and Risk Factors of Hypertension",
+    "description": "Hypertension develops from genetic, environmental, and lifestyle factors. Learn the causes and risk factors at WellGen Health.",
+    "focusKeyword": "causes and risk factors of hypertension",
+    "keywords": [
+      "genetic and family-related factors",
+      "dietary and nutritional triggers",
+      "hormonal and kidney-related causes",
+      "environmental and occupational factors",
+      "age and gender considerations"
+    ]
+  },
+  "/services/primary-preventive-care/hypertension/diagnosing-hypertension/": {
+    "title": "Diagnosing Hypertension",
+    "description": "Early, precise hypertension diagnosis at WellGen Health helps prevent silent damage to the heart, blood vessels, and kidneys.",
+    "focusKeyword": "diagnosing hypertension",
+    "keywords": [
+      "routine check-ups & continuous monitoring",
+      "comprehensive kidney assessments",
+      "collaborative cardio-renal evaluation",
+      "identifying secondary causes of hypertension",
+      "digital integration and remote monitoring",
+      "preventive screening and early detection"
+    ]
+  },
+  "/services/primary-preventive-care/hypertension/treating-and-managing-hypertension/": {
+    "title": "Treating and Managing Hypertension",
+    "description": "Comprehensive, personalized hypertension treatment at WellGen Health addresses root causes to protect long-term organ health.",
+    "focusKeyword": "treating and managing hypertension",
+    "keywords": [
+      "personalized hypertension management",
+      "medication optimization",
+      "lifestyle & nutrition counseling",
+      "exercise and weight management",
+      "kidney protection and ckd prevention",
+      "stress and sleep optimization",
+      "empowering long-term control"
+    ]
+  },
+  "/services/primary-preventive-care/hypertension/take-charge-of-your-blood-pressure/": {
+    "title": "Take Charge of Your Blood Pressure",
+    "description": "Your health journey starts at diagnosis. Learn how to take charge of your blood pressure and protect your heart and kidneys.",
+    "focusKeyword": "take charge of your blood pressure",
+    "keywords": [
+      "remote monitoring & telehealth support",
+      "patient education and empowerment",
+      "preventive cardiology and kidney wellness"
+    ]
+  },
+  "/services/primary-preventive-care/geriatric-care/": {
+    "title": "Geriatric Care Care in Dallas, TX",
+    "description": "Specialized geriatric care at WellGen Health promotes health, prevents disease, and enhances quality of life for older adults.",
+    "focusKeyword": "geriatric care",
+    "keywords": [
+      "promoting healthy aging",
+      "holistic approach to healthy aging",
+      "comprehensive geriatric services",
+      "precision prevention & management",
+      "functional independence & support",
+      "schedule your geriatric care appointment"
+    ]
+  },
+  "/services/primary-preventive-care/geriatric-care/what-is-geriatric-care/": {
+    "title": "What is Geriatric Care?",
+    "description": "Geriatric care is specialized medicine focused on healthy aging. Learn how it promotes independence and quality of life for older adults.",
+    "focusKeyword": "what is geriatric care",
+    "keywords": []
+  },
+  "/services/primary-preventive-care/geriatric-care/the-importance-of-geriatric-care/": {
+    "title": "The Importance of Geriatric Care",
+    "description": "Specialized geriatric care supports healthy aging, independence, and quality of life. Learn why it matters at WellGen Health.",
+    "focusKeyword": "the importance of geriatric care",
+    "keywords": [
+      "early detection and prevention",
+      "improved independence and mobility",
+      "cognitive and emotional wellness",
+      "safer and smarter medication management",
+      "related pages"
+    ]
+  },
+  "/services/primary-preventive-care/geriatric-care/comprehensive-geriatric-services/": {
+    "title": "Comprehensive Geriatric Services",
+    "description": "Explore WellGen Health's comprehensive Geriatric Services for physical, cognitive, and social senior wellness. Discover complete care today!",
+    "focusKeyword": "comprehensive geriatric services",
+    "keywords": [
+      "preventive screenings and early detection",
+      "chronic disease & condition management",
+      "wellness, rehabilitation & cognitive care",
+      "personalized exercise programs"
+    ]
+  },
+  "/services/primary-preventive-care/geriatric-care/schedule-your-geriatric-care-appointment/": {
+    "title": "Schedule Your Geriatric Care Appointment",
+    "description": "Take control of your health and independence with personalized Geriatric Care and senior wellness programs. Schedule your consultation today!",
+    "focusKeyword": "schedule your geriatric care appointment",
+    "keywords": [
+      "comprehensive geriatric health assessment",
+      "personalized care roadmap",
+      "ongoing support and preventive monitoring",
+      "expert multidisciplinary team",
+      "schedule your appointment today"
+    ]
+  },
+  "/services/primary-preventive-care/arthritis-and-musculoskeletal-disorders/": {
+    "title": "Arthritis and Musculoskeletal Disorders Care, Dallas TX",
+    "description": "Arthritis and musculoskeletal disorders require early detection and personalized care. Learn how WellGen Health restores mobility.",
+    "focusKeyword": "arthritis and musculoskeletal disorders",
+    "keywords": [
+      "understanding arthritis",
+      "major categories and symptoms",
+      "causes of arthritis",
+      "key factors",
+      "holistic solutions",
+      "diagnosing arthritis and musculoskeletal disorders",
+      "integrated approach",
+      "managing and treating arthritis",
+      "precision treatment"
+    ]
+  },
+  "/services/primary-preventive-care/arthritis-and-musculoskeletal-disorders/understanding-arthritis/": {
+    "title": "Understanding Arthritis",
+    "description": "Arthritis includes over 100 conditions causing joint pain and stiffness. Learn the basics of diagnosis and treatment at WellGen Health.",
+    "focusKeyword": "understanding arthritis",
+    "keywords": [
+      "major categories of arthritis",
+      "inflammatory arthritis",
+      "degenerative arthritis"
+    ]
+  },
+  "/services/primary-preventive-care/arthritis-and-musculoskeletal-disorders/causes-of-arthritis/": {
+    "title": "Causes of Arthritis",
+    "description": "Explore the genetic, mechanical, and lifestyle causes of arthritis and musculoskeletal pain, and how WellGen Health treats them at the source.",
+    "focusKeyword": "causes of arthritis",
+    "keywords": [
+      "genetics and autoimmunity",
+      "mechanical stress and injury",
+      "age and wear-and-tear",
+      "metabolic and hormonal factors",
+      "infection and inflammatory triggers",
+      "lifestyle and environmental factors"
+    ]
+  },
+  "/services/primary-preventive-care/arthritis-and-musculoskeletal-disorders/diagnosing-arthritis-and-musculoskeletal-disorders/": {
+    "title": "Diagnosing Arthritis and Musculoskeletal Disorders",
+    "description": "Accurate diagnosis of arthritis and musculoskeletal disorders at WellGen Health pinpoints the true cause of joint, muscle, and bone pain.",
+    "focusKeyword": "diagnosing arthritis and musculoskeletal disorders",
+    "keywords": [
+      "clinical and physical examination",
+      "cutting-edge imaging technologies",
+      "b. magnetic resonance imaging",
+      "c. musculoskeletal ultrasound",
+      "laboratory blood testing",
+      "bone density screening",
+      "integrated diagnostic approach"
+    ]
+  },
+  "/services/primary-preventive-care/arthritis-and-musculoskeletal-disorders/managing-and-treating-arthritis/": {
+    "title": "Managing and Treating Arthritis",
+    "description": "Holistic, patient-centered treatment for arthritis and musculoskeletal disorders at WellGen Health improves mobility and quality of life.",
+    "focusKeyword": "managing and treating arthritis",
+    "keywords": [
+      "b. non-surgical interventions",
+      "c. pain relief modalities",
+      "b. hormonal & metabolic assessment",
+      "musculoskeletal rehabilitation & injury recovery",
+      "b. post-operative rehabilitation",
+      "lifestyle & preventive care"
+    ]
+  },
+  "/services/primary-preventive-care/arthritis-and-musculoskeletal-disorders/take-control-of-your-joint-health/": {
+    "title": "Take Control of Your Joint Health",
+    "description": "Take proactive control of your joint and musculoskeletal health with WellGen Health's approach to pain, stiffness, and mobility.",
+    "focusKeyword": "take control of your joint health",
+    "keywords": [
+      "precision diagnostics for personalized treatment",
+      "personalized rehabilitation and functional restoration",
+      "lifestyle optimization and preventive care",
+      "ongoing monitoring and long-term wellness"
+    ]
+  },
+  "/services/primary-preventive-care/mental-health/": {
+    "title": "Mental Health Care in Dallas, TX",
+    "description": "Find compassionate mental wellness support at WellGen Health. Offering expert therapy, anxiety and depression management, and psychiatric care in Texas.",
+    "focusKeyword": "mental health",
+    "keywords": [
+      "mind-body connection & impact",
+      "key causes",
+      "personalized approach and prevention",
+      "diagnosing mental health conditions",
+      "personalized diagnostic process",
+      "collaborative & integrated evaluation",
+      "continuous monitoring",
+      "professional therapy & management",
+      "holistic wellness"
+    ]
+  },
+  "/services/primary-preventive-care/mental-health/the-importance-of-mental-health/": {
+    "title": "The Importance of Mental Health",
+    "description": "Prioritize your mental well-being! Get integrated care, therapy, and guidance for stress, anxiety, and depression. Schedule your consultation today!",
+    "focusKeyword": "the importance of mental health",
+    "keywords": [
+      "common mental health challenges",
+      "prevention and proactive care"
+    ]
+  },
+  "/services/primary-preventive-care/mental-health/causes-and-risk-factors-of-mental-health-conditions/": {
+    "title": "Causes and Risk Factors of Mental Health Conditions",
+    "description": "Discover the root causes of mental health conditions (genetic, biological, environmental) and find lasting emotional resilience. Schedule your assessment!",
+    "focusKeyword": "causes and risk factors of mental health conditions",
+    "keywords": [
+      "recognizing individual differences"
+    ]
+  },
+  "/services/primary-preventive-care/mental-health/diagnosing-mental-health-conditions/": {
+    "title": "Diagnosing Mental Health Conditions",
+    "description": "Get comprehensive mental health diagnostics to uncover root causes of emotional/cognitive challenges for accurate, personalized care. Schedule your evaluation!",
+    "focusKeyword": "diagnosing mental health conditions",
+    "keywords": [
+      "personalized assessment process",
+      "evidence-based diagnostic tools",
+      "collaborative and multidisciplinary evaluation",
+      "compassionate communication and education",
+      "continuous monitoring and diagnostic evolution",
+      "technology-enhanced diagnosis",
+      "empowering you through understanding"
+    ]
+  },
+  "/services/primary-preventive-care/mental-health/treating-and-managing-mental-health-conditions/": {
+    "title": "Treating and Managing Mental Health Conditions",
+    "description": "Get personalized mental health treatment (psychotherapy, medication, wellness) for anxiety, depression, and PTSD. Begin your treatment today!",
+    "focusKeyword": "treating and managing mental health conditions",
+    "keywords": [
+      "professional counseling & psychotherapy",
+      "group therapy",
+      "family & couples counseling",
+      "psychiatric medication management",
+      "cognitive behavioral therapy",
+      "holistic mental wellness programs",
+      "child & adolescent mental health",
+      "adult mental health programs",
+      "geriatric psychiatry"
+    ]
+  },
+  "/services/primary-preventive-care/mental-health/take-the-first-step-towards-better-mental-health/": {
+    "title": "Take the First Step Towards Better Mental Health",
+    "description": "Begin your emotional wellness journey! Get personalized therapy for anxiety, depression, and stress to build resilience. Schedule your consultation!",
+    "focusKeyword": "take the first step towards better mental health",
+    "keywords": [
+      "compassionate guidance from trusted experts",
+      "start your journey today",
+      "because your mental health matters"
+    ]
+  },
+  "/services/primary-preventive-care/cardio-pulmonary-care/": {
+    "title": "Cardio-Pulmonary Care Care in Dallas, TX",
+    "description": "Expert cardio-pulmonary care at WellGen Health supports heart and lung health to prevent chronic issues like heart failure and COPD.",
+    "focusKeyword": "cardio-pulmonary care",
+    "keywords": [
+      "understanding cardiovascular and pulmonary health",
+      "causes of cardio-pulmonary conditions",
+      "key causes",
+      "proactive prevention",
+      "diagnosing cardio-pulmonary conditions",
+      "integrated approach & early detection",
+      "managing and treating cardio-pulmonary conditions",
+      "cardiovascular & pulmonary care",
+      "holistic approach"
+    ]
+  },
+  "/services/primary-preventive-care/cardio-pulmonary-care/understanding-cardiovascular-and-pulmonary-health/": {
+    "title": "Understanding Cardiovascular and Pulmonary Health",
+    "description": "Learn how your heart and lungs work together to sustain vitality, and how WellGen Health supports cardiovascular and pulmonary health.",
+    "focusKeyword": "understanding cardiovascular and pulmonary health",
+    "keywords": [
+      "maintaining optimal circulatory function",
+      "stress reduction and mental wellbeing",
+      "early detection and preventive screenings",
+      "environmental and lifestyle influences"
+    ]
+  },
+  "/services/primary-preventive-care/cardio-pulmonary-care/causes-of-cardio-pulmonary-conditions/": {
+    "title": "Causes of Cardio-Pulmonary Conditions",
+    "description": "Cardio-pulmonary conditions develop silently over time. Learn the root causes and risk factors from WellGen Health specialists.",
+    "focusKeyword": "causes of cardio-pulmonary conditions",
+    "keywords": [
+      "common cardiovascular causes",
+      "atherosclerosis and high cholesterol",
+      "diabetes and obesity",
+      "smoking and physical inactivity",
+      "family history and genetic predisposition",
+      "common pulmonary causes",
+      "chronic obstructive pulmonary disease",
+      "chronic bronchitis and emphysema",
+      "pollution, allergens, and environmental toxins"
+    ]
+  },
+  "/services/primary-preventive-care/cardio-pulmonary-care/diagnosing-cardio-pulmonary-conditions/": {
+    "title": "Diagnosing Cardio-Pulmonary Conditions",
+    "description": "Advanced, non-invasive diagnostic testing for heart and lung conditions at WellGen Health's Cardio-Pulmonary Diagnostic Unit.",
+    "focusKeyword": "diagnosing cardio-pulmonary conditions",
+    "keywords": [
+      "cardiovascular diagnostics",
+      "stress testing",
+      "lipid and blood pressure monitoring",
+      "pulmonary diagnostics",
+      "pulmonary function testing",
+      "spirometry and diffusion tests",
+      "allergy and immunologic testing",
+      "integrating cardiac and pulmonary diagnostics",
+      "precision, compassion, and expertise"
+    ]
+  },
+  "/services/primary-preventive-care/cardio-pulmonary-care/managing-and-treating-cardio-pulmonary-conditions/": {
+    "title": "Managing and Treating Cardio-Pulmonary Conditions",
+    "description": "Holistic, evidence-based treatment for cardio-pulmonary conditions at WellGen Health restores heart and lung health and resilience.",
+    "focusKeyword": "managing and treating cardio-pulmonary conditions",
+    "keywords": [
+      "comprehensive cardiovascular care and prevention",
+      "lipid and cholesterol management",
+      "hypertension control",
+      "preventive screening and early detection",
+      "pulmonary health and respiratory management",
+      "copd and emphysema care",
+      "asthma and allergy control",
+      "oxygen therapy and non-invasive ventilation",
+      "cardiac rehabilitation and recovery"
+    ]
+  },
+  "/services/primary-preventive-care/cardio-pulmonary-care/take-charge-of-your-cardio-pulmonary-health/": {
+    "title": "Take Charge of Your Cardio-Pulmonary Health",
+    "description": "Take Charge of Your Cardio-Pulmonary Health Your heart and lungs are the foundation of your vitality — working in perfect harmony to power every breath you.",
+    "focusKeyword": "take charge of your cardio-pulmonary health",
+    "keywords": [
+      "heart-healthy nutrition",
+      "regular exercise and cardio fitness",
+      "stress and emotional balance",
+      "smoking cessation and respiratory protection",
+      "sleep and recovery optimization",
+      "empowerment through education"
+    ]
+  },
+  "/services/primary-preventive-care/chronic-pain-management/": {
+    "title": "Chronic Pain Management Care in Dallas, TX",
+    "description": "Comprehensive chronic pain management at WellGen Health addresses central sensitization for lasting relief and improved function.",
+    "focusKeyword": "chronic pain management",
+    "keywords": [
+      "understanding chronic pain",
+      "integrated diagnosis and management",
+      "key causes",
+      "integrated approach",
+      "diagnosing chronic pain",
+      "personalized diagnostic process",
+      "collaborative & integrated evaluation",
+      "continuous monitoring",
+      "managing and treating chronic pain"
+    ]
+  },
+  "/services/primary-preventive-care/chronic-pain-management/understanding-chronic-pain/": {
+    "title": "Understanding Chronic Pain",
+    "description": "Discover compassionate, science-based chronic pain management to restore comfort, mobility, and life quality. Start your journey today!",
+    "focusKeyword": "understanding chronic pain",
+    "keywords": []
+  },
+  "/services/primary-preventive-care/chronic-pain-management/causes-and-risk-factors-of-chronic-pain/": {
+    "title": "Causes and Risk Factors of Chronic Pain",
+    "description": "Explore the root causes of chronic pain (injury, inflammation, stress) and find lasting relief through holistic, personalized care. Schedule an assessment!",
+    "focusKeyword": "causes and risk factors of chronic pain",
+    "keywords": [
+      "understanding how chronic pain develops",
+      "common causes of chronic pain",
+      "musculoskeletal injuries",
+      "spinal and nerve-related conditions",
+      "arthritis and inflammatory disorders",
+      "neuropathic pain",
+      "fibromyalgia and myofascial pain syndromes",
+      "post-surgical and post-traumatic pain",
+      "chronic inflammatory and autoimmune conditions"
+    ]
+  },
+  "/services/primary-preventive-care/chronic-pain-management/diagnosing-chronic-pain/": {
+    "title": "Diagnosing Chronic Pain",
+    "description": "Accurately diagnose chronic pain using advanced imaging, nerve studies, and functional assessments. Schedule your diagnostic evaluation today!",
+    "focusKeyword": "diagnosing chronic pain",
+    "keywords": [
+      "electromyography and nerve conduction studies",
+      "diagnostic injections and pain mapping",
+      "functional and mobility assessments",
+      "empowering you through knowledge"
+    ]
+  },
+  "/services/primary-preventive-care/chronic-pain-management/managing-and-treating-chronic-pain/": {
+    "title": "Managing and Treating Chronic Pain",
+    "description": "Take control of chronic pain with our personalized, multidisciplinary approach (therapy, procedures, wellness). Start your program today!",
+    "focusKeyword": "managing and treating chronic pain",
+    "keywords": [
+      "medical and interventional pain treatments",
+      "physical therapy and rehabilitation",
+      "holistic and lifestyle-based pain management",
+      "condition-specific pain management programs"
+    ]
+  },
+  "/services/primary-preventive-care/chronic-pain-management/find-relief-from-chronic-pain/": {
+    "title": "Find Relief from Chronic Pain",
+    "description": "Regain control with comprehensive chronic pain management (medication, rehab, therapy) to restore mobility. Schedule your consultation today!",
+    "focusKeyword": "find relief from chronic pain",
+    "keywords": [
+      "compassionate, science-driven care",
+      "empowering you to live pain-free",
+      "non-surgical and minimally invasive options",
+      "rehabilitation and lifestyle transformation",
+      "holistic pathways to pain relief",
+      "restoring hope, function, and independence"
+    ]
+  },
+  "/services/primary-preventive-care/chronic-care-management/": {
+    "title": "Chronic Care Management Care in Dallas, TX",
+    "description": "WellGen Health provides expert Chronic Care Management. Our chronic condition management includes tailored weight loss programs, mental health support, and.",
+    "focusKeyword": "chronic care management",
+    "keywords": [
+      "chronic care management at wellgen",
+      "ccm & pcm programs"
+    ]
   }
 }
