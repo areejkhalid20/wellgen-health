@@ -576,5 +576,594 @@
       "chronic care management at wellgen",
       "ccm & pcm programs"
     ]
+  },
+  "/services/specialized-medical-services/weight-loss-management/": {
+    "title": "Weight Loss Management in Dallas, TX",
+    "description": "Medically supervised, science-based weight loss management at WellGen Health targets the root causes for lasting, sustainable results.",
+    "focusKeyword": "weight loss management",
+    "keywords": [
+      "personalized medical approach",
+      "core components for sustainable results",
+      "causes of obesity",
+      "key causes",
+      "holistic approach",
+      "diagnosing obesity and related conditions",
+      "multi-dimensional diagnostic pillars",
+      "managing and treating obesity",
+      "precision treatment pillars"
+    ]
+  },
+  "/services/specialized-medical-services/weight-loss-management/causes-of-obesity/": {
+    "title": "Causes of obesity",
+    "description": "Obesity is complex. Learn the root causes of weight gain, including hormonal imbalances (insulin, cortisol), genetics, stress, poor diet, and underlying.",
+    "focusKeyword": "causes of obesity",
+    "keywords": [
+      "lifestyle and dietary habits",
+      "genetic and hormonal factors",
+      "emotional and psychological influences",
+      "medical conditions and medications",
+      "environmental and socioeconomic factors"
+    ]
+  },
+  "/services/specialized-medical-services/weight-loss-management/diagnosing-obesity-and-related-conditions/": {
+    "title": "Diagnosing obesity and related conditions",
+    "description": "WellGen Health provides comprehensive obesity diagnosis, including BMI, body composition analysis, metabolic rate testing, and hormonal panels (Insulin.",
+    "focusKeyword": "diagnosing obesity and related conditions",
+    "keywords": [
+      "body composition analysis",
+      "waist circumference and waist-to-hip ratio",
+      "laboratory and metabolic testing",
+      "medical history and lifestyle evaluation",
+      "identifying underlying conditions"
+    ]
+  },
+  "/services/specialized-medical-services/weight-loss-management/managing-and-treating-obesity/": {
+    "title": "Managing and treating obesity",
+    "description": "WellGen Health offers a multidisciplinary program for obesity treatment, integrating personalized nutrition, fitness, behavioral coaching, and medical.",
+    "focusKeyword": "managing and treating obesity",
+    "keywords": [
+      "nutrition and dietary counseling",
+      "exercise and physical fitness plans",
+      "behavioral and lifestyle coaching",
+      "medical weight loss interventions",
+      "technology and monitoring tools",
+      "ongoing monitoring and long-term support",
+      "empowering you for lifelong health"
+    ]
+  },
+  "/services/specialized-medical-services/weight-loss-management/start-your-weight-loss-journey-today/": {
+    "title": "Start your weight loss journey today",
+    "description": "Ready to start losing weight? Begin your journey with WellGen Health's expert-guided, personalized program featuring medical assessment, nutrition, and.",
+    "focusKeyword": "start your weight loss journey today",
+    "keywords": []
+  },
+  "/services/specialized-medical-services/personal-injury/": {
+    "title": "Personal Injury Care in Dallas, TX",
+    "description": "Comprehensive personal injury evaluations at WellGen Health document injuries accurately and lay the foundation for your recovery after an accident.",
+    "focusKeyword": "personal injury care",
+    "keywords": [
+      "comprehensive personal injury evaluations",
+      "injuries from various incidents",
+      "key injury focus",
+      "healing & documentation",
+      "personalized recovery plans",
+      "multidisciplinary and integrated care",
+      "ongoing monitoring and empowerment",
+      "detailed medical documentation",
+      "key documentation"
+    ]
+  },
+  "/services/specialized-medical-services/personal-injury/comprehensive-personal-injury-evaluations/": {
+    "title": "Comprehensive personal injury evaluations",
+    "description": "Get a thorough personal injury evaluation with advanced diagnostics and detailed medical documentation for recovery and claims. Schedule your evaluation!",
+    "focusKeyword": "comprehensive personal injury evaluations",
+    "keywords": [
+      "unbiased, evidence-based, and patient-centered care",
+      "from evaluation to empowerment"
+    ]
+  },
+  "/services/specialized-medical-services/personal-injury/injuries-from-various-incidents/": {
+    "title": "Injuries from various incidents",
+    "description": "Get expert evaluation and personalized treatment for car accident, workplace, or sports injuries with advanced diagnostics. Schedule your evaluation!",
+    "focusKeyword": "injuries from various incidents",
+    "keywords": [
+      "comprehensive approach to injury evaluation",
+      "restoring health after injury"
+    ]
+  },
+  "/services/specialized-medical-services/personal-injury/personalized-recovery-plans/": {
+    "title": "Personalized recovery plans",
+    "description": "Get a customized personal injury recovery plan combining medical care, rehab, and support for complete physical and emotional healing. Start your journey!",
+    "focusKeyword": "personalized recovery plans",
+    "keywords": [
+      "comprehensive pain management",
+      "rehabilitation and physical restoration",
+      "collaborative care and specialist coordination",
+      "ongoing monitoring and progress evaluation",
+      "technology-driven recovery support",
+      "empowering you through education"
+    ]
+  },
+  "/services/specialized-medical-services/personal-injury/diagnostic-testing-and-expert-care/": {
+    "title": "Diagnostic testing and expert care",
+    "description": "Get advanced personal injury diagnostic testing and expert evaluation for accurate diagnosis and legal support. Schedule your evaluation!",
+    "focusKeyword": "diagnostic testing and expert care",
+    "keywords": [
+      "expert interpretation and patient education",
+      "collaboration across medical specialties",
+      "technology that enhances precision",
+      "schedule your diagnostic evaluation today"
+    ]
+  },
+  "/services/specialized-medical-services/personal-injury/compassionate-support-throughout-recovery/": {
+    "title": "Compassionate support throughout recovery",
+    "description": "Get compassionate care for personal injury recovery, addressing both physical and emotional healing with expert support. Call to start your recovery!",
+    "focusKeyword": "compassionate support throughout recovery",
+    "keywords": [
+      "encouraging long-term healing and resilience",
+      "teamwork, communication, and encouragement",
+      "healing beyond medicine"
+    ]
+  },
+  "/services/specialized-medical-services/personal-injury/return-to-your-everyday-life/": {
+    "title": "Return to your everyday life",
+    "description": "Reclaim independence after personal injury! Our holistic care restores mobility, strength, and confidence to get you back to life. Call to reclaim your life!",
+    "focusKeyword": "return to your everyday life",
+    "keywords": [
+      "rebuilding strength, mobility, and confidence",
+      "celebrating milestones and measuring progress",
+      "thriving beyond recovery",
+      "compassionate partnership in healing"
+    ]
+  },
+  "/services/specialized-medical-services/dot-physicals/": {
+    "title": "Pre-Employment and DOT Physicals in Dallas, TX",
+    "description": "Reliable pre-employment and DOT physicals at WellGen Health ensure regulatory compliance and workplace safety for employers and drivers.",
+    "focusKeyword": "pre-employment and dot physicals",
+    "keywords": [
+      "pre-employment & dot focus",
+      "key checks & certification",
+      "components of a pre-employment physical",
+      "core components",
+      "wellgen health advantage",
+      "understanding dot physicals",
+      "who needs certification",
+      "exam components & compliance",
+      "key advantages in occupational health"
+    ]
+  },
+  "/services/specialized-medical-services/dot-physicals/what-are-pre-employment-and-dot-physicals/": {
+    "title": "What are pre-employment and DOT physicals",
+    "description": "Learn what pre-employment and DOT physicals involve and why they matter for workplace safety and commercial driver compliance.",
+    "focusKeyword": "what are pre-employment and dot physicals",
+    "keywords": []
+  },
+  "/services/specialized-medical-services/dot-physicals/components-of-a-pre-employment-physical/": {
+    "title": "Components of a pre-employment physical",
+    "description": "Learn what's included in a pre-employment physical and why employers rely on this evaluation to confirm job readiness.",
+    "focusKeyword": "components of a pre-employment physical",
+    "keywords": [
+      "quick, convenient, and employer-compliant results"
+    ]
+  },
+  "/services/specialized-medical-services/dot-physicals/understanding-dot-physicals/": {
+    "title": "Understanding DOT physicals",
+    "description": "Understand DOT physicals and why they matter for commercial driver safety and federal compliance. Learn what to expect at WellGen Health.",
+    "focusKeyword": "understanding dot physicals",
+    "keywords": [
+      "who needs a dot physical",
+      "schedule your dot physical today"
+    ]
+  },
+  "/services/specialized-medical-services/dot-physicals/why-choose-wellgen-health/": {
+    "title": "Why choose WellGen Health?",
+    "description": "Discover why patients and employers trust WellGen Health for accurate, compassionate occupational health and medical care.",
+    "focusKeyword": "why choose wellgen health",
+    "keywords": [
+      "certified & experienced providers",
+      "comprehensive care under one roof",
+      "fast, reliable, and accurate results",
+      "state-of-the-art facilities and technology",
+      "convenient scheduling and flexible appointments",
+      "employer partnership programs",
+      "personalized attention and compassionate care",
+      "experience the wellgen health advantage",
+      "schedule your appointment today"
+    ]
+  },
+  "/services/specialized-medical-services/dot-physicals/schedule-your-physical-today/": {
+    "title": "Schedule your physical today",
+    "description": "Schedule your DOT, pre-employment, or wellness physical at WellGen Health for accurate, efficient, and compliant care.",
+    "focusKeyword": "schedule your physical today",
+    "keywords": [
+      "simple, convenient scheduling options",
+      "fast, professional, and stress-free experience",
+      "stay compliant and road-ready"
+    ]
+  },
+  "/services/specialized-medical-services/sleep-disorder-management/": {
+    "title": "Sleep Disorder Management in Dallas, TX",
+    "description": "Science-based sleep disorder management at WellGen Health uncovers the root causes of poor sleep to reduce fatigue and chronic disease risk.",
+    "focusKeyword": "sleep disorder management",
+    "keywords": [
+      "understanding sleep disorders",
+      "key disorders & impact",
+      "comprehensive approach",
+      "diagnosing sleep disorders",
+      "comprehensive diagnostic evaluation",
+      "tailored treatment roadmap",
+      "lifestyle & behavioral strategies",
+      "medical and device-based interventions",
+      "monitoring & long-term success"
+    ]
+  },
+  "/services/specialized-medical-services/sleep-disorder-management/understanding-sleep-disorders/": {
+    "title": "Understanding sleep disorders",
+    "description": "Learn about common sleep disorders like Insomnia, Sleep Apnea, and RLS. Understand why quality sleep matters and the physical and mental consequences of.",
+    "focusKeyword": "understanding sleep disorders",
+    "keywords": [
+      "recognizing the warning signs",
+      "understanding the science behind sleep"
+    ]
+  },
+  "/services/specialized-medical-services/sleep-disorder-management/causes-and-risk-factors-for-sleep-disorders/": {
+    "title": "Causes and risk factors for sleep disorders",
+    "description": "Identify the root causes of sleep disorders (Insomnia, Apnea): irregular schedule, stress, blue light, obesity, chronic pain, and hormonal imbalances for.",
+    "focusKeyword": "causes and risk factors for sleep disorders",
+    "keywords": [
+      "lifestyle & behavioral factors",
+      "physical & medical conditions",
+      "environmental & genetic influences"
+    ]
+  },
+  "/services/specialized-medical-services/sleep-disorder-management/diagnosing-sleep-disorders/": {
+    "title": "Diagnosing sleep disorders",
+    "description": "WellGen Health offers comprehensive sleep disorder diagnosis, including clinical evaluation, Home Sleep Testing (HST), and in-lab Polysomnography (PSG) to.",
+    "focusKeyword": "diagnosing sleep disorders",
+    "keywords": [
+      "comprehensive clinical evaluation",
+      "sleep monitoring & diagnostic studies"
+    ]
+  },
+  "/services/specialized-medical-services/sleep-disorder-management/treatment-and-management-of-sleep-disorders/": {
+    "title": "Treatment & management of sleep disorders:",
+    "description": "WellGen Health offers comprehensive sleep disorder treatment, including Cognitive Behavioral Therapy for Insomnia (CBT-I), CPAP for Sleep Apnea, RLS.",
+    "focusKeyword": "treatment & management of sleep disorders:",
+    "keywords": [
+      "common treatment approaches include",
+      "cognitive behavioral therapy for insomnia",
+      "cpap therapy for sleep apnea",
+      "managing restless legs syndrome",
+      "treating circadian rhythm sleep disorders"
+    ]
+  },
+  "/services/specialized-medical-services/sleep-disorder-management/get-the-rest-you-deserve/": {
+    "title": "Get the rest you deserve",
+    "description": "Reclaim restorative sleep with WellGen Health. We diagnose and treat Insomnia, Sleep Apnea, and RLS using advanced diagnostics (HST/PSG), CBT-I, and.",
+    "focusKeyword": "get the rest you deserve",
+    "keywords": [
+      "understanding why rest matters",
+      "personalized care designed around you"
+    ]
+  },
+  "/services/specialized-medical-services/surgical-clearance/": {
+    "title": "Surgical Clearance in Dallas, TX",
+    "description": "WellGen Health provides comprehensive surgical clearance and risk assessment. We identify and manage risks like cardiac or pulmonary issues to ensure a safe.",
+    "focusKeyword": "surgical clearance",
+    "keywords": [
+      "wellgen health's comprehensive approach",
+      "pre-surgical evaluation",
+      "risk stratification",
+      "coordination with your surgical team",
+      "personalized health optimization"
+    ]
+  },
+  "/services/specialized-medical-services/surgical-clearance/what-is-surgical-clearance/": {
+    "title": "What is surgical clearance?",
+    "description": "Surgical clearance ensures you're medically fit for surgery and anesthesia. Discover how WellGen Health reduces risks and optimizes your health for a safe.",
+    "focusKeyword": "what is surgical clearance",
+    "keywords": [
+      "comprehensive evaluation before surgery",
+      "who needs surgical clearance",
+      "empowering patients through education",
+      "prepare with confidence"
+    ]
+  },
+  "/services/specialized-medical-services/surgical-clearance/the-importance-of-surgical-clearance/": {
+    "title": "The importance of surgical clearance",
+    "description": "Surgical clearance reduces risks by assessing and optimizing your conditions. WellGen Health ensures safe surgery and faster recovery through expert pre-op.",
+    "focusKeyword": "the importance of surgical clearance",
+    "keywords": [
+      "identifying underlying or undiagnosed conditions",
+      "optimizing existing medical issues",
+      "developing a personalized preoperative plan",
+      "conclusion: confidence through preparation"
+    ]
+  },
+  "/services/specialized-medical-services/surgical-clearance/the-surgical-clearance-process/": {
+    "title": "The surgical clearance process",
+    "description": "Understand the 6-step surgical clearance process at WellGen Health: from history review & diagnostic testing (EKG, blood work) to risk assessment.",
+    "focusKeyword": "the surgical clearance process",
+    "keywords": [
+      "step 2: in-depth physical examination"
+    ]
+  },
+  "/services/specialized-medical-services/surgical-clearance/benefits-and-considerations/": {
+    "title": "Benefits and considerations",
+    "description": "Discover the key benefits of surgical clearance: enhanced safety, faster recovery, and personalized health optimization.",
+    "focusKeyword": "benefits and considerations",
+    "keywords": [
+      "enhanced patient safety",
+      "improved surgical outcomes",
+      "reduced postoperative complications",
+      "personalized health optimization",
+      "peace of mind and confidence",
+      "final thoughts"
+    ]
+  },
+  "/services/specialized-medical-services/surgical-clearance/schedule-your-surgical-clearance-today/": {
+    "title": "Schedule your surgical clearance today",
+    "description": "Schedule your surgical clearance and risk assessment early with WellGen Health. Ensure safety, optimize health, and avoid delays with our fast.",
+    "focusKeyword": "schedule your surgical clearance today",
+    "keywords": [
+      "patient-centered care that prioritizes you"
+    ]
+  },
+  "/services/specialized-medical-services/nutrition-wellness-counselling/": {
+    "title": "Nutrition and Wellness Counseling in Dallas, TX",
+    "description": "Nutrition & Wellness Counseling at WellGen Health uses food as medicine to support disease prevention, healing, and lifelong health.",
+    "focusKeyword": "nutrition and wellness counseling",
+    "keywords": [
+      "nutrition as preventive medicine",
+      "impact on mind and body",
+      "common nutrition-related health issues",
+      "key health challenges",
+      "comprehensive nutritional assessments",
+      "personalized strategy",
+      "personalized nutrition plans and support",
+      "holistic, data-driven strategy",
+      "accountability and long-term wellness"
+    ]
+  },
+  "/services/specialized-medical-services/nutrition-wellness-counselling/the-role-of-nutrition-in-health/": {
+    "title": "The role of nutrition in health",
+    "description": "Understand the vital role of nutrition in health, metabolism, and mental well-being. Learn how personalized, balanced eating prevent disease and promotes energy",
+    "focusKeyword": "the role of nutrition in health",
+    "keywords": [
+      "nutrition as preventive medicine",
+      "nutrition and metabolism",
+      "immune system and inflammation control"
+    ]
+  },
+  "/services/specialized-medical-services/nutrition-wellness-counselling/common-nutrition-related-health-issues/": {
+    "title": "Common nutrition-related health issues",
+    "description": "Learn how poor nutrition contributes to Type 2 Diabetes, Obesity, Hypertension, and chronic fatigue. Get personalized counseling to manage these issues",
+    "focusKeyword": "common nutrition-related health issues",
+    "keywords": [
+      "obesity and weight management challenges",
+      "hypertension and cardiovascular diseases",
+      "digestive disorders and nutrient deficiencies",
+      "inflammation, fatigue, and hormonal imbalances",
+      "emotional eating and stress-related cravings",
+      "transforming health through nutrition"
+    ]
+  },
+  "/services/specialized-medical-services/nutrition-wellness-counselling/comprehensive-nutritional-assessments/": {
+    "title": "Comprehensive nutritional assessments",
+    "description": "Get a 360° Comprehensive Nutritional Assessment at WellGen Health, analyzing diet, lifestyle, and medical history to create an evidence-based nutrition plan",
+    "focusKeyword": "comprehensive nutritional assessments",
+    "keywords": [
+      "science meets personalization",
+      "advanced tools and techniques"
+    ]
+  },
+  "/services/specialized-medical-services/nutrition-wellness-counselling/personalized-nutrition-plans-and-support/": {
+    "title": "Personalized nutrition plans and support",
+    "description": "Personalized nutrition plans at WellGen Health are tailored to your body, lifestyle, and long-term health goals.",
+    "focusKeyword": "personalized nutrition plans and support",
+    "keywords": [
+      "empowerment through education and accountability",
+      "adapting to your lifestyle",
+      "emotional and behavioral support"
+    ]
+  },
+  "/services/specialized-medical-services/hormone-replacement-therapy/": {
+    "title": "Hormone Replacement Therapy in Dallas, TX",
+    "description": "Medically supervised Hormone Replacement Therapy at WellGen Health restores hormone balance, easing fatigue, mood changes, and low libido.",
+    "focusKeyword": "hormone replacement therapy",
+    "keywords": [
+      "bhrt and personalized care",
+      "safety and vitality",
+      "causes of hormonal imbalance",
+      "key causes of hormonal disruption",
+      "holistic approach",
+      "diagnosing hormonal imbalances",
+      "precision diagnostic testing",
+      "advanced interpretation",
+      "treating with hormone replacement therapy"
+    ]
+  },
+  "/services/specialized-medical-services/hormone-replacement-therapy/what-is-hormone-replacement-therapy/": {
+    "title": "What is hormone replacement therapy?",
+    "description": "Learn about Hormone Replacement Therapy (HRT/BHRT), how it restores balance, and the benefits for men and women suffering from low energy, mood swings, and.",
+    "focusKeyword": "what is hormone replacement therapy",
+    "keywords": [
+      "safety and effectiveness of hrt",
+      "rediscover balance with wellgen health"
+    ]
+  },
+  "/services/specialized-medical-services/hormone-replacement-therapy/causes-of-hormonal-imbalance/": {
+    "title": "Causes of hormonal imbalance",
+    "description": "Hormonal imbalance causes are complex. Learn how aging, chronic stress (cortisol), diet, sleep, and environmental toxins disrupt hormones like Estrogen.",
+    "focusKeyword": "causes of hormonal imbalance",
+    "keywords": [
+      "natural aging and hormonal decline",
+      "stress and lifestyle factors",
+      "medical conditions and hormonal disruptions",
+      "environmental influences and endocrine disruptors",
+      "restoring balance with wellgen health"
+    ]
+  },
+  "/services/specialized-medical-services/hormone-replacement-therapy/diagnosing-hormonal-imbalances/": {
+    "title": "Diagnosing hormonal imbalances",
+    "description": "Uncover the root cause of fatigue and mood changes with advanced hormonal diagnostics. WellGen Health uses blood, saliva, and metabolic testing for precise.",
+    "focusKeyword": "diagnosing hormonal imbalances",
+    "keywords": [
+      "personalized treatment planning",
+      "restoring balance through precision diagnosis"
+    ]
+  },
+  "/services/specialized-medical-services/hormone-replacement-therapy/treating-with-hormone-replacement-therapy/": {
+    "title": "Treating with hormone replacement therapy",
+    "description": "WellGen Health offers personalized Hormone Replacement Therapy (HRT/BHRT). Learn about treatment options like pellets, creams, and injections to restore.",
+    "focusKeyword": "treating with hormone replacement therapy",
+    "keywords": [
+      "types of hormone replacement therapy",
+      "traditional or synthetic hormone therapy",
+      "personalized care and precision monitoring",
+      "benefits of hormone replacement therapy"
+    ]
+  },
+  "/services/specialized-medical-services/hormone-replacement-therapy/find-balance-with-hormone-replacement-therapy/": {
+    "title": "Find balance with hormone replacement therapy",
+    "description": "Reclaim vitality and confidence with HRT at WellGen Health. We offer personalized BHRT for men (Low T) and women (menopause) to restore energy, mood, and.",
+    "focusKeyword": "find balance with hormone replacement therapy",
+    "keywords": [
+      "hrt for women",
+      "hrt for men",
+      "continuous support and medical supervision"
+    ]
+  },
+  "/services/specialized-medical-services/telemedicine/": {
+    "title": "Telemedicine in Dallas, TX",
+    "description": "Convenient, accessible telemedicine services at WellGen Health. Connect with licensed providers virtually for real-time, quality healthcare from anywhere.",
+    "focusKeyword": "telemedicine",
+    "keywords": [
+      "accessible healthcare: anytime, anywhere",
+      "convenience meets compassion",
+      "step-by-step virtual care",
+      "continuity and convenience",
+      "benefits of telemedicine",
+      "accessible & streamlined care",
+      "affordability and support",
+      "when to use telemedicine",
+      "ideal uses for virtual appointments"
+    ]
+  },
+  "/services/specialized-medical-services/telemedicine/how-telemedicine-works/": {
+    "title": "How telemedicine works",
+    "description": "Learn how to use WellGen Health's telemedicine: scheduling, secure connection, virtual consultation, and receiving your personalized care plan",
+    "focusKeyword": "how telemedicine works",
+    "keywords": [
+      "empowering patients through virtual care"
+    ]
+  },
+  "/services/specialized-medical-services/telemedicine/benefits-of-telemedicine/": {
+    "title": "Benefits of telemedicine",
+    "description": "Discover the 10 key benefits of WellGen Health Telemedicine: increased access, time savings, reduced costs, enhanced continuity of care.",
+    "focusKeyword": "benefits of telemedicine",
+    "keywords": [
+      "increased access to care",
+      "time savings and flexibility",
+      "affordability and cost efficiency"
+    ]
+  },
+  "/services/specialized-medical-services/telemedicine/when-to-use-telemedicine/": {
+    "title": "When to use telemedicine",
+    "description": "Learn the best uses for telemedicine: routine follow-ups, managing chronic conditions (diabetes, hypertension), mental health, and minor infections.",
+    "focusKeyword": "when to use telemedicine",
+    "keywords": []
+  },
+  "/services/specialized-medical-services/telemedicine/experience-the-convenience-of-telemedicine/": {
+    "title": "Experience the convenience of telemedicine",
+    "description": "Enjoy the convenience of WellGen Health Telemedicine. Access expert doctors, personalized care, and prescription renewals from anywhere in Texas.",
+    "focusKeyword": "experience the convenience of telemedicine",
+    "keywords": [
+      "telemedicine: bridging convenience and quality"
+    ]
+  },
+  "/services/diagnostic-testing/womens-health/": {
+    "title": "Women's Health Services in Dallas, TX",
+    "description": "Comprehensive women's health services at WellGen Health provide lifelong, holistic care for physical, emotional, and hormonal well-being.",
+    "focusKeyword": "women's health services",
+    "keywords": [
+      "comprehensive women's health care",
+      "lifelong, holistic support",
+      "prevention, precision, and empowerment",
+      "gynecological exams and screenings",
+      "key screenings & components",
+      "holistic support & empowerment",
+      "family planning and reproductive health",
+      "comprehensive services",
+      "support & wellness"
+    ]
+  },
+  "/services/diagnostic-testing/womens-health/comprehensive-women-s-health-care/": {
+    "title": "Comprehensive women's health care",
+    "description": "Comprehensive women's health care at WellGen Health empowers women with specialized, compassionate care at every life stage.",
+    "focusKeyword": "comprehensive women's health care",
+    "keywords": [
+      "personalized and compassionate care",
+      "integrative approach to total well-being",
+      "advanced technology and evidence-based practices",
+      "education and empowerment"
+    ]
+  },
+  "/services/diagnostic-testing/womens-health/gynecological-exams-and-screenings/": {
+    "title": "Gynecological exams and screenings",
+    "description": "Routine gynecological exams and screenings at WellGen Health support women's reproductive health and early detection of issues.",
+    "focusKeyword": "gynecological exams and screenings",
+    "keywords": [
+      "personalized screening schedules",
+      "beyond exams: education and empowerment",
+      "advanced technology and evidence-based screening"
+    ]
+  },
+  "/services/diagnostic-testing/womens-health/family-planning-and-reproductive-health/": {
+    "title": "Family planning and reproductive health",
+    "description": "Compassionate, evidence-based family planning and reproductive health care at WellGen Health for every stage of your journey.",
+    "focusKeyword": "family planning and reproductive health",
+    "keywords": [
+      "comprehensive family planning services",
+      "reproductive health: a lifelong commitment",
+      "fertility care and preconception counseling",
+      "integrative and preventive reproductive wellness",
+      "prioritize your reproductive health today"
+    ]
+  },
+  "/services/diagnostic-testing/womens-health/hormone-therapy-and-menopause-management/": {
+    "title": "Hormone therapy and menopause management​",
+    "description": "Hormone therapy and menopause management at WellGen Health helps women navigate midlife hormonal changes with confidence.",
+    "focusKeyword": "hormone therapy and menopause management​",
+    "keywords": [
+      "understanding menopause and hormonal changes",
+      "personalized hormone therapy plans",
+      "managing perimenopause with confidence",
+      "postmenopause: sustaining long-term health",
+      "compassionate, evidence-based menopause care"
+    ]
+  },
+  "/services/diagnostic-testing/womens-health/prioritize-your-health-with-our-women-s-services/": {
+    "title": "Prioritize your health with our women's services",
+    "description": "Prioritize your health with WellGen Health's women's services, a lifelong commitment to your strength, confidence, and well-being.",
+    "focusKeyword": "prioritize your health with our women's services",
+    "keywords": [
+      "empowerment through preventive care",
+      "wellness beyond the clinic",
+      "experience the wellgen health promise",
+      "related pages"
+    ]
+  },
+  "/services/diagnostic-testing/allergy-testing/": {
+    "title": "Allergy Testing and Treatment in Dallas, TX",
+    "description": "Allergy testing and treatment at WellGen Health helps identify triggers and manage symptoms for over 50 million allergy sufferers.",
+    "focusKeyword": "allergy testing and treatment",
+    "keywords": [
+      "understanding allergies",
+      "causes and triggers of allergies",
+      "diagnosing allergies",
+      "treating and managing allergies",
+      "get relief from allergies today"
+    ]
   }
 }
