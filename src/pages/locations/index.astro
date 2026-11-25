@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Photo from '../../components/Photo.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { site, locations, locationUrl, telHref, directionsUrl } from '../../data/site';
+import { breadcrumbLd, clinicLd } from '../../lib/schema';
+import map from '../../data/clinic-map.json';
+
+// Map of the clinics on real county outlines (made by scripts/make-clinic-map.mjs)
+const W = map.width, H = map.height;
+const labelAt: Record<string, 'left' | 'right' | 'below'> = { 'thr-dallas': 'left', 'care-express': 'below', mesquite: 'right', arlington: 'below', greenville: 'right', canton: 'left' };
+const pins = locations.map((l) => {
+  const [x, y] = (map.pins as Record<string, number[]>)[l.slug];
+  const side = labelAt[l.slug] ?? 'right';
+  const label = side === 'left' ? { x: x - 16, y: y - 12, anchor: 'end' } : side === 'right' ? { x: x + 16, y: y - 12, anchor: 'start' } : { x, y: y + 22, anchor: 'middle' };
+  return { l, x, y, label };
+});
+// County names, except where they'd sit under a pin or its label
+const countyLabels = map.counties.filter((c) => c.cx > 40 && c.cx < W - 40 && c.cy > 30 && c.cy < H - 30
+  && pins.every((p) => Math.hypot(p.x - c.cx, p.y - c.cy) > 60 && Math.hypot(p.label.x - c.cx, p.label.y - c.cy) > 60));
+const dfw = locations.filter((l) => l.region === 'Dallas–Fort Worth').length;
+const east = locations.length - dfw;
+---
+<BaseLayout
+  title="Our clinic locations"
+  description={`Find a WellGen Health clinic near you: ${locations.length} primary care clinics in Dallas, Mesquite, Arlington, Greenville and Canton, Texas.`}
+  jsonLd={[breadcrumbLd([{ label: 'Locations', href: '/locations/' }]), ...locations.map(clinicLd)]}
+>
+  <!-- Hero: text and clinic finder on the left, a map of the clinics on the right -->
+  <section class="relative overflow-hidden bg-navy text-white">
+    <div aria-hidden="true" class="absolute -left-40 -top-48 size-[34rem] rounded-full bg-brand/50 blur-3xl"></div>
+    <div class="relative mx-auto grid max-w-7xl items-center gap-10 px-6 pb-16 pt-10 lg:grid-cols-[0.95fr_1.05fr] lg:pb-20 lg:pt-14">
+      <div>
+        <div class="hero-rise [&_a]:text-white/70 [&_a:hover]:text-white [&_li]:text-white/60 [&_[aria-current]]:text-white">
+          <Breadcrumbs items={[{ label: 'Locations' }]} />
+        </div>
+        <h1 class="hero-rise mt-6 text-5xl font-medium leading-[1.04] tracking-[-0.01em] lg:text-[4rem]">{locations.length} clinics across North and East Texas</h1>
+        <p class="hero-rise-2 mt-5 max-w-[50ch] text-lg text-white/80">
+          {dfw} in the Dallas–Fort Worth area and {east} in East Texas. Every clinic offers primary care, chronic condition management and our specialized services, with the same team keeping your records in one place.
+        </p>
+        <div class="hero-rise-3 mt-8 flex flex-wrap items-center gap-3">
+          <button type="button" data-near-me class="inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3.5 font-semibold text-navy transition hover:bg-mist disabled:cursor-wait disabled:opacity-70">
+            <svg class="size-5 text-brand-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            <span data-near-me-label>Find my nearest clinic</span>
+          </button>
+          <a href={site.phone.href} class="rounded-full px-5 py-3.5 font-semibold text-white ring-1 ring-white/30 transition hover:bg-white/10">Call {site.phone.label}</a>
+        </div>
+        <p class="mt-4 min-h-6 text-[15px] text-sky" aria-live="polite" data-near-me-status></p>
+      </div>
+
+      <div class="hero-rise-2 relative hidden overflow-hidden rounded-[2rem] ring-1 ring-white/15 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] sm:block">
+        <svg viewBox={`0 0 ${W} ${H}`} class="h-auto w-full" role="img" aria-labelledby="map-title">
+          <title id="map-title">Map of WellGen Health clinics in Texas</title>
+          <defs>
+            <clipPath id="map-clip"><rect width={W} height={H} rx="26" /></clipPath>
+            <radialGradient id="pin-glow"><stop offset="0" stop-color="#4ab3f4" stop-opacity="0.45" /><stop offset="1" stop-color="#4ab3f4" stop-opacity="0" /></radialGradient>
+          </defs>
+          <g clip-path="url(#map-clip)" pointer-events="none">
+            <rect width={W} height={H} fill="#0c2142" />
+            {map.counties.map((c) => (
+              <path d={c.d} fill={c.hasClinic ? '#173a66' : '#102a50'} stroke="#2c5285" stroke-width="1" stroke-linejoin="round" />
+            ))}
+            {countyLabels.map((c) => (
+              <text x={c.cx} y={c.cy} text-anchor="middle" fill="white" fill-opacity={c.hasClinic ? 0.34 : 0.2} font-size="11" letter-spacing="1.5">{c.name.toUpperCase()} CO.</text>
+            ))}
+          </g>
+          {pins.map(({ l, x, y, label }) => (
+            <a href={locationUrl(l)} class="map-pin" data-pin={l.slug} aria-label={`WellGen Health ${l.name}, ${l.city}`}>
+              <circle cx={x} cy={y} r="30" fill="url(#pin-glow)" class="pin-halo" />
+              <path d={`M${x} ${y} c-2.2 -6 -10 -11 -10 -19 a10 10 0 1 1 20 0 c0 8 -7.8 13 -10 19z`} fill="#4ab3f4" stroke="#081832" stroke-width="2" />
+              <circle cx={x} cy={y - 19} r="3.6" fill="#081832" />
+              <text x={label.x} y={label.y} text-anchor={label.anchor} fill="white" font-size="16" font-weight="600" paint-order="stroke" stroke="#0c2142" stroke-width="4" stroke-linejoin="round">{l.name}</text>
+            </a>
+          ))}
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clinic cards -->
+  <section class="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Choose a clinic</h2>
+      <p class="text-muted">Each clinic page has directions, contact details and the providers who see patients there.</p>
+    </div>
+
+    <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-clinic-list>
+      {locations.map((l) => (
+        <li class="clinic-card group relative flex flex-col overflow-hidden rounded-[1.75rem] bg-white ring-1 ring-ice transition hover:-translate-y-1 hover:shadow-[0_28px_50px_-30px_rgba(8,24,50,0.55)] hover:ring-brand/50" data-clinic={l.slug} data-lat={l.lat} data-lng={l.lng}>
+          <div class="relative aspect-[4/3] overflow-hidden bg-mist">
+            <Photo folder="locations" name={l.slug} alt="" widths={[400, 640, 900]} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+            <span hidden data-distance class="absolute left-4 top-4 rounded-full bg-white px-3 py-1 text-sm font-semibold text-navy shadow"></span>
+          </div>
+          <div class="flex flex-1 flex-col p-6">
+            <p class="text-sm font-medium text-brand-dark">{l.region}</p>
+            <h3 class="mt-1 text-[1.65rem] font-medium leading-tight text-navy">
+              <a href={locationUrl(l)} class="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none group-focus-within:text-brand-dark">WellGen Health {l.name}</a>
+            </h3>
+            <p class="mt-3 text-[15px] leading-relaxed text-muted">{l.street}<br />{l.city}</p>
+            <div class="relative z-10 mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-5 text-[15px] font-semibold">
+              <a href={telHref(l.phone)} class="text-brand-dark hover:text-navy">{l.phone}</a>
+              <a href={directionsUrl(l)} target="_blank" rel="noopener" class="text-brand-dark hover:text-navy">Directions<span class="sr-only"> to {l.name} (opens Google Maps)</span></a>
+            </div>
+          </div>
+          <div aria-hidden="true" class="pointer-events-none absolute inset-0 rounded-[1.75rem] ring-2 ring-transparent transition group-focus-within:ring-brand"></div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <CtaBand title="Not sure which clinic to visit?" text="Call us and we'll find the nearest clinic with a time that suits you, or book online and choose your location." />
+</BaseLayout>
+
+<style>
+  .map-pin { cursor: pointer; }
+  .map-pin .pin-halo { opacity: 0; transition: opacity 0.2s; }
+  .map-pin:hover .pin-halo, .map-pin:focus-visible .pin-halo, .map-pin.is-active .pin-halo { opacity: 1; }
+  .map-pin:focus-visible { outline: none; }
+  .map-pin:focus-visible text, .map-pin.is-active text { text-decoration: underline; text-underline-offset: 4px; }
+  .clinic-card.is-active { box-shadow: 0 0 0 2px var(--color-brand); }
+</style>
+
+<script>
+  // Highlight the matching card and pin together
+  const pins = document.querySelectorAll<SVGAElement>('[data-pin]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-clinic]');
+  const setActive = (slug: string | null) => {
+    pins.forEach((p) => p.classList.toggle('is-active', p.dataset.pin === slug));
+    cards.forEach((c) => c.classList.toggle('is-active', c.dataset.clinic === slug));
+  };
+  pins.forEach((p) => {
+    p.addEventListener('mouseenter', () => setActive(p.dataset.pin!));
+    p.addEventListener('mouseleave', () => setActive(null));
+  });
+  cards.forEach((c) => {
+    c.addEventListener('mouseenter', () => setActive(c.dataset.clinic!));
+    c.addEventListener('mouseleave', () => setActive(null));
+  });
+
+  // "Find my nearest clinic": sort the cards by distance from the visitor (nothing is sent anywhere)
+  const button = document.querySelector<HTMLButtonElement>('[data-near-me]');
+  const label = document.querySelector<HTMLElement>('[data-near-me-label]');
+  const status = document.querySelector<HTMLElement>('[data-near-me-status]');
+  const list = document.querySelector<HTMLElement>('[data-clinic-list]');
+  const miles = (a: [number, number], b: [number, number]) => {
+    const r = (d: number) => (d * Math.PI) / 180;
+    const h = Math.sin(r(b[0] - a[0]) / 2) ** 2 + Math.cos(r(a[0])) * Math.cos(r(b[0])) * Math.sin(r(b[1] - a[1]) / 2) ** 2;
+    return 3958.8 * 2 * Math.asin(Math.sqrt(h));
+  };
+  button?.addEventListener('click', () => {
+    if (!status || !list) return;
+    if (!('geolocation' in navigator)) { status.textContent = 'Your browser can’t share your location. Choose a clinic below.'; return; }
+    button.disabled = true;
+    if (label) label.textContent = 'Finding you…';
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const me: [number, number] = [pos.coords.latitude, pos.coords.longitude];
+        const sorted = [...cards].map((c) => ({ c, d: miles(me, [Number(c.dataset.lat), Number(c.dataset.lng)]) })).sort((a, b) => a.d - b.d);
+        sorted.forEach(({ c, d }) => {
+          const badge = c.querySelector<HTMLElement>('[data-distance]');
+          if (badge) { badge.textContent = `${d < 10 ? d.toFixed(1) : Math.round(d)} mi away`; badge.hidden = false; }
+          list.appendChild(c);
+        });
+        const nearest = sorted[0];
+        const name = nearest.c.querySelector('h3')?.textContent?.trim();
+        status.textContent = `Sorted by distance. Your nearest clinic is ${name}, about ${Math.round(nearest.d)} miles away.`;
+        if (label) label.textContent = 'Sorted by distance';
+        button.disabled = false;
+        list.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      },
+      () => {
+        status.textContent = 'We couldn’t get your location. You can allow it in your browser, or choose a clinic below.';
+        if (label) label.textContent = 'Find my nearest clinic';
+        button.disabled = false;
+      },
+      { timeout: 10000, maximumAge: 600000 },
+    );
+  });
+</script>

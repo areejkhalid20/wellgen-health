@@ -78,7 +78,7 @@ function sentenceCase(t) {
 const JUNK_START = /^(related resources|faq'?s|got any questions|everything you need to know about wellgen)/i;
 const PHONE = /\+?1?\s*\(\d{3}\)\s*\d{3}-\d{4}/;
 
-export function extract(document, url) {
+export function extract(document, url, opts = {}) {
   const txt = (e) => clean(e?.textContent || '');
   const root = document.querySelector('[data-elementor-type="wp-page"], [data-elementor-type="single-page"], [data-elementor-type="single-post"]') || document.querySelector('main') || document.body;
   // the SEO keyword boxes: long comma lists of short phrases, or long runs of lowercase words
@@ -121,7 +121,12 @@ export function extract(document, url) {
     } else if (/widget-text-editor|widget-theme-post-content/.test(cls)) {
       const c = w.querySelector('.elementor-widget-container') || w;
       const els = [...c.querySelectorAll('p, li, h2, h3, h4')].filter((e) => !e.parentElement.closest('li'));
-      if (els.length) for (const e of els) { const tg = e.tagName.toLowerCase(); push(tg === 'li' ? 'li' : tg === 'p' ? 'p' : tg === 'h2' ? 'h2' : 'h3', txt(e)); }
+      const isBoldLine = (e) => { const b = e.querySelector('strong, b'); const x = txt(e); return b && txt(b) === x && x.length < 80 && !/[.:]$/.test(x); };
+      if (els.length) for (const e of els) {
+        const tg = e.tagName.toLowerCase();
+        if (opts.boldHeadings && tg === 'p' && isBoldLine(e)) { push('h2', txt(e)); continue; }
+        push(tg === 'li' ? 'li' : tg === 'p' ? 'p' : tg === 'h2' ? 'h2' : 'h3', txt(e));
+      }
       else push('p', txt(c));
     } else if (/widget-icon-list/.test(cls)) {
       for (const li of w.querySelectorAll('li')) { const x = txt(li); if (x.length > 3) push('li', x); }
@@ -136,7 +141,11 @@ export function extract(document, url) {
     .filter((s) => s && !s.startsWith('data:') && /wp-content\/uploads/.test(s) && !/logo|icon/i.test(s))
     .map((s) => decodeURIComponent(s.split('?')[0].split('/').pop()));
   const meta = document.querySelector('meta[name="description"]')?.getAttribute('content') || '';
-  return { url, desc: clean(meta), h1, blocks: kept, faqs, imgs };
+  // the keyword box at the end of the page (<span class="wg-tag">); search-operator junk like "allintitle:x" is dropped
+  const seenTag = new Set();
+  const tags = [...root.querySelectorAll('.wg-tag')].map((t) => clean(t.textContent))
+    .filter((t) => t && !/^[a-z]+:/i.test(t) && !seenTag.has(t.toLowerCase()) && seenTag.add(t.toLowerCase()));
+  return { url, desc: clean(meta), h1, blocks: kept, faqs, imgs, tags };
 }
 
 // ---------------------------------------------------------------- markdown
@@ -166,14 +175,14 @@ function cleanQ(q) {
   return clean(q).replace(/\s*(according to|as described by|as explained by|offered by|provided by) WellGen Health/gi, '')
     .replace(/\bat WellGen Health\b/g, '').replace(/\s+\?/g, '?').replace(/\s{2,}/g, ' ');
 }
-function faqsYaml(faqs, n) {
+function faqsYaml(faqs, n = Infinity) {
+  const seen = new Set();
   const list = [];
   for (const f of faqs) {
-    if (/located|contact details|pricing|insurance|operating hours|phone/i.test(f.q)) continue;
-    let a = sentences(f.a, 3);
-    if (a.length > 420) a = sentences(f.a, 2);
-    if (a.length > 420) a = sentences(f.a, 1);
-    list.push([cleanQ(f.q), a]);
+    const q = cleanQ(f.q);
+    if (!q || seen.has(q.toLowerCase())) continue;
+    seen.add(q.toLowerCase());
+    list.push([q, clean(f.a)]);
     if (list.length === n) break;
   }
   if (!list.length) return 'faqs: []\n';
@@ -214,7 +223,7 @@ export function generate(svc, pages) {
     `lead: ${yamlStr(lead)}\n` +
     `heroAlt: ${yamlStr(sentenceCase(main.h1 || NAMES[svc]) + ' at WellGen Health')}\n` +
     yamlList('highlights', highlights) +
-    faqsYaml(main.faqs.length ? main.faqs : topics.flatMap((t) => t.faqs.slice(0, 2)), 8) +
+    faqsYaml(main.faqs) +
     '---\n\n' + blocksMd(overviewBlocks);
   report.push(`${svc}: overview`);
 
@@ -240,7 +249,7 @@ export function generate(svc, pages) {
       `summary: ${yamlStr(summary)}\n` +
       yamlList('points', points(p.blocks)) +
       `lead: ${yamlStr(tlead)}\noldPath: ${p.url.replace(/\/$/, '')}\n` +
-      faqsYaml(p.faqs, 3) +
+      faqsYaml(p.faqs) +
       '---\n\n' + blocksMd(body);
     guides.push({ slug, title, page: p });
     report.push(`   ${i + 1}. ${slug}   (from ${p.url})`);
@@ -260,6 +269,117 @@ function keywordsFrom(blocks, focus) {
 }
 const fitDesc = (t) => (clean(t).length <= 160 ? clean(t) : clean(t).slice(0, 157).replace(/\s+\S*$/, '').replace(/[,;]$/, '') + '.');
 
+// ---------------------------------------------------------------- providers
+export function generateProvider(slug, p) {
+  const name = clean(p.h1);
+  const blocks = p.blocks.filter((b) => clean(b.x) !== name && !/^go back$/i.test(b.x) && !/^(book|request) (an )?appointment$/i.test(b.x));
+  const firstIdx = blocks.findIndex((b) => b.t === 'p');
+  const fp = firstIdx >= 0 ? blocks[firstIdx].x : p.desc;
+  const lead = fp.length <= 460 ? clean(fp) : sentences(fp, 2);
+  const leftover = clean(fp).slice(lead.length).trim();
+  const body = (leftover ? [{ t: 'p', x: leftover }] : []).concat(blocks.slice(firstIdx + 1)).filter((b) => b.t !== 'h3' || b.x.length > 3);
+  return '---\n' +
+    `lead: ${yamlStr(lead)}\noldPath: /providers/${slug}\n` +
+    faqsYaml(p.faqs) +
+    '---\n\n' + blocksMd(body);
+}
+
+async function importProviders({ force, mediaFiles, media, seo }) {
+  const list = fs.readFileSync('src/data/providers.ts', 'utf8');
+  const rows = [...list.matchAll(/slug: '([^']+)', name: '([^']+)', credentials: '([^']+)', role: '([^']+)',[^\n]*?location: '([^']*)', hasProfile: (true|false)/g)]
+    .map((m) => ({ slug: m[1], name: m[2], credentials: m[3], role: m[4], location: m[5], hasProfile: m[6] === 'true' }))
+    .filter((r) => r.hasProfile);
+  const towns = Object.fromEntries([...fs.readFileSync('src/data/site.ts', 'utf8').matchAll(/slug: '([^']+)', name: '[^']+', street: '[^']+', city: '([^,]+),/g)].map((m) => [m[1], m[2]]));
+  let written = 0, skipped = 0, photos = 0, seoAdded = 0; const missing = [];
+  for (const r of rows) {
+    const url = `/providers/${r.slug}/`;
+    const res = await fetch(SITE + url, { headers: { 'User-Agent': 'Mozilla/5.0 (WellGen site import)' } });
+    if (!res.ok) { console.log(`  ! ${url} returned ${res.status}, skipped`); continue; }
+    const { document } = parseHTML(await res.text());
+    const page = extract(document, url, { boldHeadings: true });
+    const file = `src/content/providers/${r.slug}.md`;
+    if (fs.existsSync(file) && !force) skipped++;
+    else { fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, generateProvider(r.slug, page)); written++; }
+    console.log(`  ${r.slug}: ${page.blocks.length} blocks, ${page.faqs.length} FAQs`);
+
+    // headshot, only if we don't have one yet
+    const dir = 'src/assets/images/providers';
+    if (!(fs.existsSync(dir) && fs.readdirSync(dir).some((f) => f.replace(/\.[^.]+$/, '') === r.slug))) {
+      const wanted = page.imgs.slice(0, 1).map((n) => n.replace(/-\d+x\d+(?=\.[a-z]+$)/i, ''));
+      const found = mediaFiles && wanted.flatMap((n) => { const ext = path.extname(n); const stem = n.slice(0, -ext.length); return [n, `${stem}-scaled${ext}`, `${stem}-1${ext}`]; }).map((n) => mediaFiles.get(n.toLowerCase())).find(Boolean);
+      if (found) { fs.mkdirSync(dir, { recursive: true }); fs.copyFileSync(path.join(media, found), `${dir}/${r.slug}${path.extname(found).toLowerCase()}`); photos++; }
+      else missing.push(`${dir}/${r.slug}.jpg   (WordPress used: ${wanted[0] || 'no photo'})`);
+    }
+
+    if (!seo[url]) {
+      const town = towns[r.location] || 'Dallas';
+      const full = `${r.name}, ${r.credentials}`;
+      const t = `${full}: ${r.role} in ${town}, TX`;
+      seo[url] = { title: t.length <= 60 ? t : `${r.name}: ${r.role} in ${town}, TX`, description: fitDesc(page.desc || `${full} sees patients at WellGen Health ${town}. Book an appointment online or call the clinic.`), focusKeyword: r.name.toLowerCase(), keywords: keywordsFrom(page.blocks, r.name.toLowerCase()), tags: page.tags };
+      seoAdded++;
+    }
+  }
+  return { written, skipped, photos, seoAdded, missing };
+}
+
+// ---------------------------------------------------------------- refresh
+// Updates pages you already have, without touching their text:
+//   - replaces the FAQs in each page file with every FAQ from WordPress (full answers)
+//   - copies the WordPress keyword box into seo.json as "tags" (shown in "Related searches")
+export function replaceFaqs(text, faqBlock) {
+  const m = text.match(/^---\n([\s\S]*?)\n---\n/);
+  if (!m) return text;
+  const fm = m[1].replace(/^faqs:(?:[ \t]*\[\][ \t]*(?:\n|$)|[ \t]*\n(?:[ \t]+.*(?:\n|$))*)/m, '').replace(/\n+$/, '');
+  return `---\n${fm}\n${faqBlock.trimEnd()}\n---\n` + text.slice(m[0].length);
+}
+
+async function refreshAll({ seo, only }) {
+  const servicesTs = fs.readFileSync('src/data/services.ts', 'utf8');
+  const jobs = [];
+  // service overview pages: WordPress address from oldPaths in services.ts
+  let cat = null;
+  for (const line of servicesTs.split('\n')) {
+    const c = line.match(/^\s{4}slug: '([^']+)',/); if (c) cat = c[1];
+    const sv = line.match(/\{ slug: '([^']+)', name: .*oldPaths: \['([^']+)'/);
+    if (sv && cat) jobs.push({ file: `src/content/services/${sv[1]}.md`, wp: sv[2], seoKey: `/services/${cat}/${sv[1]}/` });
+  }
+  const catOf = Object.fromEntries(jobs.map((j) => [j.file.split('/').pop().replace('.md', ''), j.seoKey.split('/')[2]]));
+  // detail pages and provider profiles: WordPress address from oldPath in each file
+  const fromOldPath = (dir, keyFor) => {
+    if (!fs.existsSync(dir)) return;
+    for (const f of fs.readdirSync(dir, { recursive: true }).map(String).filter((x) => x.endsWith('.md'))) {
+      const file = path.join(dir, f).replace(/\\/g, '/');
+      const old = (fs.readFileSync(file, 'utf8').match(/^oldPath: (.+)$/m) || [])[1];
+      const key = keyFor(f.replace(/\\/g, '/').replace(/\.md$/, ''));
+      if (old && key) jobs.push({ file, wp: old.trim(), seoKey: key });
+    }
+  };
+  fromOldPath('src/content/topics', (id) => { const [svc, slug] = id.split('/'); return catOf[svc] ? `/services/${catOf[svc]}/${svc}/${slug}/` : null; });
+  fromOldPath('src/content/providers', (id) => `/providers/${id}/`);
+
+  let faqFiles = 0, faqTotal = 0, tagPages = 0;
+  for (const j of jobs) {
+    if (only && !j.file.includes(only)) continue;
+    if (!fs.existsSync(j.file)) continue;
+    const wpUrl = j.wp.endsWith('/') ? j.wp : j.wp + '/';
+    const res = await fetch(SITE + wpUrl, { headers: { 'User-Agent': 'Mozilla/5.0 (WellGen site import)' } });
+    if (!res.ok) { console.log(`  ! ${wpUrl} returned ${res.status}, skipped`); continue; }
+    const { document } = parseHTML(await res.text());
+    const page = extract(document, wpUrl);
+    if (page.faqs.length) {
+      fs.writeFileSync(j.file, replaceFaqs(fs.readFileSync(j.file, 'utf8'), faqsYaml(page.faqs)));
+      faqFiles++; faqTotal += page.faqs.length;
+    }
+    if (page.tags.length) {
+      seo[j.seoKey] = seo[j.seoKey] || { title: '', description: fitDesc(page.desc), focusKeyword: '', keywords: [] };
+      seo[j.seoKey].tags = page.tags;
+      tagPages++;
+    }
+    console.log(`  ${j.seoKey}  ${page.faqs.length} FAQs, ${page.tags.length} keywords`);
+  }
+  return { faqFiles, faqTotal, tagPages };
+}
+
 // ---------------------------------------------------------------- run
 async function main() {
   const args = process.argv.slice(2);
@@ -267,11 +387,29 @@ async function main() {
   const force = args.includes('--force');
   const mi = args.indexOf('--media');
   const media = mi >= 0 ? args[mi + 1] : 'C:\\wellgen-media\\originals';
-  if (!CATEGORIES[category]) {
-    console.log(`Usage: node scripts/import-wp.mjs <category>\nCategories: ${Object.keys(CATEGORIES).join(', ')}`);
+  if (category === 'refresh') {
+    const seoPath = 'src/data/seo.json';
+    const seo = JSON.parse(fs.readFileSync(seoPath, 'utf8'));
+    const oi = args.indexOf('--only');
+    const r = await refreshAll({ seo, only: oi >= 0 ? args[oi + 1] : '' });
+    fs.writeFileSync(seoPath, JSON.stringify(seo, null, 2) + '\n');
+    console.log(`\nDone: FAQs updated on ${r.faqFiles} pages (${r.faqTotal} questions), keyword box copied for ${r.tagPages} pages.`);
+    return;
+  }
+  if (!CATEGORIES[category] && category !== 'providers') {
+    console.log(`Usage: node scripts/import-wp.mjs <category>\nCategories: ${Object.keys(CATEGORIES).join(', ')}, providers\nOr: node scripts/import-wp.mjs refresh   (all FAQs + keyword boxes for pages you already have)`);
     process.exit(1);
   }
   const mediaFiles = fs.existsSync(media) ? new Map(fs.readdirSync(media).map((f) => [f.toLowerCase(), f])) : null;
+  if (category === 'providers') {
+    const seoPath = 'src/data/seo.json';
+    const seo = JSON.parse(fs.readFileSync(seoPath, 'utf8'));
+    const r = await importProviders({ force, mediaFiles, media, seo });
+    fs.writeFileSync(seoPath, JSON.stringify(seo, null, 2) + '\n');
+    console.log(`\nDone: ${r.written} profiles written, ${r.skipped} already existed (kept), ${r.photos} headshots copied, ${r.seoAdded} SEO drafts added.`);
+    if (r.missing.length) console.log('\nNo headshot found for:\n  ' + r.missing.join('\n  '));
+    return;
+  }
   if (!mediaFiles) console.log(`Note: photo folder not found (${media}), so no banner photos will be copied.`);
 
   const seoPath = 'src/data/seo.json';
@@ -317,13 +455,13 @@ async function main() {
     if (!seo[base]) {
       const name = NAMES[svc];
       const t = `${name} in Dallas, TX`;
-      seo[base] = { title: t.length <= 60 ? t : name, description: fitDesc(main.desc), focusKeyword: name.toLowerCase(), keywords: keywordsFrom(main.blocks, name.toLowerCase()) };
+      seo[base] = { title: t.length <= 60 ? t : name, description: fitDesc(main.desc), focusKeyword: name.toLowerCase(), keywords: keywordsFrom(main.blocks, name.toLowerCase()), tags: main.tags };
       seoAdded++;
     }
     for (const g of guides) {
       const u = `${base}${g.slug}/`;
       if (seo[u]) continue;
-      seo[u] = { title: g.title.slice(0, 60), description: fitDesc(g.page.desc), focusKeyword: g.title.toLowerCase().replace(/[?]$/, ''), keywords: keywordsFrom(g.page.blocks, g.title.toLowerCase()) };
+      seo[u] = { title: g.title.slice(0, 60), description: fitDesc(g.page.desc), focusKeyword: g.title.toLowerCase().replace(/[?]$/, ''), keywords: keywordsFrom(g.page.blocks, g.title.toLowerCase()), tags: g.page.tags };
       seoAdded++;
     }
   }

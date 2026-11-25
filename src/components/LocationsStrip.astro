@@ -2,8 +2,9 @@
 import Photo from './Photo.astro';
 import { locations, telHref } from '../data/site';
 
-interface Props { title?: string; }
-const { title = 'Find a clinic near you' } = Astro.props;
+interface Props { title?: string; exclude?: string; }
+const { title = 'Find a clinic near you', exclude } = Astro.props;
+const list = locations.filter((l) => l.slug !== exclude);
 ---
 <section class="bg-mist">
   <div class="mx-auto max-w-7xl px-6 py-16 lg:py-20">
@@ -12,7 +13,7 @@ const { title = 'Find a clinic near you' } = Astro.props;
       <a href="/locations/" class="font-semibold text-brand-dark hover:text-navy">See all locations</a>
     </div>
     <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {locations.map((l) => (
+      {list.map((l) => (
         <li class="group flex gap-4 rounded-2xl bg-white p-3 ring-1 ring-ice transition hover:ring-brand/50">
           <div class="size-24 shrink-0 overflow-hidden rounded-xl bg-mist">
             <Photo folder="locations" name={l.slug} alt="" widths={[200]} sizes="96px" hint={false} />

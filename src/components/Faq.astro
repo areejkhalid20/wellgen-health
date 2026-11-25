@@ -11,11 +11,13 @@ interface Props {
 }
 const { faqs, title = 'Questions people ask', id = 'questions' } = Astro.props;
 const n = faqs.length;
+/** Questions shown before "Show all" */
+const FIRST = 8;
 ---
 <section id={id} class="scroll-mt-28" data-qa>
   <div class="flex flex-wrap items-end justify-between gap-4">
     <h2 class="text-3xl font-medium text-navy lg:text-[2.25rem]">{title}</h2>
-    <p class="text-[15px] text-muted">{n} questions. Choose one to see the answer.</p>
+    <p class="text-[15px] text-muted">{n} {n === 1 ? 'question' : 'questions'}. Choose one to see the answer.</p>
   </div>
 
   <div class="qa-grid mt-8 lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-x-8" style={`--qa-rows: ${n}`}>
@@ -28,6 +30,8 @@ const n = faqs.length;
           aria-expanded={i === 0 ? 'true' : 'false'}
           aria-controls={`${id}-a${i}`}
           data-qa-q={i}
+          data-qa-extra={i >= FIRST ? '' : undefined}
+          hidden={i >= FIRST}
         >
           <span class="grid size-8 shrink-0 place-items-center rounded-full bg-mist text-sm font-semibold text-brand-dark transition group-aria-expanded:bg-brand group-aria-expanded:text-white lg:group-aria-expanded:bg-white/15">?</span>
           <span class="flex-1 text-[16px] font-medium leading-snug text-navy group-aria-expanded:text-brand-dark lg:group-aria-expanded:text-white">{f.q}</span>
@@ -61,6 +65,12 @@ const n = faqs.length;
       </>
     ))}
   </div>
+  {n > FIRST && (
+    <button type="button" data-qa-more class="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-brand-dark ring-1 ring-ice transition hover:ring-brand" aria-expanded="false">
+      <span data-qa-more-label>Show all {n} questions</span>
+      <svg class="size-5 transition-transform" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.2 7.2a.75.75 0 0 1 1.06 0L10 10.94l3.74-3.74a.75.75 0 1 1 1.06 1.06l-4.27 4.27a.75.75 0 0 1-1.06 0L5.2 8.26a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
+    </button>
+  )}
 </section>
 
 <style>
@@ -93,8 +103,23 @@ const n = faqs.length;
       q.addEventListener('click', () => show(i, true));
       q.addEventListener('keydown', (e) => {
         const next = e.key === 'ArrowDown' ? i + 1 : e.key === 'ArrowUp' ? i - 1 : -1;
-        if (next >= 0 && next < qs.length) { e.preventDefault(); qs[next].focus(); if (desktop.matches) show(next); }
+        if (next >= 0 && next < qs.length && !qs[next].hidden) { e.preventDefault(); qs[next].focus(); if (desktop.matches) show(next); }
       });
+    });
+
+    // "Show all questions" / "Show fewer"
+    const more = root.querySelector<HTMLButtonElement>('[data-qa-more]');
+    const extra = qs.filter((q) => q.hasAttribute('data-qa-extra'));
+    more?.addEventListener('click', () => {
+      const open = more.getAttribute('aria-expanded') !== 'true';
+      extra.forEach((q) => { q.hidden = !open; });
+      more.setAttribute('aria-expanded', String(open));
+      more.querySelector('svg')?.classList.toggle('rotate-180', open);
+      const label = more.querySelector('[data-qa-more-label]');
+      if (label) label.textContent = open ? 'Show fewer questions' : `Show all ${qs.length} questions`;
+      if (open) extra[0]?.focus();
+      // if the open answer belongs to a question being hidden again, go back to the first one
+      else if (extra.some((q) => q.getAttribute('aria-expanded') === 'true')) show(0);
     });
   });
 </script>

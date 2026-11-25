@@ -1,24 +1,45 @@
 ---
 lead: Diabetes and hormone conditions affect your energy, heart, kidneys and eyes. Our diabetes doctors in Dallas and across Texas help you understand what is happening in your body, and build a plan to manage it for the long term.
 heroAlt: WellGen Health provider reviewing blood sugar results with a patient
-
 faqs:
-  - q: When should I see a diabetes doctor?
-    a: See a doctor if you have signs like increased thirst, frequent urination or constant tiredness, or if you have risk factors such as a family history of diabetes or excess weight. A simple blood test can show whether your blood sugar is in a healthy range.
-  - q: What does an endocrinologist do?
-    a: An endocrinologist treats conditions of the hormone system. That includes diabetes, thyroid disease, PCOS and adrenal problems. At WellGen Health, endocrinology care is part of a wider team that also includes dietitians and diabetes educators.
-  - q: What is an A1C test?
-    a: An A1C test shows your average blood sugar over the past two to three months. A result of 6.5% or higher points to diabetes, and 5.7% to 6.4% is in the prediabetes range. Your provider will explain your result and what to do next.
-  - q: How is type 2 diabetes treated?
-    a: Treatment usually combines medication, a nutrition plan and regular activity. We adjust your plan over time using your test results and, if it suits you, data from a continuous glucose monitor.
-  - q: What is continuous glucose monitoring?
-    a: A continuous glucose monitor (CGM) is a small sensor worn on the skin that tracks your blood sugar day and night. It shows how food, activity and medication affect your levels, so your treatment can be fine-tuned.
-  - q: Can prediabetes be reversed?
-    a: Often, yes. Changes to eating habits, activity and weight can bring blood sugar back into a healthy range and prevent or delay type 2 diabetes. We screen for prediabetes and help you make a plan.
-  - q: Do you treat thyroid and other hormone conditions?
-    a: Yes. Alongside diabetes, we care for thyroid conditions, PCOS and adrenal problems, so your whole hormone system is looked after by one team.
-  - q: How do I book a diabetes appointment?
-    a: Book online or call (844) 886-7362. We have six clinics in Texas, and our team will help you choose the one closest to you.
+  - q: "What is diabetes mellitus?"
+    a: "Diabetes mellitus is a complex, chronic metabolic condition in which the body cannot properly use insulin to convert food into energy. This leads to high glucose (blood sugar) levels in the bloodstream and can cause complications affecting the heart, kidneys, eyes, nerves, and other organs. WellGen Health emphasizes that understanding your condition is the first and most important step toward effective prevention, management, and lifelong wellness."
+  - q: "What are the main types of diabetes that WellGen Health addresses?"
+    a: "WellGen Health addresses Type 1 diabetes (an autoimmune condition often diagnosed in childhood or early adulthood where the immune system destroys insulin-producing beta cells, requiring lifelong insulin therapy), Type 2 diabetes (the most common form, involving insulin resistance often linked to lifestyle factors and genetics, which develops gradually), and gestational diabetes (which develops during pregnancy due to hormonal changes affecting insulin sensitivity and usually resolves after childbirth but increases future Type 2 risk). They also note secondary forms related to genetic disorders, certain medications, or pancreatic diseases."
+  - q: "What are the common symptoms of diabetes listed by WellGen Health?"
+    a: "Common signs include increased thirst and frequent urination, excessive hunger or unexplained weight loss, blurred vision, fatigue or weakness, slow-healing cuts or frequent infections, and numbness or tingling in the hands and feet. WellGen Health advises seeking prompt medical advice if these appear and offers comprehensive screenings for accurate diagnosis."
+  - q: "What are the key causes and risk factors for diabetes?"
+    a: "Diabetes results from a complex interplay of genetic, hormonal, environmental, and lifestyle influences. Key risk factors include genetics and family history (especially for Type 2), overweight and obesity (particularly excess abdominal fat causing insulin resistance), sedentary lifestyle, unhealthy diet high in refined foods, hormonal imbalances such as PCOS or high cortisol from stress, poor sleep, age, and ethnicity. WellGen focuses on improving metabolic flexibility through early screening and tailored lifestyle modifications."
+  - q: "How does WellGen Health diagnose diabetes and what specific tests and criteria do they use?"
+    a: "WellGen Health uses a thorough, integrated approach with comprehensive testing. Key diagnostic tools include blood glucose testing such as Fasting Blood Glucose (FBG, diagnostic at or above 126 mg/dL), HbA1c test (reflecting 2–3 months average glucose, diagnostic at or above 6.5%), and Oral Glucose Tolerance Test (OGTT) especially for gestational diabetes and prediabetes. They also utilize Continuous Glucose Monitoring (CGM) for real-time fluctuations and hormonal panels to assess the broader endocrine system (e.g., thyroid, cortisol, C-peptide) for a complete metabolic picture and personalized treatment blueprint."
+  - q: "What is Continuous Glucose Monitoring (CGM) and how is it used?"
+    a: "Continuous Glucose Monitoring (CGM) is an advanced technology that provides real-time data on blood sugar fluctuations, offering precise insights into how lifestyle, diet, and activity affect glucose patterns. At WellGen Health, CGM is integrated into personalized treatment plans, precision medicine approaches, fine-tuning of insulin therapy or oral medications, and ongoing management to improve accuracy and empower patients with data-driven care."
+  - q: "What management and treatment approaches does WellGen Health offer for diabetes?"
+    a: "WellGen Health provides precision treatment and lifestyle-focused care through individualized plans that may include CGM and insulin pump therapy, fine-tuning of insulin or oral medications, Medical Nutrition Therapy (MNT) with personalized meal plans for glycemic control, customized exercise programs to improve insulin sensitivity and cardiovascular health, and preventive diabetology with proactive screening for risks like cardiovascular disease and neuropathy. They emphasize a lifelong partnership for optimal glucose control and complication prevention."
+  - q: "How does WellGen Health incorporate lifestyle and holistic support in diabetes care?"
+    a: "Lifestyle is central to long-term success at WellGen Health. They offer Medical Nutrition Therapy (MNT), customized exercise guidance, weight management strategies, stress reduction techniques, sleep management, and intensive patient education. Holistic support includes managing the complete endocrine system (such as thyroid and PCOS), mental health and emotional support for coping with chronic illness, and digital tools like CGM and mobile apps for continuous monitoring and empowerment."
+  - q: "What complications of diabetes does WellGen Health help prevent and manage?"
+    a: "Uncontrolled diabetes can lead to serious complications including cardiovascular diseases (heart attack, stroke, hypertension), kidney damage (diabetic nephropathy), nerve damage (diabetic neuropathy), eye problems (diabetic retinopathy leading to vision loss), and foot ulcers or infections. WellGen Health focuses on consistent monitoring, proactive screenings, early interventions, and preventive care to greatly reduce these risks and protect long-term health."
+  - q: "Does WellGen Health treat other endocrine conditions besides diabetes?"
+    a: "Yes, WellGen Health manages the complete endocrine system for holistic metabolic balance. This includes conditions such as thyroid disorders, PCOS (polycystic ovary syndrome), and adrenal issues, integrated with diabetes care through comprehensive hormonal assessments, personalized hormone therapies where appropriate, and multidisciplinary support."
+  - q: "What is the multidisciplinary team approach for diabetes and endocrinology?"
+    a: "WellGen Health's care is delivered by a multidisciplinary team of endocrinologists, dietitians, diabetes educators, and wellness coaches who work together to provide seamless, compassionate, patient-centered care. This team combines medical expertise, advanced technology, nutritional counseling, fitness guidance, mental health support, and ongoing education to create personalized roadmaps for wellness."
+  - q: "Where is WellGen Health located and what are their contact details?"
+    a: "WellGen Health is located at 8220 WALNUT HILL LN, STE 600, Dallas, TX, 75231-4433. You can reach them by phone at (844) 886-7362 or by email at Info@wellgen-health.com. They provide comprehensive diabetes and endocrinology services at this Dallas location."
+  - q: "How can I book an appointment for diabetes or endocrinology services?"
+    a: "You can book an appointment easily through their website via the \"Book Online\" option or the \"Book an Appointment\" form with a \"Send Now\" submission. WellGen Health encourages patients to schedule for comprehensive assessments, personalized plans, or ongoing management of diabetes and endocrine conditions."
+  - q: "What is the importance of early detection and prevention?"
+    a: "Early detection of diabetes or prediabetes allows for timely lifestyle modifications that can prevent or delay Type 2 diabetes onset and reduce complications. WellGen Health offers HbA1c and other screenings, targeted prevention programs, education on balanced nutrition, regular exercise, stress management, and routine monitoring to empower patients and improve long-term outcomes."
+  - q: "How does WellGen Health support mental health and emotional well-being in diabetes management?"
+    a: "WellGen Health recognizes that emotional well-being is integral to diabetes management. Their care model integrates mental health counseling, peer support, stress management techniques, and compassionate long-term care alongside medical treatment and digital tools, helping patients build motivation, confidence, and sustainable habits."
+  - q: "What makes WellGen Health's approach to diabetes and endocrinology unique?"
+    a: "WellGen Health delivers science-driven, compassionate, patient-centered care that combines decades of clinical experience with cutting-edge tools like CGM and insulin pump therapy, personalized treatment plans, holistic endocrine management (including thyroid and PCOS), intensive education, and a multidisciplinary team. Their focus is on transforming management into improved metabolic health, prevention, empowerment, and enhanced quality of life rather than just treating numbers."
+  - q: "What are secondary forms of diabetes mentioned by WellGen Health?"
+    a: "In addition to the primary types, WellGen Health notes secondary forms of diabetes related to genetic disorders, certain medications, or pancreatic diseases. Early diagnosis and consistent management remain key regardless of the underlying cause."
+  - q: "Does WellGen Health provide information on metabolic flexibility and advanced screening?"
+    a: "Yes, WellGen Health emphasizes improving metabolic flexibility—the body's ability to efficiently switch between burning glucose and fat—through tailored lifestyle modifications, advanced screening for optimal endocrine health, and proactive steps to restore metabolic harmony, especially in the context of risk factors like obesity and insulin resistance."
+  - q: "Are there any details on pricing, insurance, or specific operating hours on the WellGen Health diabetes and endocrinology page?"
+    a: "The pages do not provide specific details on pricing, accepted insurance plans, or operating hours. Patients are encouraged to contact WellGen Health directly at (844) 886-7362 or Info@wellgen-health.com or book online for personalized information regarding appointments and services."
 ---
 
 ## Diabetes and hormone care in one place

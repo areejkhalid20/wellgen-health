@@ -1,0 +1,26 @@
+---
+// The keyword box at the end of each page, like the old WordPress site.
+// It shows the page's "tags" list from src/data/seo.json (copied from the WordPress keyword box),
+// or its focus keyword + keywords if it has no tags. Edit them in seo.json. Turn it off site-wide in src/data/site.ts
+// (showKeywordBox), or for one page with "showKeywords": false in that page's seo.json entry.
+import seoData from '../data/seo.json';
+import { site } from '../data/site';
+
+const seo = (seoData as Record<string, any>)[Astro.url.pathname];
+// The keyword box copied from WordPress ("tags") if the page has one, otherwise focus keyword + keywords
+const words: string[] = seo ? (seo.tags?.length ? seo.tags : [seo.focusKeyword, ...(seo.keywords ?? [])]).filter(Boolean) : [];
+const unique = [...new Map(words.map((w) => [w.toLowerCase().trim(), w.trim()])).values()];
+const show = site.showKeywordBox && seo?.showKeywords !== false && unique.length > 0;
+---
+{show && (
+  <section aria-labelledby="related-searches" class="border-t border-ice bg-surface">
+    <div class="mx-auto max-w-7xl px-6 py-10">
+      <h2 id="related-searches" class="text-base font-semibold text-navy">Related searches</h2>
+      <ul class="mt-4 flex flex-wrap gap-2">
+        {unique.map((w) => (
+          <li class="rounded-full bg-white px-3.5 py-1.5 text-sm text-muted ring-1 ring-ice">{w}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

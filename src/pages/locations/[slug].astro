@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Photo from '../../components/Photo.astro';
+import LocationsStrip from '../../components/LocationsStrip.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { site, locations, locationUrl, telHref, smsHref, directionsUrl, fullAddress, type Location } from '../../data/site';
+import { providersAt, providerUrl } from '../../data/providers';
+import { categories, categoryUrl, serviceUrl } from '../../data/services';
+import { breadcrumbLd, clinicLd } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return locations.map((location) => ({ params: { slug: location.slug }, props: { location } }));
+}
+const { location: l } = Astro.props as { location: Location };
+const title = `WellGen Health ${l.name}`;
+const town = l.city.split(',')[0];
+const lead = `Primary care, chronic condition management and specialized services at our ${town} clinic. Book online, call the clinic, or send us a text.`;
+const team = providersAt(l.slug);
+const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(`WellGen Health, ${fullAddress(l)}`)}&z=15&output=embed`;
+
+const contact = [
+  { label: 'Phone', value: l.phone, href: telHref(l.phone), icon: 'M3 5.5A2.5 2.5 0 0 1 5.5 3h1.6a1 1 0 0 1 .97.76l.9 3.6a1 1 0 0 1-.4 1.07L7.2 9.4a11 11 0 0 0 7.4 7.4l.97-1.37a1 1 0 0 1 1.07-.4l3.6.9a1 1 0 0 1 .76.97v1.6a2.5 2.5 0 0 1-2.5 2.5h-1C9.6 21 3 14.4 3 6.5v-1Z' },
+  { label: 'Text us', value: l.phone, href: smsHref(l.phone), icon: 'M4 5h16v11H8l-4 4V5Z' },
+  { label: 'Email', value: l.email, href: `mailto:${l.email}`, icon: 'M3 6h18v12H3zM3 6l9 7 9-7' },
+  { label: 'Fax', value: l.fax, href: '', icon: 'M7 9V3h10v6M7 17H4v-8h16v8h-3M7 14h10v7H7z' },
+];
+---
+<BaseLayout
+  title={`${title}, ${l.city.replace(/ \d+$/, '')}`}
+  description={`WellGen Health ${l.name} at ${fullAddress(l)}. Primary care, chronic care and specialized services. Call ${l.phone} or book online.`}
+  jsonLd={[breadcrumbLd([{ label: 'Locations', href: '/locations/' }, { label: l.name, href: locationUrl(l) }]), clinicLd(l)]}
+>
+  <PageHero
+    title={title}
+    lead={lead}
+    crumbs={[{ label: 'Locations', href: '/locations/' }, { label: l.name }]}
+    image={{ folder: 'locations', name: l.slug, alt: `WellGen Health ${l.name} clinic` }}
+    bookHref={`${site.bookingUrl}?location=${l.slug}`}
+    call={{ label: l.phone, href: telHref(l.phone) }}
+  >
+    <p class="hero-rise-3 mt-8 flex items-start gap-3 text-[17px] text-navy">
+      <svg class="mt-0.5 size-6 shrink-0 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      <span>{l.street}, {l.city}<br /><a href={directionsUrl(l)} target="_blank" rel="noopener" class="font-semibold text-brand-dark underline-offset-4 hover:underline">Get directions<span class="sr-only"> (opens Google Maps)</span></a></span>
+    </p>
+  </PageHero>
+
+  <!-- Visit: contact details and map -->
+  <section class="mx-auto max-w-7xl px-6 pt-20 lg:pt-28">
+    <div class="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+      <div>
+        <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Visit the clinic</h2>
+        <p class="mt-4 max-w-[46ch] text-lg text-muted">Call or text this clinic directly for appointments, test results and questions about your visit.</p>
+
+        <dl class="mt-10 divide-y divide-ice border-y border-ice">
+          {contact.map((c) => (
+            <div class="flex items-center gap-4 py-4">
+              <dt class="flex w-28 shrink-0 items-center gap-2.5 text-sm text-muted">
+                <svg class="size-5 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d={c.icon} /></svg>
+                {c.label}
+              </dt>
+              <dd class="text-[17px] font-medium text-navy">
+                {c.href ? <a href={c.href} class="hover:text-brand-dark">{c.value}</a> : c.value}
+              </dd>
+            </div>
+          ))}
+          {l.hours.length > 0 && (
+            <div class="flex items-start gap-4 py-4">
+              <dt class="flex w-28 shrink-0 items-center gap-2.5 text-sm text-muted">
+                <svg class="size-5 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+                Hours
+              </dt>
+              <dd class="grid gap-1 text-[17px] text-navy">
+                {l.hours.map(([days, time]) => <span><span class="font-medium">{days}</span> {time}</span>)}
+              </dd>
+            </div>
+          )}
+        </dl>
+      </div>
+
+      <div class="relative pb-5 pl-5">
+        <div aria-hidden="true" class="absolute bottom-0 left-0 h-[70%] w-[70%] rounded-[2rem] bg-mist"></div>
+        <div class="relative h-full min-h-[22rem] overflow-hidden rounded-[2rem] bg-mist shadow-[0_30px_60px_-34px_rgba(23,50,77,0.55)] ring-1 ring-ice">
+          <iframe
+            src={mapSrc}
+            title={`Map showing WellGen Health ${l.name} at ${fullAddress(l)}`}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="absolute inset-0 h-full w-full border-0"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Care available -->
+  <section class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+    <div class="max-w-2xl">
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Care at {l.name}</h2>
+      <p class="mt-4 text-lg text-muted">Book any of our services at this clinic. If a test or treatment needs special equipment, our team will tell you when you book.</p>
+    </div>
+    <div class="mt-12 grid gap-6 lg:grid-cols-3">
+      {categories.map((c) => (
+        <div class="flex flex-col rounded-[1.75rem] bg-mist p-7">
+          <h3 class="text-2xl font-medium leading-tight text-navy"><a href={categoryUrl(c)} class="hover:text-brand-dark">{c.name}</a></h3>
+          <ul class="mt-5 grid gap-2.5">
+            {c.services.map((s) => (
+              <li><a href={serviceUrl(c, s)} class="text-[16px] text-ink underline decoration-ice decoration-2 underline-offset-4 transition hover:text-brand-dark hover:decoration-brand">{s.name}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Providers -->
+  {team.length > 0 && (
+    <section class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+      <div class="max-w-2xl">
+        <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Providers at this clinic</h2>
+        <p class="mt-4 text-lg text-muted">A provider who knows you and your history makes early diagnosis easier and keeps small problems small.</p>
+      </div>
+      <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {team.map((p) => (
+          <li class="group relative">
+            <div class="aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-mist">
+              <Photo folder="providers" name={p.slug} alt="" widths={[320, 520]} sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw" class="transition-transform duration-500 group-hover:scale-[1.03]" />
+            </div>
+            <p class="mt-4 font-display text-xl font-medium text-navy">
+              {p.hasProfile
+                ? <a href={providerUrl(p)} class="after:absolute after:inset-0 group-hover:text-brand-dark">{p.name}, {p.credentials}</a>
+                : <>{p.name}, {p.credentials}</>}
+            </p>
+            <p class="text-muted">{p.specialty}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <div class="pt-24 lg:pt-32">
+    <LocationsStrip title="Other WellGen Health clinics" exclude={l.slug} />
+  </div>
+
+  <CtaBand title={`Book a visit at ${l.name}`} text={`Book online in a few minutes, or call and we'll find a time at ${l.name} that works for you.`} />
+</BaseLayout>

@@ -10,8 +10,11 @@ interface Props {
   crumbs: { label: string; href?: string }[];
   image: { folder: string; name: string; alt: string };
   highlights?: string[];
+  /** Defaults to the main booking page and main phone number */
+  bookHref?: string;
+  call?: { label: string; href: string };
 }
-const { title, lead, crumbs, image, highlights = [] } = Astro.props;
+const { title, lead, crumbs, image, highlights = [], bookHref = site.bookingUrl, call = site.phone } = Astro.props;
 ---
 <section class="relative overflow-hidden bg-mist">
   
@@ -21,9 +24,10 @@ const { title, lead, crumbs, image, highlights = [] } = Astro.props;
       <h1 class="hero-rise mt-6 text-[2.6rem] font-medium leading-[1.05] tracking-[-0.01em] text-navy sm:text-5xl lg:text-[3.6rem]">{title}</h1>
       <p class="hero-rise-2 mt-5 max-w-[56ch] text-lg leading-relaxed text-muted">{lead}</p>
       <div class="hero-rise-3 mt-8 flex flex-wrap gap-3">
-        <a href={site.bookingUrl} class="rounded-full bg-cta px-7 py-3.5 font-semibold text-white shadow-[0_10px_24px_-10px_rgba(227,28,37,0.7)] transition hover:-translate-y-0.5 hover:bg-cta-dark">Book a visit</a>
-        <a href={site.phone.href} class="rounded-full bg-white px-7 py-3.5 font-semibold text-brand-dark ring-1 ring-ice transition hover:ring-brand">Call {site.phone.label}</a>
+        <a href={bookHref} class="rounded-full bg-cta px-7 py-3.5 font-semibold text-white shadow-[0_10px_24px_-10px_rgba(227,28,37,0.7)] transition hover:-translate-y-0.5 hover:bg-cta-dark">Book a visit</a>
+        <a href={call.href} class="rounded-full bg-white px-7 py-3.5 font-semibold text-brand-dark ring-1 ring-ice transition hover:ring-brand">Call {call.label}</a>
       </div>
+      <slot />
       {highlights.length > 0 && (
         <ul class="hero-rise-3 mt-10 grid gap-3 sm:grid-cols-3 sm:gap-4">
           {highlights.map((h) => (

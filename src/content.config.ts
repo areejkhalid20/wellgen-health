@@ -40,4 +40,16 @@ const topics = defineCollection({
   }),
 });
 
-export const collections = { services, topics };
+// Provider biographies: src/content/providers/<provider-slug>.md
+// Name, clinic and title are in src/data/providers.ts
+const providers = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/providers' }),
+  schema: z.object({
+    /** Opening paragraph under the name */
+    lead: z.string(),
+    oldPath: z.string().optional(),
+    faqs: z.array(faq).default([]),
+  }),
+});
+
+export const collections = { services, topics, providers };

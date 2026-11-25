@@ -1,7 +1,6 @@
 ---
 lead: "WellGen Health provides expert Chronic Care Management. Our chronic condition management includes tailored weight loss programs, mental health support, and care for diabetes and hypertension."
 heroAlt: "Chronic care management at WellGen Health"
-
 faqs:
   - q: "What is Chronic Care Management?"
     a: "At WellGen Health, we redefine chronic illness management with a proactive, continuous, and patient-centered model. Chronic conditions such as diabetes, hypertension, COPD, and arthritis demand ongoing monitoring and coordination. Our programs bridge the gap between appointments with structured, technology-enabled support."
@@ -19,6 +18,8 @@ faqs:
     a: "The programs address chronic conditions including diabetes, hypertension, COPD, and arthritis, as well as single high-risk or complex conditions such as severe heart failure."
   - q: "How does WellGen Health support patients between regular doctor appointments through its Chronic Care Management services?"
     a: "WellGen Health bridges the gap between appointments with structured, technology-enabled support, proactive continuous oversight, 24/7 clinical access, personalized care coordination, medication management, and monthly follow-ups by a dedicated Care Coordinator."
+  - q: "How can someone contact WellGen Health or book an appointment for Chronic Care Management services?"
+    a: "You can contact WellGen Health by phone at (844) 886-7362, by email at Info@wellgen-health.com, or visit the address at 8220 WALNUT HILL LN, STE 600, Dallas TX, 75231-4433. Appointments can also be booked online through the WellGen Health website using the available \"Book an Appointment\" or \"Send Now\" options."
 ---
 
 ## Chronic care management at WellGen

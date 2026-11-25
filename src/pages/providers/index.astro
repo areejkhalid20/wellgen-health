@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Photo from '../../components/Photo.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { providers, providerUrl, roles } from '../../data/providers';
+import { locations } from '../../data/site';
+import { breadcrumbLd } from '../../lib/schema';
+
+const clinicName = (slug: string) => locations.find((l) => l.slug === slug)?.name ?? '';
+const count = (role: string) => providers.filter((p) => p.role === role).length;
+const plural: Record<string, string> = { Physician: 'Physicians', 'Nurse practitioner': 'Nurse practitioners', 'Physician assistant': 'Physician assistants' };
+const usedClinics = locations.filter((l) => providers.some((p) => p.location === l.slug));
+const faces = providers.slice(0, 6);
+---
+<BaseLayout
+  title="Our providers"
+  description={`Meet the ${providers.length} physicians, nurse practitioners and physician assistants at WellGen Health's clinics in Dallas–Fort Worth and East Texas.`}
+  jsonLd={[breadcrumbLd([{ label: 'Providers', href: '/providers/' }])]}
+>
+  <section class="relative overflow-hidden bg-mist">
+    <div class="mx-auto max-w-7xl px-6 pb-14 pt-8 lg:pb-16 lg:pt-12">
+      <div class="hero-rise"><Breadcrumbs items={[{ label: 'Providers' }]} /></div>
+      <div class="mt-6 grid items-end gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+        <div>
+          <h1 class="hero-rise text-5xl font-medium leading-[1.04] tracking-[-0.01em] text-navy lg:text-[4rem]">Meet the people who'll look after you</h1>
+          <p class="hero-rise-2 mt-5 max-w-[56ch] text-lg leading-relaxed text-muted">
+            {count('Physician')} physicians, {count('Nurse practitioner')} nurse practitioners and {count('Physician assistant')} physician assistants across our clinics. Find someone by name, by the kind of provider you want to see, or by the clinic closest to you.
+          </p>
+        </div>
+        <div class="hero-rise-3 flex items-center lg:justify-end" aria-hidden="true">
+          <div class="flex -space-x-4">
+            {faces.map((p) => (
+              <div class="size-16 overflow-hidden rounded-full bg-white ring-4 ring-mist sm:size-20">
+                <Photo folder="providers" name={p.slug} alt="" widths={[160]} sizes="80px" hint={false} loading="eager" />
+              </div>
+            ))}
+            <div class="grid size-16 place-items-center rounded-full bg-brand-dark font-semibold text-white ring-4 ring-mist sm:size-20">+{providers.length - faces.length}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <div class="z-20 border-y lg:sticky lg:top-[var(--header-h,4.5rem)] border-ice bg-white/95 backdrop-blur">
+    <form class="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-6 py-4" data-provider-filters role="search" aria-label="Find a provider">
+      <label class="flex min-w-[15rem] flex-1 items-center gap-2.5 rounded-full bg-mist px-4 py-2.5 ring-1 ring-transparent focus-within:bg-white focus-within:ring-brand">
+        <svg class="size-5 shrink-0 text-brand-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <span class="sr-only">Search by name or specialty</span>
+        <input type="search" name="q" placeholder="Search by name or specialty" autocomplete="off" class="w-full bg-transparent text-[16px] text-navy placeholder:text-muted/80 focus:outline-none" />
+      </label>
+
+      <fieldset class="flex flex-wrap gap-2">
+        <legend class="sr-only">Type of provider</legend>
+        {['All', ...roles].map((r, i) => (
+          <label class="cursor-pointer">
+            <input type="radio" name="role" value={i === 0 ? '' : r} checked={i === 0} class="peer sr-only" />
+            <span class="inline-block rounded-full px-4 py-2 text-[15px] font-medium text-navy ring-1 ring-ice transition peer-checked:bg-navy peer-checked:text-white peer-checked:ring-navy peer-focus-visible:ring-2 peer-focus-visible:ring-brand hover:ring-brand">
+              {i === 0 ? 'All' : plural[r]}
+            </span>
+          </label>
+        ))}
+      </fieldset>
+
+      <label class="flex items-center gap-2">
+        <span class="text-[15px] text-muted">Clinic</span>
+        <select name="clinic" class="rounded-full bg-mist px-4 py-2.5 text-[15px] font-medium text-navy ring-1 ring-transparent focus:bg-white focus:outline-none focus:ring-brand">
+          <option value="">All clinics</option>
+          {usedClinics.map((l) => <option value={l.slug}>{l.name}</option>)}
+        </select>
+      </label>
+    </form>
+  </div>
+
+  <section class="mx-auto max-w-7xl px-6 pb-20 pt-10 lg:pb-28">
+    <p class="text-[15px] text-muted" aria-live="polite" data-provider-count>Showing all {providers.length} providers</p>
+
+    <ul class="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" data-provider-list>
+      {providers.map((p) => (
+        <li class="group relative" data-provider data-role={p.role} data-clinic={p.location} data-search={`${p.name} ${p.credentials} ${p.specialty} ${clinicName(p.location)}`.toLowerCase()}>
+          <div class="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-mist">
+            <Photo folder="providers" name={p.slug} alt="" widths={[320, 480, 640]} sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw" class="transition-transform duration-500 group-hover:scale-[1.03]" />
+            <span class="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[13px] font-semibold text-navy">{p.role}</span>
+          </div>
+          <h2 class="mt-5 font-display text-[1.45rem] font-medium leading-snug text-navy">
+            {p.hasProfile
+              ? <a href={providerUrl(p)} class="after:absolute after:inset-0 group-hover:text-brand-dark">{p.name}<span class="text-muted">, {p.credentials}</span></a>
+              : <>{p.name}<span class="text-muted">, {p.credentials}</span></>}
+          </h2>
+          <p class="mt-1 text-[15px] leading-snug text-ink">{p.specialty}</p>
+          {p.location && (
+            <p class="mt-3 flex items-center gap-1.5 text-[15px] text-muted">
+              <svg class="size-4 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 1 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+              {clinicName(p.location)}
+            </p>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    <div hidden data-provider-empty class="mx-auto mt-10 max-w-md rounded-[1.75rem] bg-mist p-8 text-center">
+      <p class="font-display text-2xl text-navy">No providers match those filters</p>
+      <p class="mt-2 text-muted">Try another name, or show all providers.</p>
+      <button type="button" data-provider-reset class="mt-5 rounded-full bg-navy px-6 py-3 font-semibold text-white hover:bg-brand-dark">Show all providers</button>
+    </div>
+  </section>
+
+  <CtaBand title="Not sure who to see?" text="Tell us what you need when you book, and we'll match you with the right provider at the clinic that suits you." />
+</BaseLayout>
+
+<script>
+  // Keep the filter bar just under the header, whatever height the header is
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) new ResizeObserver(() => document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`)).observe(header);
+
+  const form = document.querySelector<HTMLFormElement>('[data-provider-filters]');
+  const items = [...document.querySelectorAll<HTMLElement>('[data-provider]')];
+  const countEl = document.querySelector<HTMLElement>('[data-provider-count]');
+  const empty = document.querySelector<HTMLElement>('[data-provider-empty]');
+
+  function apply() {
+    if (!form) return;
+    const data = new FormData(form);
+    const q = String(data.get('q') ?? '').trim().toLowerCase();
+    const role = String(data.get('role') ?? '');
+    const clinic = String(data.get('clinic') ?? '');
+    let shown = 0;
+    for (const el of items) {
+      const ok = (!q || q.split(/\s+/).every((w) => el.dataset.search!.includes(w)))
+        && (!role || el.dataset.role === role)
+        && (!clinic || el.dataset.clinic === clinic);
+      el.hidden = !ok;
+      if (ok) shown++;
+    }
+    if (countEl) countEl.textContent = shown === items.length ? `Showing all ${items.length} providers` : `Showing ${shown} of ${items.length} providers`;
+    if (empty) empty.hidden = shown > 0;
+  }
+
+  form?.addEventListener('input', apply);
+  form?.addEventListener('submit', (e) => e.preventDefault());
+  document.querySelector('[data-provider-reset]')?.addEventListener('click', () => { form?.reset(); apply(); });
+
+  // Open with a clinic already chosen: /providers/?clinic=mesquite
+  const preset = new URLSearchParams(location.search).get('clinic');
+  if (preset && form) {
+    const select = form.querySelector<HTMLSelectElement>('select[name=clinic]');
+    if (select && [...select.options].some((o) => o.value === preset)) { select.value = preset; apply(); }
+  }
+</script>
