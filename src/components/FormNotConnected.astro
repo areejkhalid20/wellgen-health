@@ -1,0 +1,21 @@
+---
+// Forms are built but not sent anywhere yet: the form service is set up at launch (see the stack doc).
+// Until then, submitting any form with data-pending-form shows this note instead of losing what was typed.
+---
+<script>
+  document.querySelectorAll<HTMLFormElement>('form[data-pending-form]').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      let note = form.querySelector<HTMLElement>('[data-form-note]');
+      if (!note) {
+        note = document.createElement('p');
+        note.dataset.formNote = '';
+        note.setAttribute('role', 'status');
+        note.className = 'mt-4 rounded-xl bg-mist px-4 py-3 text-[15px] text-navy';
+        form.append(note);
+      }
+      note.textContent = 'This form isn’t connected yet. It will be switched on when the new site launches. For now, please call or email us.';
+    });
+  });
+</script>

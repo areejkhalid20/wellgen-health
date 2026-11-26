@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Photo from '../components/Photo.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, locations, locationUrl, telHref, careNavigation } from '../data/site';
+import { pageFaqs } from '../lib/page-faqs';
+import { breadcrumbLd, faqLd } from '../lib/schema';
+
+const faqs = pageFaqs('/care-navigation/');
+const afterDischarge = ['Take your medicines exactly as told', 'Watch for any new or worsening symptoms', 'Go to all follow-up appointments', 'Stay active only as your doctor recommends', 'Get enough rest, drink water, and eat healthy foods'];
+const tcmVisit = ['Review of your hospitalization and discharge summary', 'Medication reconciliation to confirm accuracy and safety', 'Assessment of your current health and recovery progress', 'Clear explanation of your ongoing care plan and next steps', 'Coordination of referrals, diagnostic testing, or extra follow-up'];
+const weHelp = ['Schedule a TCM visit within 30 days of discharge', 'Book or change primary care appointments', 'Review discharge and medication instructions', 'Coordinate care across WellGen Health clinics', 'Help with nursing home or post-acute care coordination', 'Guide you through your post-hospital recovery'];
+// Partner facilities. Photos: src/assets/images/pages/care-navigation/facilities/<slug>.*
+const facilities = [
+  { slug: 'collinwood', name: 'Collinwood Nursing & Rehabilitation' },
+  { slug: 'golden-acres', name: 'Golden Acres Living and Rehabilitation' },
+  { slug: 'lakeside', name: 'Lakeside Health and Wellness' },
+  { slug: 'lakewest', name: 'Lakewest Assisted Living' },
+  { slug: 'simpson-place', name: 'Simpson Place Assisted Living & Skilled Nursing' },
+  { slug: 'villages-on-macarthur', name: 'Villages on MacArthur Skilled Care & Memory Care' },
+  { slug: 'landmark-of-plano', name: 'Landmark of Plano' },
+];
+const check = 'M16.7 5.3a1 1 0 0 1 0 1.4l-8 8a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.4L8 12.6l7.3-7.3a1 1 0 0 1 1.4 0Z';
+
+const serviceLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalBusiness',
+  name: 'WellGen Care Navigation Center',
+  telephone: '+12143984690',
+  url: 'https://wellgen-health.com/care-navigation/',
+  parentOrganization: { '@type': 'MedicalOrganization', name: 'WellGen Health', url: 'https://wellgen-health.com' },
+  areaServed: 'Dallas–Fort Worth and East Texas',
+};
+---
+<BaseLayout
+  title="Care Navigation & post-discharge support"
+  description="WellGen Care Navigation supports patients after a hospital stay. Call (214) 398-4690 to book a transitional care visit and coordinate your recovery."
+  jsonLd={[breadcrumbLd([{ label: 'Care Navigation', href: '/care-navigation/' }]), serviceLd, ...(faqs.length ? [faqLd(faqs)] : [])]}
+>
+  <!-- Hero: the phone line is the main thing -->
+  <section class="relative overflow-hidden bg-navy text-white">
+    <div class="absolute inset-y-0 right-0 hidden w-1/2 lg:block">
+      <Photo folder="pages/care-navigation" name="hero" alt="" widths={[700, 1100]} sizes="50vw" loading="eager" hint={false} class="h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-navy via-navy/30 to-transparent"></div>
+    </div>
+    <div class="relative mx-auto max-w-7xl px-6 pb-16 pt-10 lg:pb-24 lg:pt-14">
+      <div class="hero-rise [&_a]:text-white/70 [&_a:hover]:text-white [&_li]:text-white/60 [&_[aria-current]]:text-white">
+        <Breadcrumbs items={[{ label: 'Care Navigation' }]} />
+      </div>
+      <div class="max-w-xl">
+        <h1 class="hero-rise mt-6 text-5xl font-medium leading-[1.04] tracking-[-0.01em] lg:text-[4rem]">WellGen Care Navigation Center</h1>
+        <p class="hero-rise-2 mt-5 text-lg text-white/85">Healing doesn’t stop when you leave the hospital. We help you book your follow-up visit, understand your medicines and get the care you need at home.</p>
+        <a href={careNavigation.href} class="hero-rise-3 mt-8 inline-flex items-center gap-4 rounded-full bg-white py-3 pl-3 pr-8 text-navy shadow-xl transition hover:-translate-y-0.5">
+          <span class="grid size-12 place-items-center rounded-full bg-cta text-white">
+            <svg class="size-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
+          </span>
+          <span><span class="block text-sm text-muted">Call the support line</span><span class="font-display text-3xl">{careNavigation.label}</span></span>
+        </a>
+      </div>
+      <div class="hero-rise-3 mt-12">
+        <p class="text-sm text-white/60">Your nearest WellGen clinic</p>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {locations.map((l) => (
+            <li><a href={locationUrl(l)} class="inline-block rounded-full bg-white/10 px-4 py-2 text-[15px] ring-1 ring-white/20 transition hover:bg-white/20">{l.name}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- After you leave the hospital -->
+  <section class="mx-auto grid max-w-7xl items-center gap-12 px-6 pt-20 lg:grid-cols-2 lg:gap-20 lg:pt-28">
+    <div class="overflow-hidden rounded-[2rem] bg-mist">
+      <Photo folder="pages/care-navigation" name="post-discharge" alt="Patient receiving post-discharge guidance from a care coordinator at home" widths={[500, 900]} sizes="(min-width: 1024px) 45vw, 92vw" class="aspect-[4/3] w-full object-cover" />
+    </div>
+    <div>
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Care navigation & post-discharge support</h2>
+      <p class="mt-5 text-[17px] leading-relaxed text-ink">The time at home is an important part of your recovery. The WellGen Care Navigation Center is here to support you and help you feel safe and confident.</p>
+      <h3 class="mt-8 font-semibold text-navy">After you leave the hospital, follow your discharge instructions:</h3>
+      <ul class="mt-4 space-y-3">
+        {afterDischarge.map((x) => <li class="flex gap-3 text-[16px] text-ink"><svg class="mt-0.5 size-5 shrink-0 text-brand" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d={check} clip-rule="evenodd"/></svg>{x}</li>)}
+      </ul>
+      <p class="mt-6 text-[16px] text-muted">Small steps, like taking your medicine on time and calling with questions, help you recover better and stay well.</p>
+    </div>
+  </section>
+
+  <!-- TCM -->
+  <section class="mt-24 bg-mist py-20 lg:mt-32 lg:py-28">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-20">
+      <div class="lg:order-2 overflow-hidden rounded-[2rem] bg-white">
+        <Photo folder="pages/care-navigation" name="tcm" alt="Provider reviewing a patient’s hospital discharge details during a transitional care visit" widths={[500, 900]} sizes="(min-width: 1024px) 45vw, 92vw" class="aspect-[4/3] w-full object-cover" />
+      </div>
+      <div>
+        <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Transitional Care Management (TCM)</h2>
+        <h3 class="mt-6 font-semibold text-navy">What to expect during a TCM visit:</h3>
+        <ol class="mt-4 space-y-3">
+          {tcmVisit.map((x, i) => <li class="flex gap-4 text-[16px] text-ink"><span class="grid size-7 shrink-0 place-items-center rounded-full bg-white text-sm font-semibold text-brand-dark ring-1 ring-ice">{i + 1}</span>{x}</li>)}
+        </ol>
+        <p class="mt-6 text-[16px] text-muted">These visits promote continuity of care, prevent avoidable complications, and support your long-term health.</p>
+        <div class="mt-8 rounded-2xl bg-white p-6 ring-1 ring-ice">
+          <p class="font-display text-2xl text-navy">Book within 30 days of discharge</p>
+          <p class="mt-2 text-[15px] leading-relaxed text-muted">TCM visits can be scheduled at any WellGen Health clinic. Choosing one close to home makes follow-up easier. Our team can help you choose a clinic and book the visit.</p>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href={site.bookingUrl} class="rounded-full bg-cta px-6 py-3 font-semibold text-white hover:bg-cta-dark">Book online</a>
+            <a href={careNavigation.href} class="rounded-full px-6 py-3 font-semibold text-brand-dark ring-1 ring-ice hover:ring-brand">Call {careNavigation.label}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clinic directory -->
+  <section class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+    <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <div>
+        <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">WellGen Health clinic directory</h2>
+        <p class="mt-5 text-[17px] leading-relaxed text-ink">Choosing the right clinic for your follow-up or primary care visit is important after leaving the hospital. You can book at any of our clinics: each has experienced providers and caring staff ready to support your recovery.</p>
+        <p class="mt-4 text-[17px] leading-relaxed text-ink">Our doctors work closely with partner hospitals to make follow-up smooth, manage medications, and catch any concerns early.</p>
+        <div class="mt-8 overflow-hidden rounded-[2rem] bg-mist">
+          <Photo folder="pages/care-navigation" name="directory" alt="" widths={[500, 800]} sizes="(min-width: 1024px) 40vw, 92vw" class="aspect-[16/10] w-full object-cover" />
+        </div>
+      </div>
+      <ul class="grid gap-3 self-start sm:grid-cols-2">
+        {locations.map((l) => (
+          <li class="group relative rounded-2xl bg-white p-5 ring-1 ring-ice transition hover:ring-brand/60">
+            <h3 class="font-display text-xl text-navy"><a href={locationUrl(l)} class="after:absolute after:inset-0 group-hover:text-brand-dark">WellGen Health {l.name}</a></h3>
+            <p class="mt-1 text-[15px] text-muted">{l.street}<br />{l.city}</p>
+            <a href={telHref(l.phone)} class="relative z-10 mt-3 inline-block font-semibold text-brand-dark hover:text-navy">{l.phone}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Support line -->
+  <section class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+    <div class="grid overflow-hidden rounded-[2.5rem] bg-navy text-white lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="p-8 lg:p-14">
+        <h2 class="text-4xl font-medium leading-tight lg:text-5xl">Care Navigation Center: your support line</h2>
+        <h3 class="mt-8 font-semibold text-sky">We can help you:</h3>
+        <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+          {weHelp.map((x) => <li class="flex gap-3 text-[16px] text-white/90"><svg class="mt-0.5 size-5 shrink-0 text-sky" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d={check} clip-rule="evenodd"/></svg>{x}</li>)}
+        </ul>
+        <div class="mt-10 border-t border-white/15 pt-8">
+          <p class="font-display text-3xl">Call us anytime</p>
+          <p class="mt-2 max-w-[48ch] text-white/80">Our team is ready to help you take the next step toward a safer, healthier recovery.</p>
+          <a href={careNavigation.href} class="mt-6 inline-block rounded-full bg-cta px-7 py-3.5 font-semibold text-white hover:bg-cta-dark">Call now: {careNavigation.label}</a>
+        </div>
+      </div>
+      <div class="relative min-h-72">
+        <Photo folder="pages/care-navigation" name="help" alt="Care navigator helping a patient by phone with scheduling and discharge questions" widths={[500, 900]} sizes="(min-width: 1024px) 40vw, 100vw" class="absolute inset-0 h-full w-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Facilities -->
+  <section class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+    <div class="max-w-2xl">
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Continuity of care</h2>
+      <p class="mt-4 text-lg text-muted">Our physicians and clinical teams round regularly at our partner facilities, so follow-up is timely, medicines are managed, and concerns are caught early.</p>
+    </div>
+    <h3 class="mt-12 font-semibold text-navy">Facilities we serve</h3>
+    <ul class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {facilities.map((f) => (
+        <li class="overflow-hidden rounded-[1.5rem] bg-white ring-1 ring-ice">
+          <div class="aspect-[4/3] bg-mist">
+            <Photo folder="pages/care-navigation/facilities" name={f.slug} alt={f.name} widths={[320, 520]} sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 92vw" class="h-full w-full object-cover" />
+          </div>
+          <p class="p-5 font-medium leading-snug text-navy">{f.name}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {faqs.length > 0 && (
+    <div class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32"><Faq faqs={faqs} title="Questions about care navigation" /></div>
+  )}
+
+  <CtaBand title="Just left the hospital?" text="Book your transitional care visit within 30 days of discharge, at the WellGen clinic closest to home." secondary={{ label: `Call ${careNavigation.label}`, href: careNavigation.href }} />
+</BaseLayout>

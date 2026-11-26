@@ -73,3 +73,13 @@
 .hero-rise-2 { animation: rise 0.7s 0.12s cubic-bezier(.2,.7,.2,1) both; }
 .hero-rise-3 { animation: rise 0.7s 0.24s cubic-bezier(.2,.7,.2,1) both; }
 .hero-photo { animation: photo-in 0.9s 0.1s cubic-bezier(.2,.7,.2,1) both; }
+
+/* Form fields used on the contact, careers, partner and newsletter pages */
+@layer components {
+  .wg-label { @apply mb-1.5 block text-[15px] font-medium text-navy; }
+  .wg-input {
+    @apply block w-full rounded-xl border border-ice bg-white px-4 py-3 text-[16px] text-ink transition placeholder:text-muted/70;
+    @apply focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/25;
+  }
+  .wg-input:user-invalid { @apply border-cta ring-2 ring-cta/15; }
+}

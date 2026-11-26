@@ -1,0 +1,65 @@
+---
+// Photo grid with a full-screen viewer. Shows every photo in src/assets/images/<folder>/,
+// in name order. `show` photos are visible; the last tile opens the rest ("+12").
+import { Image } from 'astro:assets';
+import { listImages } from '../lib/images';
+
+interface Props { folder: string; label: string; show?: number }
+const { folder, label, show = 5 } = Astro.props;
+const photos = listImages(folder);
+const visible = photos.slice(0, show);
+const more = photos.length - visible.length;
+const id = `g-${folder.replace(/[^a-z0-9]+/gi, '-')}`;
+---
+{photos.length > 0 && (
+  <div data-gallery id={id}>
+    <ul class:list={['grid gap-2 sm:gap-3', visible.length >= 5 ? 'grid-cols-2 sm:grid-cols-4 sm:grid-rows-2' : 'grid-cols-2 sm:grid-cols-3']}>
+      {visible.map((p, i) => (
+        <li class:list={[visible.length >= 5 && i === 0 && 'col-span-2 row-span-2']}>
+          <button type="button" data-open={i} class="group relative block h-full w-full overflow-hidden rounded-2xl bg-mist focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand/40" aria-label={`Open photo ${i + 1} of ${photos.length}: ${label}`}>
+            <Image src={p.image} alt="" widths={i === 0 ? [480, 800, 1100] : [300, 480]} sizes={i === 0 ? '(min-width: 640px) 50vw, 100vw' : '(min-width: 640px) 25vw, 50vw'} class="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+            {i === visible.length - 1 && more > 0 && (
+              <span class="absolute inset-0 grid place-items-center bg-navy/60 font-display text-3xl text-white">+{more}</span>
+            )}
+          </button>
+        </li>
+      ))}
+    </ul>
+
+    <dialog class="m-auto max-h-none max-w-none bg-transparent p-0 backdrop:bg-navy/90" aria-label={`${label}: photos`}>
+      <div class="relative flex h-[100dvh] w-[100vw] items-center justify-center p-4 sm:p-10">
+        {photos.map((p, i) => (
+          <figure data-slide={i} hidden class="flex max-h-full flex-col items-center">
+            <Image src={p.image} alt={`${label}, photo ${i + 1}`} widths={[800, 1400]} sizes="90vw" loading="lazy" class="max-h-[80dvh] w-auto rounded-xl object-contain" />
+            <figcaption class="mt-3 text-sm text-white/80">{i + 1} / {photos.length}</figcaption>
+          </figure>
+        ))}
+        <button type="button" data-prev class="absolute left-3 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-white/15 text-white hover:bg-white/25" aria-label="Previous photo">‹</button>
+        <button type="button" data-next class="absolute right-3 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full bg-white/15 text-white hover:bg-white/25" aria-label="Next photo">›</button>
+        <button type="button" data-close class="absolute right-4 top-4 grid size-11 place-items-center rounded-full bg-white/15 text-xl text-white hover:bg-white/25" aria-label="Close">×</button>
+      </div>
+    </dialog>
+  </div>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((g) => {
+    const dialog = g.querySelector('dialog')!;
+    const slides = [...g.querySelectorAll<HTMLElement>('[data-slide]')];
+    let at = 0;
+    const go = (i: number) => { at = (i + slides.length) % slides.length; slides.forEach((s, j) => (s.hidden = j !== at)); };
+    g.querySelectorAll<HTMLButtonElement>('[data-open]').forEach((b) =>
+      b.addEventListener('click', () => {
+        // the "+N" tile opens on the first hidden photo
+        const i = Number(b.dataset.open);
+        go(b.querySelector('span') ? i + 1 : i);
+        dialog.showModal();
+      }),
+    );
+    g.querySelector('[data-prev]')?.addEventListener('click', () => go(at - 1));
+    g.querySelector('[data-next]')?.addEventListener('click', () => go(at + 1));
+    g.querySelector('[data-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => { if (e.target === dialog || (e.target as HTMLElement).matches('div.relative')) dialog.close(); });
+    dialog.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') go(at + 1); if (e.key === 'ArrowLeft') go(at - 1); });
+  });
+</script>

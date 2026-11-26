@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import FormNotConnected from '../../components/FormNotConnected.astro';
+import { site, locations, locationUrl, telHref, careNavigation } from '../../data/site';
+import { pageFaqs } from '../../lib/page-faqs';
+import Faq from '../../components/Faq.astro';
+import { breadcrumbLd, faqLd } from '../../lib/schema';
+
+const faqs = pageFaqs('/company/contact/');
+---
+<BaseLayout
+  title="Contact us"
+  description="Contact WellGen Health: main office at 8220 Walnut Hill Ln, Dallas. Phone, fax and email for every clinic, or send us a message online."
+  jsonLd={[breadcrumbLd([{ label: 'About', href: '/company/about-us/' }, { label: 'Contact', href: '/company/contact/' }]), ...(faqs.length ? [faqLd(faqs)] : [])]}
+>
+  <PageHero
+    title="We are here for you"
+    lead="Questions about our services, need an appointment, or want to learn how we can support your health? We’re here to help."
+    crumbs={[{ label: 'About', href: '/company/about-us/' }, { label: 'Contact' }]}
+    image={{ folder: 'pages/contact', name: 'hero', alt: 'WellGen Health front desk team' }}
+  />
+
+  <!-- Directory -->
+  <section class="mx-auto max-w-7xl px-6 pt-20 lg:pt-28">
+    <div class="grid gap-6 lg:grid-cols-3">
+      <div class="rounded-[1.75rem] bg-navy p-8 text-white">
+        <h2 class="font-display text-2xl">Our main office</h2>
+        <p class="mt-3 text-white/85">{site.address}</p>
+        <p class="mt-6 text-sm text-white/60">Toll free</p>
+        <a href={site.phone.href} class="font-display text-3xl hover:text-sky">{site.phone.label}</a>
+        <p class="mt-6 text-sm text-white/60">Email</p>
+        <a href={`mailto:${site.email}`} class="text-lg hover:text-sky">{site.email}</a>
+        <p class="mt-6 text-sm text-white/60">Care Navigation Center (after a hospital stay)</p>
+        <a href={careNavigation.href} class="text-lg hover:text-sky">{careNavigation.label}</a>
+      </div>
+
+      <div class="overflow-hidden rounded-[1.75rem] ring-1 ring-ice lg:col-span-2">
+        <table class="w-full text-left text-[15px]">
+          <caption class="bg-mist px-6 py-4 text-left font-display text-2xl text-navy">Clinic phone and fax</caption>
+          <thead class="text-sm text-muted">
+            <tr class="border-b border-ice"><th scope="col" class="px-6 py-3 font-medium">Clinic</th><th scope="col" class="px-6 py-3 font-medium">Phone</th><th scope="col" class="px-6 py-3 font-medium">Fax</th></tr>
+          </thead>
+          <tbody class="divide-y divide-ice">
+            {locations.map((l) => (
+              <tr>
+                <th scope="row" class="px-6 py-3.5 font-medium text-navy"><a href={locationUrl(l)} class="hover:text-brand-dark">{l.name}</a><span class="block text-sm font-normal text-muted">{l.city.replace(/ \d+$/, '')}</span></th>
+                <td class="px-6 py-3.5"><a href={telHref(l.phone)} class="font-medium text-brand-dark hover:text-navy">{l.phone}</a></td>
+                <td class="px-6 py-3.5 text-ink">{l.fax}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section class="mx-auto grid max-w-7xl gap-12 px-6 pt-20 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:pt-28">
+    <div>
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Get in touch</h2>
+      <div class="mt-6 space-y-4 text-[17px] leading-relaxed text-ink">
+        <p>We value your questions, feedback, and inquiries. Whether you want more information about our services, need assistance, or simply want to connect, our team will respond promptly.</p>
+        <p>Your well-being is our top priority. Let us know how we can help.</p>
+      </div>
+      <p class="mt-8 rounded-2xl bg-mist p-5 text-[15px] text-navy">Please don’t include medical details in this form. For a medical emergency, call 911.</p>
+    </div>
+
+    <form class="rounded-[2rem] bg-white p-8 ring-1 ring-ice lg:p-10" data-pending-form>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div><label for="ct-name" class="wg-label">Name</label><input id="ct-name" name="name" class="wg-input" autocomplete="name" required /></div>
+        <div><label for="ct-phone" class="wg-label">Contact number</label><input id="ct-phone" name="phone" type="tel" class="wg-input" autocomplete="tel" /></div>
+        <div class="sm:col-span-2"><label for="ct-email" class="wg-label">Email</label><input id="ct-email" name="email" type="email" class="wg-input" autocomplete="email" required /></div>
+        <div class="sm:col-span-2"><label for="ct-msg" class="wg-label">Message</label><textarea id="ct-msg" name="message" rows="5" class="wg-input" required></textarea></div>
+        <div class="sm:col-span-2 flex gap-3 rounded-xl bg-surface p-4">
+          <input id="ct-sms" name="sms_opt_in" type="checkbox" class="mt-1 size-5 shrink-0 accent-brand-dark" />
+          <label for="ct-sms" class="text-sm leading-relaxed text-muted"><span class="font-medium text-navy">SMS opt-in.</span> By checking this box, I agree to receive SMS from WellGen Health. The SMS frequency may vary. Data rates may apply. Text HELP to {site.smsPhone.label} for assistance. Reply STOP to opt out of receiving SMS messages. For more information, see our <a href="/legal/privacy-policy/" class="underline">Privacy Policy</a> and <a href="/legal/sms-terms-conditions/" class="underline">SMS Terms</a>.</label>
+        </div>
+      </div>
+      <button type="submit" class="mt-8 rounded-full bg-cta px-8 py-3.5 font-semibold text-white transition hover:bg-cta-dark">Send message</button>
+    </form>
+  </section>
+
+  {faqs.length > 0 && (
+    <div class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32"><Faq faqs={faqs} /></div>
+  )}
+  <div class="pb-20"></div>
+  <FormNotConnected />
+</BaseLayout>

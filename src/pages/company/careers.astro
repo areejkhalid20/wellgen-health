@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Photo from '../../components/Photo.astro';
+import Faq from '../../components/Faq.astro';
+import FormNotConnected from '../../components/FormNotConnected.astro';
+import { Image } from 'astro:assets';
+import { listImages } from '../../lib/images';
+import { pageFaqs } from '../../lib/page-faqs';
+import { site } from '../../data/site';
+import { breadcrumbLd, faqLd } from '../../lib/schema';
+
+const faqs = pageFaqs('/company/careers/');
+const teamPhotos = listImages('pages/careers/team');
+
+// Current openings. Add, edit or remove jobs here.
+const jobs = [
+  { slug: 'nurse-practitioner', title: 'Nurse Practitioner', location: 'Dallas, TX', type: 'Full time', text: 'Provide primary care services, including diagnosis, treatment, and management of patient health conditions. You will collaborate with our team of medical professionals to deliver holistic care, focusing on preventive measures and patient education. We seek a compassionate, detail-oriented NP who is ready to make a difference in our community.' },
+  { slug: 'medical-assistant', title: 'Medical Assistant', location: 'Dallas, TX', type: 'Full time', text: 'PIMG Multispecialty Group is seeking a skilled Medical Assistant to support our healthcare team. Your responsibilities include assisting with clinical tasks, patient preparation, and administrative duties to ensure a smooth workflow and patient satisfaction. We value team players with a patient-centered attitude who adapt well in a fast-paced environment.' },
+  { slug: 'doctors', title: 'Doctors, multiple specialties', location: 'Dallas, TX', type: 'Full time', text: 'We are looking for experienced doctors across various specialties to join our team. You will deliver specialty-specific care, contribute to our interdisciplinary approach, and help shape the future of healthcare delivery. Ideal candidates are leaders in their field, committed to patient care, and driven by the pursuit of medical excellence.' },
+];
+
+const SITE = 'https://wellgen-health.com';
+const jobsLd = jobs.map((j) => ({
+  '@context': 'https://schema.org',
+  '@type': 'JobPosting',
+  title: j.title,
+  description: j.text,
+  employmentType: 'FULL_TIME',
+  hiringOrganization: { '@type': 'MedicalOrganization', name: 'WellGen Health', sameAs: SITE },
+  jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', streetAddress: '8220 Walnut Hill Ln, Ste 600', addressLocality: 'Dallas', addressRegion: 'TX', postalCode: '75231', addressCountry: 'US' } },
+  url: `${SITE}/company/careers/#${j.slug}`,
+}));
+---
+<BaseLayout
+  title="Careers"
+  description="Join the WellGen Health team. See current openings for nurse practitioners, medical assistants and doctors in Dallas, TX, and apply online."
+  jsonLd={[breadcrumbLd([{ label: 'About', href: '/company/about-us/' }, { label: 'Careers', href: '/company/careers/' }]), ...jobsLd, ...(faqs.length ? [faqLd(faqs)] : [])]}
+>
+  <PageHero
+    title="Careers at WellGen Health"
+    lead="Join a team that values innovation, health, and wellness."
+    crumbs={[{ label: 'About', href: '/company/about-us/' }, { label: 'Careers' }]}
+    image={{ folder: 'pages/careers', name: 'hero', alt: 'WellGen Health team at work' }}
+    bookHref="#apply"
+    bookLabel="Apply now"
+    call={{ label: '', href: '#openings' }}
+    callText="See open roles"
+  />
+
+  <section class="mx-auto max-w-7xl px-6 pt-20 lg:pt-28">
+    <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">More than a healthcare provider</h2>
+      <div class="space-y-5 text-[17px] leading-relaxed text-ink">
+        <p class="font-display text-2xl leading-snug text-navy">We are a team united by a mission to improve health and well-being through innovative solutions, combining modern healthcare technology with personalized, compassionate care.</p>
+        <p>We believe the future of healthcare lies with professionals who are passionate about making a real difference. Every member of the team plays an essential role in transforming the way we approach health and wellness, whether through advanced treatments, research, or patient care.</p>
+        <p>As we grow, we are looking for people who share that passion. Join a workplace that encourages creativity, values diversity, and offers real opportunities for professional growth, where your skills and ideas are valued and supported.</p>
+      </div>
+    </div>
+    {teamPhotos.length > 0 && (
+      <ul class="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-5">
+        {teamPhotos.map((p, i) => (
+          <li class:list={['overflow-hidden rounded-2xl bg-mist', i === 0 && 'col-span-2 sm:col-span-1']}>
+            <Image src={p.image} alt="" widths={[300, 500]} sizes="(min-width: 640px) 20vw, 50vw" class="aspect-[4/5] h-full w-full object-cover" />
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+
+  <!-- Openings -->
+  <section id="openings" class="mx-auto max-w-7xl scroll-mt-28 px-6 pt-24 lg:pt-32">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Current openings</h2>
+      <p class="text-muted">{jobs.length} open roles</p>
+    </div>
+    <ul class="mt-10 divide-y divide-ice border-y border-ice">
+      {jobs.map((j) => (
+        <li id={j.slug} class="grid scroll-mt-28 gap-4 py-8 lg:grid-cols-[18rem_minmax(0,1fr)_auto] lg:items-start lg:gap-10">
+          <div>
+            <h3 class="font-display text-3xl text-navy">{j.title}</h3>
+            <p class="mt-2 flex flex-wrap gap-2 text-sm">
+              <span class="rounded-full bg-mist px-3 py-1 text-navy">{j.location}</span>
+              <span class="rounded-full bg-mist px-3 py-1 text-navy">{j.type}</span>
+            </p>
+          </div>
+          <p class="max-w-[62ch] text-[16px] leading-relaxed text-ink">{j.text}</p>
+          <a href={`#apply`} data-apply={j.title} class="justify-self-start rounded-full bg-cta px-6 py-3 font-semibold text-white transition hover:bg-cta-dark">Apply now</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Why + apply -->
+  <section class="mx-auto mt-24 max-w-7xl px-6 lg:mt-32">
+    <div class="grid overflow-hidden rounded-[2.5rem] bg-navy text-white lg:grid-cols-2">
+      <div class="relative min-h-72">
+        <Photo folder="pages/careers" name="why" alt="" widths={[600, 1000]} sizes="(min-width: 1024px) 50vw, 100vw" class="absolute inset-0 h-full w-full object-cover" hint={false} />
+        <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent"></div>
+        <div class="relative flex h-full flex-col justify-end p-8 lg:p-12">
+          <h2 class="text-4xl font-medium leading-tight lg:text-5xl">Why work with us?</h2>
+          <p class="mt-4 max-w-[46ch] text-lg text-white/85">If you want a career where you can grow professionally, help shape the future of healthcare, and work in a supportive, innovative environment, WellGen Health is the place for you.</p>
+        </div>
+      </div>
+
+      <form id="apply" class="scroll-mt-28 bg-white p-8 text-ink lg:p-12" data-pending-form enctype="multipart/form-data">
+        <h3 class="font-display text-3xl text-navy">Apply now</h3>
+        <p class="mt-2 text-muted">Send us your details and résumé. We’ll be in touch if there’s a match.</p>
+        <div class="mt-8 grid gap-5 sm:grid-cols-2">
+          <div class="sm:col-span-2">
+            <label for="ap-role" class="wg-label">Position</label>
+            <select id="ap-role" name="position" class="wg-input" required>
+              <option value="">Choose a position</option>
+              {jobs.map((j) => <option>{j.title}</option>)}
+              <option>Other / general application</option>
+            </select>
+          </div>
+          <div>
+            <label for="ap-name" class="wg-label">Full name</label>
+            <input id="ap-name" name="name" class="wg-input" autocomplete="name" required />
+          </div>
+          <div>
+            <label for="ap-phone" class="wg-label">Phone</label>
+            <input id="ap-phone" name="phone" type="tel" class="wg-input" autocomplete="tel" required />
+          </div>
+          <div class="sm:col-span-2">
+            <label for="ap-email" class="wg-label">Email</label>
+            <input id="ap-email" name="email" type="email" class="wg-input" autocomplete="email" required />
+          </div>
+          <div class="sm:col-span-2">
+            <label for="ap-cv" class="wg-label">Résumé <span class="font-normal text-muted">(PDF or Word, up to 5 MB)</span></label>
+            <input id="ap-cv" name="resume" type="file" accept=".pdf,.doc,.docx" class="wg-input file:mr-4 file:rounded-full file:border-0 file:bg-mist file:px-4 file:py-2 file:font-semibold file:text-navy" required />
+          </div>
+        </div>
+        <button type="submit" class="mt-8 rounded-full bg-cta px-8 py-3.5 font-semibold text-white transition hover:bg-cta-dark">Submit application</button>
+        <p class="mt-4 text-sm text-muted">Questions about a role? Email <a href={`mailto:${site.email}`} class="text-brand-dark underline">{site.email}</a>.</p>
+      </form>
+    </div>
+  </section>
+
+  {faqs.length > 0 && (
+    <div class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+      <Faq faqs={faqs} title="Questions about working here" />
+    </div>
+  )}
+  <div class="pb-16"></div>
+  <FormNotConnected />
+</BaseLayout>
+
+<script>
+  // "Apply now" on a job picks that job in the form
+  document.querySelectorAll<HTMLAnchorElement>('[data-apply]').forEach((a) =>
+    a.addEventListener('click', () => {
+      const select = document.querySelector<HTMLSelectElement>('#ap-role');
+      if (select) select.value = a.dataset.apply!;
+      setTimeout(() => document.querySelector<HTMLInputElement>('#ap-name')?.focus({ preventScroll: true }), 400);
+    }),
+  );
+</script>

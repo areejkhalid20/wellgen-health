@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Photo from '../../components/Photo.astro';
+import FormNotConnected from '../../components/FormNotConnected.astro';
+import { breadcrumbLd } from '../../lib/schema';
+---
+<BaseLayout
+  title="Newsletter"
+  description="Subscribe to the WellGen Health newsletter for monthly offers, discounts, health tips and news about our clinics and partners."
+  jsonLd={[breadcrumbLd([{ label: 'About', href: '/company/about-us/' }, { label: 'Newsletter', href: '/company/newsletter/' }])]}
+>
+  <section class="relative overflow-hidden bg-navy text-white">
+    <div class="absolute inset-0 opacity-30">
+      <Photo folder="pages/newsletter" name="hero" alt="" widths={[800, 1400]} sizes="100vw" loading="eager" hint={false} class="h-full w-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-navy/40"></div>
+    <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-6 pb-20 pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:pb-28 lg:pt-14">
+      <div>
+        <div class="hero-rise [&_a]:text-white/70 [&_a:hover]:text-white [&_li]:text-white/60 [&_[aria-current]]:text-white">
+          <Breadcrumbs items={[{ label: 'About', href: '/company/about-us/' }, { label: 'Newsletter' }]} />
+        </div>
+        <h1 class="hero-rise mt-6 text-5xl font-medium leading-[1.04] tracking-[-0.01em] lg:text-[4rem]">Stay updated with WellGen Health</h1>
+        <p class="hero-rise-2 mt-5 max-w-[48ch] text-lg text-white/85">Subscribe to our newsletter and never miss out on offers, discounts, and updates.</p>
+      </div>
+
+      <form class="hero-rise-3 rounded-[2rem] bg-white p-8 text-ink shadow-2xl lg:p-10" data-pending-form>
+        <h2 class="font-display text-3xl text-navy">Get the monthly newsletter</h2>
+        <p class="mt-2 text-muted">Offers, discounts and news about our services, once a month.</p>
+        <div class="mt-6 grid gap-4">
+          <div><label for="nl-name" class="wg-label">First name</label><input id="nl-name" name="first_name" class="wg-input" autocomplete="given-name" /></div>
+          <div><label for="nl-email" class="wg-label">Email</label><input id="nl-email" name="email" type="email" class="wg-input" autocomplete="email" required /></div>
+        </div>
+        <button type="submit" class="mt-6 w-full rounded-full bg-cta px-8 py-3.5 font-semibold text-white transition hover:bg-cta-dark">Subscribe</button>
+        <p class="mt-3 text-sm text-muted">You can unsubscribe at any time. See our <a href="/legal/privacy-policy/" class="underline">privacy policy</a>.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:gap-20 lg:py-28">
+    <div class="overflow-hidden rounded-[2rem] bg-mist">
+      <Photo folder="pages/newsletter" name="photo" alt="" widths={[500, 900]} sizes="(min-width: 1024px) 45vw, 92vw" class="aspect-[4/3] w-full object-cover" />
+    </div>
+    <div>
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Connect with WellGen Health</h2>
+      <div class="mt-6 space-y-4 text-[17px] leading-relaxed text-ink">
+        <p>Building a strong connection with our patients and community matters to us. That’s why we’ve launched our newsletter.</p>
+        <p>Enjoy carefully curated monthly newsletters featuring exclusive offers, updates, and much more about WellGen Health and our partners.</p>
+      </div>
+    </div>
+  </section>
+  <FormNotConnected />
+</BaseLayout>

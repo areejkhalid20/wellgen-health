@@ -5,20 +5,8 @@ import Photo from '../../components/Photo.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { site, locations, locationUrl, telHref, directionsUrl } from '../../data/site';
 import { breadcrumbLd, clinicLd } from '../../lib/schema';
-import map from '../../data/clinic-map.json';
+import ClinicMap from '../../components/ClinicMap.astro';
 
-// Map of the clinics on real county outlines (made by scripts/make-clinic-map.mjs)
-const W = map.width, H = map.height;
-const labelAt: Record<string, 'left' | 'right' | 'below'> = { 'thr-dallas': 'left', 'care-express': 'below', mesquite: 'right', arlington: 'below', greenville: 'right', canton: 'left' };
-const pins = locations.map((l) => {
-  const [x, y] = (map.pins as Record<string, number[]>)[l.slug];
-  const side = labelAt[l.slug] ?? 'right';
-  const label = side === 'left' ? { x: x - 16, y: y - 12, anchor: 'end' } : side === 'right' ? { x: x + 16, y: y - 12, anchor: 'start' } : { x, y: y + 22, anchor: 'middle' };
-  return { l, x, y, label };
-});
-// County names, except where they'd sit under a pin or its label
-const countyLabels = map.counties.filter((c) => c.cx > 40 && c.cx < W - 40 && c.cy > 30 && c.cy < H - 30
-  && pins.every((p) => Math.hypot(p.x - c.cx, p.y - c.cy) > 60 && Math.hypot(p.label.x - c.cx, p.label.y - c.cy) > 60));
 const dfw = locations.filter((l) => l.region === 'Dallas–Fort Worth').length;
 const east = locations.length - dfw;
 ---
@@ -50,30 +38,7 @@ const east = locations.length - dfw;
       </div>
 
       <div class="hero-rise-2 relative hidden overflow-hidden rounded-[2rem] ring-1 ring-white/15 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] sm:block">
-        <svg viewBox={`0 0 ${W} ${H}`} class="h-auto w-full" role="img" aria-labelledby="map-title">
-          <title id="map-title">Map of WellGen Health clinics in Texas</title>
-          <defs>
-            <clipPath id="map-clip"><rect width={W} height={H} rx="26" /></clipPath>
-            <radialGradient id="pin-glow"><stop offset="0" stop-color="#4ab3f4" stop-opacity="0.45" /><stop offset="1" stop-color="#4ab3f4" stop-opacity="0" /></radialGradient>
-          </defs>
-          <g clip-path="url(#map-clip)" pointer-events="none">
-            <rect width={W} height={H} fill="#0c2142" />
-            {map.counties.map((c) => (
-              <path d={c.d} fill={c.hasClinic ? '#173a66' : '#102a50'} stroke="#2c5285" stroke-width="1" stroke-linejoin="round" />
-            ))}
-            {countyLabels.map((c) => (
-              <text x={c.cx} y={c.cy} text-anchor="middle" fill="white" fill-opacity={c.hasClinic ? 0.34 : 0.2} font-size="11" letter-spacing="1.5">{c.name.toUpperCase()} CO.</text>
-            ))}
-          </g>
-          {pins.map(({ l, x, y, label }) => (
-            <a href={locationUrl(l)} class="map-pin" data-pin={l.slug} aria-label={`WellGen Health ${l.name}, ${l.city}`}>
-              <circle cx={x} cy={y} r="30" fill="url(#pin-glow)" class="pin-halo" />
-              <path d={`M${x} ${y} c-2.2 -6 -10 -11 -10 -19 a10 10 0 1 1 20 0 c0 8 -7.8 13 -10 19z`} fill="#4ab3f4" stroke="#081832" stroke-width="2" />
-              <circle cx={x} cy={y - 19} r="3.6" fill="#081832" />
-              <text x={label.x} y={label.y} text-anchor={label.anchor} fill="white" font-size="16" font-weight="600" paint-order="stroke" stroke="#0c2142" stroke-width="4" stroke-linejoin="round">{l.name}</text>
-            </a>
-          ))}
-        </svg>
+        <ClinicMap />
       </div>
     </div>
   </section>
@@ -113,11 +78,6 @@ const east = locations.length - dfw;
 </BaseLayout>
 
 <style>
-  .map-pin { cursor: pointer; }
-  .map-pin .pin-halo { opacity: 0; transition: opacity 0.2s; }
-  .map-pin:hover .pin-halo, .map-pin:focus-visible .pin-halo, .map-pin.is-active .pin-halo { opacity: 1; }
-  .map-pin:focus-visible { outline: none; }
-  .map-pin:focus-visible text, .map-pin.is-active text { text-decoration: underline; text-underline-offset: 4px; }
   .clinic-card.is-active { box-shadow: 0 0 0 2px var(--color-brand); }
 </style>
 

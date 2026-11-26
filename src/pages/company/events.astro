@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Gallery from '../../components/Gallery.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { events, eventDate } from '../../data/events';
+import { breadcrumbLd } from '../../lib/schema';
+
+const SITE = 'https://wellgen-health.com';
+const eventsLd = events.map((e) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: e.title,
+  startDate: e.date,
+  eventStatus: 'https://schema.org/EventScheduled',
+  description: e.body[0],
+  url: `${SITE}/company/events/#${e.slug}`,
+  organizer: { '@type': 'MedicalOrganization', name: 'WellGen Health', url: SITE },
+}));
+---
+<BaseLayout
+  title="Events"
+  description="Join WellGen Health events: clinic openings, community galas, luncheons and team celebrations across Dallas–Fort Worth and East Texas."
+  jsonLd={[breadcrumbLd([{ label: 'About', href: '/company/about-us/' }, { label: 'Events', href: '/company/events/' }]), ...eventsLd]}
+>
+  <section class="bg-mist">
+    <div class="mx-auto max-w-7xl px-6 pb-14 pt-8 lg:pb-20 lg:pt-12">
+      <div class="hero-rise"><Breadcrumbs items={[{ label: 'About', href: '/company/about-us/' }, { label: 'Events' }]} /></div>
+      <h1 class="hero-rise mt-6 text-5xl font-medium leading-[1.04] tracking-[-0.01em] text-navy lg:text-[4.25rem]">Events</h1>
+      <blockquote class="hero-rise-2 mt-6 max-w-[36ch] border-l-4 border-brand pl-5 font-display text-2xl italic leading-snug text-navy/85 lg:text-3xl">
+        The strongest networks are those where each person supports the other.
+      </blockquote>
+      <nav aria-label="Events on this page" class="hero-rise-3 mt-10">
+        <ul class="flex flex-wrap gap-2">
+          {events.map((e) => (
+            <li><a href={`#${e.slug}`} class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[15px] text-navy ring-1 ring-ice transition hover:ring-brand"><time datetime={e.date} class="text-muted">{new Date(`${e.date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</time>{e.title.replace(/^WellGen Health /, '')}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <ol class="mx-auto max-w-7xl px-6 py-16 lg:py-24">
+    {events.map((e, i) => (
+      <li id={e.slug} class:list={['grid scroll-mt-28 gap-8 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-14', i > 0 && 'mt-20 border-t border-ice pt-20 lg:mt-28 lg:pt-28']}>
+        <div class="lg:sticky lg:top-28 lg:self-start">
+          <time datetime={e.date} class="font-display text-2xl text-brand-dark">{eventDate(e.date)}</time>
+          {e.host && <p class="mt-2 text-[15px] text-muted">{e.host}</p>}
+        </div>
+        <article>
+          <h2 class="max-w-[24ch] text-4xl font-medium leading-tight text-navy lg:text-[2.75rem]">{e.title}</h2>
+          <div class="mt-6 max-w-[68ch] space-y-4 text-[17px] leading-relaxed text-ink">
+            {e.body.map((p) => <p>{p}</p>)}
+          </div>
+          <div class="mt-10">
+            <Gallery folder={`events/${e.slug}`} label={e.title} />
+          </div>
+        </article>
+      </li>
+    ))}
+  </ol>
+
+  <CtaBand title="Want WellGen Health at your event?" text="We take part in health fairs, community events and partner celebrations across Texas. Get in touch and tell us about yours." primary={{ label: 'Contact us', href: '/company/contact/' }} secondary={{ label: 'Partner with us', href: '/company/partner-with-us/' }} />
+</BaseLayout>

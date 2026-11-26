@@ -1,0 +1,422 @@
+{
+  "/": [
+    {
+      "q": "What is WellGen Health?",
+      "a": "WellGen Health is a comprehensive healthcare provider focused on personalized, high-quality medical care designed to meet each patient's unique needs and promote overall well-being. With over 35 years of experience serving the community, the practice combines traditional primary care with innovative treatments in areas such as weight loss, hormone therapy, allergy management, joint injections, and regenerative medicine including PRP treatments. They emphasize compassionate, patient-centric care, early diagnosis, prevention, and seamless coordination with specialists while partnering with a wide range of insurance programs, including Medicaid, to expand access."
+    },
+    {
+      "q": "Who founded WellGen Health and who leads it today?",
+      "a": "WellGen Health was founded by Dr. JamaL Qamar Lone, M.D., who serves as Founder & President. He is a board-certified Internal Medicine physician who graduated from Copenhagen Medical University, completed his internship and residency at Presbyterian Hospital Dallas in 2006, and practiced there for nearly two decades. The CEO and Co-Founder is Max Alshomali, MPA-EHCA, a visionary leader dedicated to transforming healthcare through innovation, technology integration, patient-centric solutions, and strategic partnerships that improve accessibility and outcomes."
+    },
+    {
+      "q": "Where are WellGen Health's clinic locations?",
+      "a": "WellGen Health operates multiple convenient locations across the Dallas-Fort Worth area in Texas. The main clinic is at 8220 WALNUT HILL LN, STE 600, Dallas, TX 75231-4433. Other locations include 6909 Lake June Rd, Dallas, TX 75217; 3900 Joe Ramsey Blvd E, Bldg 7, Greenville, TX 75401; 1010 N Bryan-Belt Line Rd, Mesquite, TX 75149; 400 East State Highway 243, STE 21, Canton, TX 75103; and 701 Highlander Blvd, Suite 260, Arlington, TX 76015. Each location has dedicated phone numbers for easy access."
+    },
+    {
+      "q": "What are the main phone numbers and contact details for WellGen Health?",
+      "a": "The toll-free number is 844-886-7362. Main Dallas (THR) line is 214-238-3074 with fax 214-238-3608. Other location phones include Lake June 214-391-1900, Greenville 903-259-6074, Mesquite 469-445-0802, Canton 903-213-2957, and Arlington 682-284-0961. Email is Info@wellgen-health.com. Patients can also use the website's \"Schedule a Call Back\" form or book appointments online."
+    },
+    {
+      "q": "Does WellGen Health accept insurance or Medicaid?",
+      "a": "Yes, WellGen Health partners with a wide variety of insurance programs and has expanded to include several Medicaid options. This ensures broader patient access, clear coverage, and seamless coordination of care with specialists and their integrated wellness network."
+    },
+    {
+      "q": "What types of providers work?",
+      "a": "WellGen Health has a large team of experienced, board-certified providers including physicians (MDs), nurse practitioners (NPs), and physician assistants (PAs) across multiple locations. Key team members include Dr. JamaL Qamar Lone, M.D. (Internal Medicine, Founder & President), Lauren Finney, NP (Family Medicine with focus on preventive care, women's health, pediatrics, and chronic conditions), Lilian Mabiru, NP (Family Medicine and women's health in Mesquite), Elizabeth Golden, PA-C (integrated primary care, pre-surgical clearances, and injury evaluations), Juan Narvaez Gonzalez, APRN (FamilyMedicine), and additional specialists such as nephrologists Dr. Imran A. Memon and Dr. Mohammad Humayun Kabir, plus many other NPs and PAs specializing in family medicine, acute care, geriatrics, and holistic wellness."
+    },
+    {
+      "q": "What is Dr. Jamal Qamar Lone's background and approach to care?",
+      "a": "Dr. JamaL Qamar Lone, M.D. is a board-certified Internal Medicine specialist and the Founder & President of WellGen Health. He completed his medical training at Copenhagen Medical University and his residency/internship at Presbyterian Hospital Dallas in 2006, where he practiced for almost two decades. He specializes in comprehensive solutions for complex medical issues, age management, and regenerative medicine. His patient-first philosophy emphasizes compassion, expertise, strong relationships, clear communication, and treating the whole person while preventing minor issues from becoming serious."
+    },
+    {
+      "q": "What women's health services does WellGen Health offer?",
+      "a": "WellGen Health provides comprehensive women's health services tailored to every stage of life. These include routine gynecological exams, preventive screenings, well woman exams, breast exams, Pap smears, family planning, birth control, management of vaginal infections, hormone therapy, and specialized support for overall well-being. Care is personalized and integrated with primary care and chronic condition management."
+    },
+    {
+      "q": "Do they offer Hormone Replacement Therapy (HRT)?",
+      "a": "Yes, WellGen Health offers personalized Hormone Replacement Therapy (HRT) programs. These focus on precisely restoring hormonal balance, enhancing energy levels, and improving overall metabolic health through a comprehensive, tailored clinical plan designed to help patients regain vitality and well-being."
+    },
+    {
+      "q": "What weight loss management programs does WellGen Health provide?",
+      "a": "WellGen Health offers science-based, medically supervised weight loss programs designed for sustainable, long-term results by treating obesity as a complex chronic condition. Their holistic approach uses advanced diagnostics (metabolic rate, hormone panels, body composition analysis, and lab testing for thyroid, cortisol, leptin, insulin, HbA1c, and BMR), personalized nutrition plans to stabilize blood sugar and support metabolic health, individualized fitness programs (aerobic and strength training to preserve muscle and boost metabolism), behavioral support with cognitive behavioral therapy (CBT) to address emotional eating and stress, stress management, supervised medications, hormonal optimization, and continuous monitoring with body composition scans and digital tracking. The goal is lifelong transformation, healthy stable weight, prevention of related diseases such as diabetes and heart disease, and patient empowerment through education and accountability."
+    },
+    {
+      "q": "What allergy testing and treatment options are available?",
+      "a": "WellGen Health provides thorough allergy testing to pinpoint exact triggers, including skin prick tests for immediate reactions, blood tests measuring IgE antibodies, and patch tests for delayed reactions often related to skin contact. Personalized treatment plans may include medications such as antihistamines, decongestants, and nasal corticosteroids for symptom relief; immunotherapy through allergy shots to gradually desensitize the immune system for long-term relief; and lifestyle adjustments like allergen avoidance and air purifiers. This approach eases symptoms (respiratory issues, skin rashes, gastrointestinal problems), prevents severe reactions, and improves daily comfort and quality of life."
+    },
+    {
+      "q": "How do they manage diabetes and related endocrinology needs?",
+      "a": "WellGen Health offers a tailored, holistic diabetes and endocrinology management program that empowers patients to take control of long-term health. It focuses on precise blood sugar control, strategic medication review, personalized lifestyle adjustments, and continuous clinical monitoring to prevent complications and maximize overall well-being."
+    },
+    {
+      "q": "What hypertension or high blood pressure care do they provide?",
+      "a": "WellGen Health delivers expert, integrated care for hypertension that goes beyond medication alone. Comprehensive plans include personalized nutritional guidance, strategic lifestyle adjustments, stress management, and continuous monitoring to reduce long-term risks and enhance overall well-being."
+    },
+    {
+      "q": "Do they offer regenerative medicine, PRP, or advanced treatments?",
+      "a": "Yes, WellGen Health provides innovative treatments including regenerative medicine such as PRP (Platelet-Rich Plasma) treatments, joint injections for pain management and improved mobility (especially for arthritis and musculoskeletal disorders), IV therapies, and advanced diagnostic tools as part of their specialized medical and therapeutic care."
+    },
+    {
+      "q": "What other services and specialties does WellGen Health cover?",
+      "a": "In addition to core services, WellGen Health offers preventive and routine care (annual exams, vaccinations, flu/COVID testing, EKGs, immunizations, pre-employment physicals), chronic disease management (arthritis, high cholesterol, heart disease, hypothyroidism, obesity, asthma, thyroid disorders), geriatric care, men's health (erectile dysfunction, testosterone therapy, prostate health), digestive health (GERD, heartburn, constipation), dermatology (eczema, psoriasis, rashes, shingles), mental health support (anxiety, stress, depression, insomnia), pain management and musculoskeletal care (back pain, headaches, gout, sprains), respiratory and allergy care, infectious diseases (influenza, pneumonia, STIs, ear infections), substance abuse and smoking cessation programs, pre-surgical clearances, personal injury evaluations, and specialty lab testing. They coordinate seamlessly with specialists for complete care."
+    },
+    {
+      "q": "What is WellGen Health's overall philosophy and approach to patient care?",
+      "a": "WellGen Health believes personalized care is the cornerstone of lasting health. Their approach is patient-first, compassionate, holistic, and evidence-based. They focus on building strong trusting relationships, knowing each patient's full history and family needs, clear communication, prevention to stop minor issues from escalating, early diagnosis and treatment, addressing root causes, and coordinating care within an integrated wellness network. The clinic spaces are designed to be warm and welcoming for a comfortable, positive experience."
+    },
+    {
+      "q": "Are there any articles, news, or events from WellGen Health?",
+      "a": "Yes, WellGen Health maintains a latest news and articles section and an events calendar. Recent topics include \"The Transformative Impact of Semaglutide and Tirzepatide on American Health\" and \"Finding Your Ideal Primary Care Physician in Dallas, Texas.\" Patients can view more articles and check the events calendar on their website."
+    },
+    {
+      "q": "Is WellGen Health suitable for families, children, or seniors?",
+      "a": "Yes, WellGen Health provides comprehensive family medicine and primary care for all ages. This includes pediatric and adolescent care, adult and senior/geriatric care, women's and men's health, preventive services, chronic disease management, and wellness support tailored to each life stage. Providers emphasize treating the whole person and building lasting patient partnerships."
+    },
+    {
+      "q": "What makes WellGen Health different from other medical practices?",
+      "a": "WellGen Health stands out through its combination of over 35 years of community experience, multiple convenient locations across the Dallas metroplex, acceptance of Medicaid and a wide range of insurance for greater accessibility, integration of traditional primary care with advanced treatments like regenerative medicine and personalized diagnostics, strong focus on personalized and compassionate relationships where providers truly know their patients, and a commitment to prevention, root-cause solutions, long-term wellness, and seamless specialist coordination within an integrated network."
+    },
+    {
+      "q": "How can someone book an appointment or get more information?",
+      "a": "Appointments can be booked online via the website, by calling the toll-free number 844-886-7362, specific location phones, or the new appointment line 214-238-3074. Patients can also fill out the \"Schedule a Call Back\" form on the site to request a callback at their preferred time. For general inquiries, email Info@wellgen-health.com or visit any of their convenient Texas locations. They are ready to provide expert, tailored care."
+    }
+  ],
+  "/company/about-us/": [
+    {
+      "q": "What is WellGen Health and what services do they provide?",
+      "a": "WellGen Health is a trusted partner in health specializing in Internal & Family Medicine. They believe personalized care is the cornerstone of lasting health. With over 35 years of experience serving the community, their team provides comprehensive, compassionate care tailored to unique needs. They offer a broad range of primary care services alongside innovative treatments in weight loss, hormone therapy, allergy management, joint injections, and regenerative medicine, including PRP treatments."
+    },
+    {
+      "q": "Why does WellGen Health emphasize having a trusted healthcare provider?",
+      "a": "At WellGen Health, they understand the importance of having a healthcare provider who knows you, your history, and your family. Their team is dedicated to helping maintain health by diagnosing and treating minor issues before they become significant problems. Whether for an annual physical, diabetes management, or specialized care for conditions like back pain or erectile dysfunction, they support patients every step of the way and serve as the central point of contact for coordinating care with specialists and other healthcare providers."
+    },
+    {
+      "q": "What insurance programs does WellGen Health accept?",
+      "a": "WellGen Health is contracted with a wide variety of insurance programs and has expanded to include several Medicaid options to ensure more patients can access their services."
+    },
+    {
+      "q": "How can someone schedule an appointment?",
+      "a": "To schedule an appointment with one of their primary care providers, call +1 (214) 238-3074 or book an appointment online through their website. They look forward to welcoming new patients and providing high-quality care."
+    },
+    {
+      "q": "Who is the CEO and Co-Founder of WellGen Health, and what is his vision?",
+      "a": "Max Alshomali, MPA-EHCA, is the visionary CEO and Co-Founder of WellGen Health. He is committed to transforming healthcare through innovation, excellence, and patient-centric solutions. With a strong background in healthcare management and business leadership, he has played a pivotal role in shaping WellGen Health into a trusted name. Under his guidance, the practice has grown into a forward-thinking healthcare provider delivering cutting-edge medical solutions, fostering strategic partnerships, and ensuring the highest standards of patient care. His leadership focuses on advancing healthcare accessibility, integrating modern technology, and creating a positive impact on patients and professionals, driven by dedication to quality, innovation, and community well-being."
+    },
+    {
+      "q": "Who is the Founder and President of WellGen Health?",
+      "a": "Dr. JamaL Qamar Lone, M.D., is the Founder & President of WellGen Health. He is a Board-Certified Internal Medicine specialist who fosters a healthcare system that is inclusive, accessible, and reliable to all without exception, with an unyielding commitment to every patient he serves."
+    },
+    {
+      "q": "What are Dr. JamaL Qamar Lone's areas of expertise and additional qualifications?",
+      "a": "Dr. JamaL Qamar Lone specializes in Internal Medicine with a focus on comprehensive solutions for patients facing complex medical issues. As a Board-Certified physician in Internal Medicine, he has additional expertise in age management and regenerative medicine. He excels at managing complex surgical cases with precision and care."
+    },
+    {
+      "q": "What is Dr. JamaL Qamar Lone's philosophy of care?",
+      "a": "Dr. JamaL Qamar Lone believes every patient deserves to feel heard, valued, and supported in their treatment plan. His foundation is built on compassion, expertise, and effective communication. He blends medical knowledge with empathy and clear communication to deliver exceptional care. He is passionate about partnering with patients to help them achieve health goals and lead healthier, more fulfilling lives, while staying updated with the latest advancements in medicine to provide state-of-the-art treatments."
+    },
+    {
+      "q": "Who is Lauren Finney, NP, and what is her role?",
+      "a": "Lauren Finney, NP, is a Board-Certified Family Nurse Practitioner (FNP-C) specializing in Family Medicine at WellGen Health. She is dedicated to providing personalized, high-quality healthcare for patients of all ages. She believes in treating the \"whole person\" with emphasis on preventive medicine, early diagnosis, and long-term wellness. Known for her approachable and compassionate style, she empowers patients to take an active role in their health journey."
+    },
+    {
+      "q": "What is Lauren Finney's professional background and philosophy of care?",
+      "a": "Lauren Finney brings years of experience in family medicine and primary care, caring for patients across diverse age groups and health conditions. She combines medical expertise with genuine passion for improving lives through education, prevention, and comprehensive treatment. Her philosophy is simple: every patient deserves attentive, compassionate, and reliable care. Her care centers on patient partnership (encouraging active roles in health), compassionate communication, holistic focus (addressing physical, mental, and lifestyle aspects), and accessibility & reliability."
+    },
+    {
+      "q": "What are Lauren Finney's areas of expertise?",
+      "a": "Lauren Finney's areas of expertise include preventive health & wellness exams, women's health (routine screenings, reproductive health, menopause management), pediatric & adolescent care, adult & senior care, chronic disease management (diabetes, hypertension, asthma, thyroid disorders, heart health), acute care & minor injuries, vaccinations & immunizations, and lifestyle & wellness counseling (nutrition, weight management, stress management)."
+    },
+    {
+      "q": "Where is Lauren Finney's clinic located and what is the contact information?",
+      "a": "Lauren Finney practices at WellGen Health in Greenville, Texas. The clinic address is 3900 Joe Ramsey Blvd E, Bldg 7, Greenville, TX 75401. The phone number is +1 (903) 259-6074."
+    },
+    {
+      "q": "Who is Lilian Mabiru, NP, and what does she specialize in?",
+      "a": "Lilian Mabiru, NP, is an Advanced Practice Registered Nurse (APRN) and Family Medicine Specialist at WellGen Health, serving patients in the Mesquite, Texas area. She is known for her compassionate, patient-focused care and attentive approach, consistently earning excellent patient reviews for her friendly demeanor and commitment to high-quality healthcare. She provides accessible, comprehensive primary care for individuals and families with a focus on long-term health management through preventive care, early intervention, and personalized treatment plans."
+    },
+    {
+      "q": "What services and expertise does Lilian Mabiru offer?",
+      "a": "Lilian Mabiru offers primary care & wellness (routine checkups, annual wellness exams, general illness management for the entire family), women's health services (preventive care including annual Pap smears and GYN exams), acute & chronic condition management (diagnosis and treatment of acute illnesses plus ongoing chronic disease management), and common consultations for issues such as abdominal pain, acid reflux, acne, persistent cough, allergies, and various skin conditions. She builds strong, trusting relationships through compassionate communication, evidence-based care, and empowering patients to take an active role in their health and wellness."
+    },
+    {
+      "q": "Where is Lilian Mabiru located and what is the contact information?",
+      "a": "Lilian Mabiru practices at WellGen Health – Mesquite, TX. The address is 1010 N Bryan-Belt Line Rd, Mesquite, TX 75149. The phone number is +1 (469) 445-0802."
+    },
+    {
+      "q": "Who is Elizabeth Golden, PA-C, and what is her role?",
+      "a": "Elizabeth Golden, PA-C, is a licensed and experienced Physician Assistant – Certified practicing at WellGen Health in Dallas, Texas. As a key member of the interdisciplinary medical team, she delivers comprehensive integrated care, combining primary care expertise with specialized services in pre-surgical clearance and personal injury evaluations. She is trained to diagnose injuries and illnesses, order and interpret diagnostic tests, develop treatment plans, and prescribe medications under physician supervision. She is known for thorough evaluations, collaborative approach, and commitment to high-quality patient care."
+    },
+    {
+      "q": "What are Elizabeth Golden's areas of expertise?",
+      "a": "Elizabeth Golden's expertise includes comprehensive primary care (routine health exams, treatment of acute illnesses such as colds and flu, and ongoing management of chronic conditions including diabetes, hypertension, and arthritis), pre-operative & surgical clearance (detailed pre-surgical evaluations and medical clearance), personal injury & LOP management (initial evaluations and continued care for personal injury cases, including medical injury assessments and collaboration on Letter of Protection claims), and integrated patient management (working closely with specialists, including Board-Certified Internists such as Dr. JamaL Lone, for seamless chronic disease management and coordinated care). She emphasizes a patient-centered approach with clear communication, thorough diagnostic evaluation, and collaborative treatment planning."
+    },
+    {
+      "q": "Where does Elizabeth Golden practice and what is the contact information?",
+      "a": "Elizabeth Golden practices at WellGen Health – THR Dallas. The address is 8220 Walnut Hill Ln, Suite 600, Dallas, TX 75231. The phone number is +1 (214) 238-3074."
+    },
+    {
+      "q": "Who is Juan Narvaez Gonzalez, APRN, and what is his focus?",
+      "a": "Juan Narvaez Gonzalez, APRN, is a dedicated Advanced Practice Registered Nurse specializing in Family Medicine at WellGen Health in Dallas, Texas. He is committed to delivering comprehensive, ongoing primary care for individuals and families of all ages—from pediatric to geriatric—with a strong focus on preventive health, continuity of care, and long-term wellness. He is authorized to diagnose medical conditions, order and interpret diagnostic tests, and prescribe medications."
+    },
+    {
+      "q": "What services does Juan Narvaez Gonzalez provide?",
+      "a": "Juan Narvaez Gonzalez provides routine check-ups & preventive care (wellness visits, preventive screenings, and proactive health management), acute illness management (diagnosis and treatment of common acute illnesses and sudden health concerns), chronic disease management (ongoing care, monitoring, and patient education), and integrated family care (continuous, coordinated care for individuals and families). He believes in building lasting relationships through compassionate care, clear communication, and evidence-based medicine to support each patient's health journey with personalized and comprehensive care."
+    },
+    {
+      "q": "Where is Juan Narvaez Gonzalez located and what is the contact information?",
+      "a": "Juan Narvaez Gonzalez practices at WellGen Health – Dallas (Lake June Rd). The address is 6909 Lake June Rd, Dallas, TX 75217. The phone number is +1 (214) 391-1900."
+    },
+    {
+      "q": "What are the main contact details and address for WellGen Health?",
+      "a": "The general phone number is (844) 886-7362, email is Info@wellgen-health.com, and the main address is 8220 Walnut Hill Ln, Ste 600, Dallas, TX 75231-4433. Patients can also use the specific clinic phones listed for each provider location."
+    },
+    {
+      "q": "What other clinic locations does WellGen Health have besides the main Dallas address?",
+      "a": "In addition to the Dallas location at 8220 Walnut Hill Ln, Suite 600, WellGen Health has clinics in Greenville, TX (3900 Joe Ramsey Blvd E, Bldg 7), Mesquite, TX (1010 N Bryan-Belt Line Rd), and another Dallas location at 6909 Lake June Rd."
+    },
+    {
+      "q": "What makes WellGen Health's approach to healthcare unique based on their leadership and team?",
+      "a": "WellGen Health stands out through its commitment to personalized, compassionate, patient-first care where every individual feels heard, valued, and supported. Leadership under CEO Max Alshomali emphasizes innovation, accessibility, modern technology integration, and community well-being, while Founder Dr. JamaL Qamar Lone and the team of providers (including NPs and PA-C) focus on building trusting relationships, holistic and preventive care, clear communication, evidence-based practices, and coordinated care across primary care, regenerative medicine, and specialized services. Their multi-location presence in the Dallas-Fort Worth area and acceptance of diverse insurance including Medicaid further enhance accessibility and seamless patient experiences."
+    }
+  ],
+  "/company/careers/": [
+    {
+      "q": "What is WellGen Health and what is its main focus?",
+      "a": "WellGen Health is a healthcare provider focused on enhancing health and well-being through innovative, cutting-edge solutions. It combines advancements in healthcare technology with personalized, compassionate care to ensure optimal patient outcomes. The team is united by a mission to transform health and wellness via advanced treatments, research, and patient care. It operates as part of or in association with PIMG Multispecialty Group and offers integrated medical solutions including primary care, diagnostic testing, regenerative medicine, specialty labs, chronic condition management, preventive care, and various specialty services."
+    },
+    {
+      "q": "Where is WellGen Health located and what is the contact information?",
+      "a": "WellGen Health is located at 8220 WALNUT HILL LN, STE 600, Dallas, TX, 75231-4433. You can contact them by phone at (844) 886-7362 or by email at Info@wellgen-health.com. This is the primary address listed on the careers page and homepage."
+    },
+    {
+      "q": "What job opportunities or career openings are currently available?",
+      "a": "The careers page at https://wellgen-health.com/company/careers/ currently lists three full-time job openings, all located in Dallas, TX. These are: Nurse Practitioner, Medical Assistant, and Doctors - Multiple Specialties. No other open positions are listed on the page."
+    },
+    {
+      "q": "Can you tell me about the Nurse Practitioner position?",
+      "a": "The Nurse Practitioner role is a full-time position based in Dallas, TX. The description states: \"Join our dedicated team as a Nurse Practitioner at WellGen-Health in Dallas, TX. In this role, you will provide primary care services, including diagnosis, treatment, and management of patient health conditions. You will collaborate with our team of medical professionals to deliver holistic care, focusing on preventive measures and patient education. We seek a compassionate, detail-oriented NP who is ready to make a difference in our community.\" No additional specific responsibilities, qualifications, or requirements are detailed on the page."
+    },
+    {
+      "q": "What details are available about the Medical Assistant job opening?",
+      "a": "The Medical Assistant position is full-time and located in Dallas, TX. It is described as: \"PIMG-Multispecialty Group is seeking a skilled Medical Assistant to support our healthcare team in WellGen-Health in Dallas, TX. Your responsibilities will include assisting with clinical tasks, patient preparation, and administrative duties to ensure a smooth workflow and patient satisfaction. We value team players who bring a patient-centered attitude and the ability to adapt in a fast-paced environment.\" Specific requirements such as certifications or years of experience are not listed on the careers page."
+    },
+    {
+      "q": "Are there openings for doctors or physicians?",
+      "a": "Yes, there is a full-time \"Doctors - Multiple Specialities\" position in Dallas, TX. The description reads: \"We are looking for experienced Doctors across various specialties to join our innovative team at WellGen-Health in Dallas, TX. As part of our team, you will deliver specialty-specific care, contribute to our interdisciplinary approach, and help shape the future of healthcare delivery. Ideal candidates are leaders in their field, committed to patient care, and driven by the pursuit of medical excellence.\" No specific specialties, exact requirements, or qualifications beyond this are provided on the page."
+    },
+    {
+      "q": "What is the company culture and work environment like?",
+      "a": "The careers page describes a dynamic workplace that encourages creativity, values diversity, and offers genuine opportunities for professional growth and development. It emphasizes collaboration, continuous improvement, and a supportive, innovative environment where skills and ideas are valued. The focus is on innovation, health, and wellness in a team-oriented setting."
+    },
+    {
+      "q": "Does WellGen Health mention any employee benefits, perks, or specific growth opportunities?",
+      "a": "The page highlights opportunities for professional growth and development, collaboration, and working in a supportive innovative environment. However, it does not provide specific details about benefits such as health insurance, paid time off, retirement plans, or other perks."
+    },
+    {
+      "q": "How do I apply for jobs? What is the application process?",
+      "a": "To apply, visit the careers page at https://wellgen-health.com/company/careers/ and click the \"Apply Now\" button next to any of the listed positions (or the \"Join Our Team\" buttons). This opens a popup form titled \"PIMG - Application Form.\" The form requires Contact Information (Email and Phone), the ability to Upload Resume, and a submit button. There are no other application methods or links to external job boards mentioned."
+    },
+    {
+      "q": "What information do I need to submit when applying?",
+      "a": "The PIMG - Application Form asks for Contact Information including your Email and Phone number, and requires you to Upload your Resume. Once submitted, the application is sent through this form. No cover letter, references, or additional documents are specified as required on the page."
+    },
+    {
+      "q": "Are the listed jobs remote, hybrid, or only in-office? Are there positions outside of Dallas?",
+      "a": "All three currently listed positions (Nurse Practitioner, Medical Assistant, and Doctors - Multiple Specialties) are specified as full-time and located in Dallas, TX. The careers page does not mention any remote, hybrid, or work-from-home options, nor does it list openings in other locations."
+    },
+    {
+      "q": "What kind of candidates is WellGen Health looking for?",
+      "a": "Based on the job descriptions, they seek compassionate and detail-oriented Nurse Practitioners, team-oriented Medical Assistants with a patient-centered attitude who can adapt to a fast-paced environment, and experienced Doctors who are leaders in their field, committed to patient care, and driven by medical excellence. Detailed qualifications, licenses, or experience levels are not further specified on the page."
+    },
+    {
+      "q": "Where can I find more information about WellGen Health's team or providers?",
+      "a": "While the careers page itself does not list current providers, the company's homepage references a \"Meet Our Providers\" section. There is a dedicated /providers/ page that lists numerous physicians, nurse practitioners, and physician assistants across multiple Dallas-area locations, specializing in areas such as Internal Medicine, Family Medicine, Nephrology, and more."
+    },
+    {
+      "q": "Is WellGen Health affiliated with PIMG Multispecialty Group?",
+      "a": "Yes, the careers page references \"PIMG-Multispecialty Group\" in the Medical Assistant job description and uses a popup application form titled \"PIMG - Application Form.\" This indicates an affiliation or operational connection between WellGen Health and PIMG Multispecialty Group for hiring and operations."
+    }
+  ],
+  "/company/partner-with-us/": [
+    {
+      "q": "What is the main purpose of the Partner with Us page on the WellGen Health website?",
+      "a": "The Partner with Us page invites potential collaborators to join WellGen Health in delivering exceptional healthcare services. It positions WellGen Health as a reliable partner for improving patient outcomes through comprehensive care solutions, advanced technology, and seamless coordination with experienced medical professionals."
+    },
+    {
+      "q": "Who is WellGen Health targeting as potential partners on this page?",
+      "a": "WellGen Health is specifically reaching out to LOP companies, personal injury offices, and other healthcare providers who are looking for a reliable partner in healthcare to collaborate on patient care and innovative solutions."
+    },
+    {
+      "q": "What specific benefits and offerings does WellGen Health highlight for partners?",
+      "a": "Partners can expect comprehensive care solutions, advanced technology, and a dedicated team of experienced medical professionals focused on improving patient outcomes through seamless coordination. The page emphasizes delivering exceptional healthcare services and innovative solutions to the community."
+    },
+    {
+      "q": "What is the key call to action on the Partner with Us page?",
+      "a": "The page strongly encourages visitors to partner with WellGen Health today to make a difference together. It directs users to send a message using the form below to start the conversation about partnership opportunities."
+    },
+    {
+      "q": "What contact information is provided directly on the Partner with Us page?",
+      "a": "The page lists the following contact details: Phone (844) 886-7362, Email Info@wellgen-health.com, and Address 8220 WALNUT HILL LN, STE 600, Dallas TX, 75231-4433. It also includes a link to the Contact Us page for additional information."
+    },
+    {
+      "q": "How does the Partner with Us page describe the role of partnerships in healthcare?",
+      "a": "The page states that partnerships are key to driving sustainable and impactful change in healthcare. It emphasizes that by working together, partners can innovate, collaborate, and transform the way healthcare is delivered while achieving shared goals."
+    },
+    {
+      "q": "What form is available on the Partner with Us page for inquiries?",
+      "a": "There is a contact or inquiry form on the page that allows users to send a message to start the partnership conversation. It includes a Name field and Submit or Send Now buttons. The page notes that JavaScript must be enabled in the browser to complete the form fully."
+    },
+    {
+      "q": "Does the Partner with Us page mention any specific options or categories for partnership inquiries?",
+      "a": "The form on the page includes selection options for the type of partnership or inquiry, such as LOP Partnership, Nursing Home, Hospital Services, and All Other, allowing visitors to specify their area of interest when reaching out."
+    },
+    {
+      "q": "What is the overall tone and message of the Partner with Us page?",
+      "a": "The tone is collaborative and forward-looking. It repeatedly invites visitors to join WellGen Health in making a positive difference in healthcare through reliable partnership, shared innovation, and better patient outcomes via coordinated care."
+    },
+    {
+      "q": "Is there any mention of booking or scheduling on the Partner with Us page?",
+      "a": "Yes, the page includes sections and buttons labeled \"Book an Appointment\" with \"Send Now\" options, which appear to serve as part of the inquiry or messaging process to initiate partnership discussions or related requests."
+    },
+    {
+      "q": "What does the page suggest visitors do if they want to learn more about partnership opportunities?",
+      "a": "The page recommends contacting WellGen Health today via the form, phone, email, or the linked Contact Us page to learn more about how partnerships can help achieve shared goals and deliver impactful healthcare solutions."
+    }
+  ],
+  "/care-navigation/": [
+    {
+      "q": "What is the WellGen Care Navigation service?",
+      "a": "The WellGen Care Navigation service, provided through the WellGen Care Navigation Center, offers dedicated post-discharge support to help patients heal well and feel safe and confident during the important recovery period at home after leaving the hospital."
+    },
+    {
+      "q": "Why is post-discharge support important?",
+      "a": "Healing does not stop when you leave the hospital. The time spent at home is a critical part of recovery, and the Care Navigation Center helps patients avoid problems, follow their care plan, and achieve better long-term health outcomes."
+    },
+    {
+      "q": "What should patients focus on after leaving the hospital to support their recovery?",
+      "a": "Patients should follow their discharge instructions carefully by taking medicines exactly as prescribed, watching for any new or worsening symptoms, attending all follow-up appointments, staying active only as recommended by their doctor, getting enough rest, drinking plenty of water, and eating healthy foods. Small consistent steps like taking medication on time and calling with questions can significantly improve recovery."
+    },
+    {
+      "q": "What is Transitional Care Management (TCM)?",
+      "a": "Transitional Care Management (TCM) refers to structured visits that occur after hospital discharge. These visits are designed to promote continuity of care, prevent avoidable complications, and support long-term health through careful coordination and monitoring."
+    },
+    {
+      "q": "What can a patient expect during a TCM visit?",
+      "a": "During a TCM visit, the provider will review your hospitalization and discharge summary, perform medication reconciliation to ensure accuracy and safety, assess your current health status and recovery progress, clearly explain your ongoing care plan and next steps, and coordinate any needed referrals, diagnostic testing, or additional follow-up services."
+    },
+    {
+      "q": "When should a TCM visit be completed after hospital discharge?",
+      "a": "TCM visits should be completed within 30 days of your hospital discharge to ensure timely support and continuity of care."
+    },
+    {
+      "q": "Where can I schedule a TCM visit or follow-up appointment?",
+      "a": "TCM visits and follow-up appointments can be scheduled at any WellGen Health clinic. Selecting a clinic close to home often makes follow-up care more convenient and helps maintain connection with your care team."
+    },
+    {
+      "q": "How does the Care Navigation Center assist with scheduling and transitions?",
+      "a": "The WellGen Care Navigation Center helps with clinic selection, appointment scheduling, and overall coordination. This support prevents delays in care and ensures a smooth transition from hospital to home or post-acute settings."
+    },
+    {
+      "q": "What specific types of help can the Care Navigation Center provide?",
+      "a": "The Care Navigation Center can assist with scheduling a TCM visit within 30 days of discharge, booking or adjusting primary care appointments, reviewing discharge and medication instructions, coordinating care across WellGen Health clinics, helping with nursing home or post-acute care coordination, and guiding you through post-hospital recovery with confidence."
+    },
+    {
+      "q": "What is the direct phone number for the WellGen Care Navigation Center?",
+      "a": "The WellGen Care Navigation Center can be reached directly at (214) 398-4690. The team is available to support you and help with the next steps toward a safer, healthier recovery."
+    },
+    {
+      "q": "What are the main contact details for WellGen Health?",
+      "a": "WellGen Health can be contacted by phone at (844) 886-7362 or by email at Info@wellgen-health.com. Their physical address is 8220 WALNUT HILL LN, STE 600, Dallas TX, 75231-4433."
+    },
+    {
+      "q": "How does WellGen Health ensure continuity of care after a patient leaves the hospital?",
+      "a": "WellGen physicians and clinical care teams ensure seamless continuity of care by rounding regularly at partner facilities. This approach enables timely follow-up, effective medication management, and early identification of any clinical concerns."
+    },
+    {
+      "q": "Which facilities does WellGen Health serve or partner with for care?",
+      "a": "WellGen Health serves or partners with Collinwood Nursing & Rehabilitation, Golden Acres Living and Rehabilitation, Lakeside Health and Wellness, Lakewest Assisted Living, Simpson Place Assisted Living & Skilled Nursing, Villages on MacArthur Skilled Care & Memory Care, and Landmark of Plano."
+    },
+    {
+      "q": "How can I book an appointment for TCM or primary care with WellGen Health?",
+      "a": "Appointments can be booked online through the WellGen Health website using the available booking options or by contacting the Care Navigation Center for personalized assistance with scheduling TCM visits or primary care appointments. The site also features \"Send Now\" options for appointment requests."
+    },
+    {
+      "q": "What are the key benefits of using WellGen's Care Navigation and TCM services?",
+      "a": "These services promote continuity of care, help prevent avoidable complications, support long-term health, ensure smooth transitions after hospital discharge, provide safe medication management, offer a dedicated support line, and give patients greater confidence during recovery."
+    },
+    {
+      "q": "Can the Care Navigation Center help if I need coordination for nursing home or post-acute care?",
+      "a": "Yes, the Care Navigation Center can assist with nursing home or post-acute care coordination as part of their comprehensive post-discharge support."
+    },
+    {
+      "q": "Is there a detailed public list of all WellGen Health clinic addresses on the Care Navigation page?",
+      "a": "The page states that WellGen Health has several clinic locations and that patients can choose any clinic for visits, with the Care Navigation Center helping select the most convenient one close to home. However, a complete enumerated directory of specific clinic addresses is not listed on this page."
+    },
+    {
+      "q": "Who should I contact if I have questions about my discharge instructions or medications after leaving the hospital?",
+      "a": "Contact the WellGen Care Navigation Center at (214) 398-4690. They can review your discharge and medication instructions, answer questions, and help coordinate any needed follow-up care."
+    }
+  ],
+  "/charge-capture/": [
+    {
+      "q": "What is WellGen Charge Capture?",
+      "a": "WellGen Charge Capture is a secure, user-friendly, and HIPAA-compliant mobile application purpose-built for healthcare providers. It is designed to streamline the charge capture process by enabling physicians and clinical staff to record and submit professional charges in real time directly at the point of care from any mobile device. The application digitizes the entire charge capture workflow, allowing users to record patient encounters, assign CPT and ICD-10 codes, and submit charges instantly anytime and anywhere, whether rounding in a hospital, visiting patients in a clinic, or working remotely."
+    },
+    {
+      "q": "What problems with traditional charge capture methods does WellGen solve?",
+      "a": "Traditional charge capture methods are slow, error-prone, and often result in missed or delayed charges that directly impact a practice's revenue. WellGen eliminates these inefficiencies by digitizing the workflow, allowing users to say goodbye to paper superbills and end-of-day charge entry. Every patient encounter is documented accurately and submitted instantly, keeping the revenue cycle moving without interruption and preventing lost revenue from forgotten submissions."
+    },
+    {
+      "q": "What are the main benefits of using WellGen Charge Capture for healthcare providers?",
+      "a": "The main benefits include accessing patient encounters and medical histories on the go, syncing captured charges with your billing system in real time, reducing audit risk with accurate and compliant documentation, expediting payer payments by minimizing charge lag, improving rounding efficiency with a mobile-first workflow, submitting charges instantly to eliminate delays and lost revenue, staying fully compliant with HIPAA regulations, capturing office visits, diagnoses, and procedures, and assigning CPT and ICD codes instantly from a mobile device. These features help ensure an efficient and controlled charge capture process, especially for large healthcare organizations."
+    },
+    {
+      "q": "What is the Digital Rounding List feature in WellGen Charge Capture?",
+      "a": "The Digital Rounding List feature provides physicians with a real-time patient census list that is accessible directly on their phone. This patient list integrates with the charge capture functionality and syncs directly into the EHR system, helping improve rounding efficiency and ensuring all relevant patient information is available at the point of care."
+    },
+    {
+      "q": "How does the Integrated Data Entry feature work in WellGen Charge Capture?",
+      "a": "The Integrated Data Entry feature allows users to manage associated patient facesheets, notes, and charges all on one robust system. It eliminates duplicate data entry and reduces errors through seamless EHR integration that syncs in real time, providing a streamlined experience for handling all related patient information and charges in a single place."
+    },
+    {
+      "q": "What is the Easy Patient Handoff feature and how does it function?",
+      "a": "The Easy Patient Handoff feature enables users to seamlessly share patients with other physicians for handoff or weekend rounding using a single swipe. It ensures continuity of care with instant, secure patient transfers and real-time updates, making it simple to transfer responsibility while keeping all information current and accessible."
+    },
+    {
+      "q": "What does the Mobile Charge Capture functionality allow users to do?",
+      "a": "The Mobile Charge Capture functionality allows users to submit charges to their EHR or PMS in seconds. It supports easily cloning previous charges or choosing from customized drill-downs, enabling providers to capture every billable encounter at the point of care and eliminate lost revenue from forgotten submissions. This works alongside the ability to assign CPT and ICD-10 codes instantly."
+    },
+    {
+      "q": "On which devices is the WellGen Charge Capture application available?",
+      "a": "The WellGen Charge Capture application is available on mobile devices, desktops, and tablets, providing convenience and flexibility so that physicians and clinical staff can use it wherever they are working, whether in a hospital, clinic, or remotely."
+    },
+    {
+      "q": "Who is WellGen Charge Capture designed for?",
+      "a": "WellGen Charge Capture is designed for healthcare providers, specifically physicians and clinical staff. It is purpose-built to support their daily workflows and is particularly suited for large healthcare organizations that need an efficient and controlled charge capture process to maintain revenue integrity and operational efficiency."
+    },
+    {
+      "q": "Is WellGen Charge Capture HIPAA compliant and secure?",
+      "a": "Yes, WellGen Charge Capture is a secure and HIPAA-compliant solution. It prioritizes compliance with HIPAA regulations to protect patient information while enabling real-time charge submission and documentation at the point of care."
+    },
+    {
+      "q": "How does WellGen Charge Capture integrate with other systems?",
+      "a": "WellGen Charge Capture integrates seamlessly with EHR and PMS systems. It syncs captured charges with billing systems in real time, supports direct integration of the patient list and charge capture data into the EHR, and allows submission of charges to EHR/PMS platforms quickly and accurately, reducing duplicate entry and errors."
+    },
+    {
+      "q": "What types of codes and patient information can be handled in WellGen Charge Capture?",
+      "a": "Users can capture office visits, diagnoses, and procedures while assigning CPT and ICD-10 codes instantly from their mobile device. The application also provides access to patient encounters and medical histories on the go, along with management of facesheets, notes, and charges in one system."
+    },
+    {
+      "q": "How can someone learn more about WellGen Charge Capture or get started?",
+      "a": "Users can book an appointment through the \"Book an Appointment\" sections on the page, which include \"Send Now\" options for inquiries. For more information or support, contact WellGen Health directly at phone number (844) 886-7362, email Info@wellgen-health.com, or visit their office at 8220 WALNUT HILL LN, STE 600, Dallas TX, 75231-4433."
+    },
+    {
+      "q": "Does the WellGen Charge Capture page include customer testimonials?",
+      "a": "The page includes a Testimonials section stating that WellGen prides itself on putting the customer first and inviting visitors to hear what the WellGen family has to say. However, no specific testimonial quotes or customer stories are displayed on the page itself."
+    },
+    {
+      "q": "What is the overall goal of WellGen Charge Capture for healthcare organizations?",
+      "a": "The overall goal is to ensure an efficient and controlled charge capture process for large healthcare organizations by providing a complete mobile-first solution. It helps eliminate inefficiencies from traditional methods, reduces missed or delayed charges, improves revenue cycle management, maintains compliance, and supports better continuity of care through features like real-time syncing, easy handoffs, and instant submissions."
+    }
+  ]
+}

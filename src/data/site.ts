@@ -66,8 +66,16 @@ export const companyLinks = [
 
 export const moreLinks = [
   { label: 'Care Navigation', href: '/care-navigation/' },
-  { label: 'Wellgen Charge Capture', href: '/charge-capture/' },
+  { label: 'WellGen Charge Capture', href: '/charge-capture/' },
 ];
+
+/** "Products" menu in the header */
+export const productLinks = [
+  { label: 'WellGen Charge Capture', href: '/charge-capture/', note: 'Mobile charge capture app for providers' },
+];
+
+/** WellGen Care Navigation Center (post-discharge support line) */
+export const careNavigation = { label: '(214) 398-4690', href: 'tel:+12143984690' };
 
 export const legalLinks = [
   { label: 'Privacy Policy', href: '/legal/privacy-policy/' },

@@ -1,13 +1,19 @@
 ---
 import { site } from '../data/site';
 
+type Action = { label: string; href: string };
 interface Props {
   title?: string;
   text?: string;
+  /** Override the two buttons (default: Book a visit + Call the main number) */
+  primary?: Action;
+  secondary?: Action;
 }
 const {
   title = 'Ready to see a provider?',
   text = 'Book online in a few minutes, or call and our team will find a time and clinic that works for you.',
+  primary = { label: 'Book a visit', href: site.bookingUrl },
+  secondary = { label: `Call ${site.phone.label}`, href: site.phone.href },
 } = Astro.props;
 ---
 <section class="px-6 py-16 lg:py-20">
@@ -20,8 +26,8 @@ const {
         <p class="mt-4 max-w-[52ch] text-lg text-white/90">{text}</p>
       </div>
       <div class="flex flex-wrap gap-3 lg:justify-end">
-        <a href={site.bookingUrl} class="rounded-full bg-white px-7 py-3.5 font-semibold text-brand-dark shadow-lg transition hover:-translate-y-0.5">Book a visit</a>
-        <a href={site.phone.href} class="rounded-full px-7 py-3.5 font-semibold text-white ring-2 ring-white/60 transition hover:bg-white/10">Call {site.phone.label}</a>
+        <a href={primary.href} class="rounded-full bg-white px-7 py-3.5 font-semibold text-brand-dark shadow-lg transition hover:-translate-y-0.5">{primary.label}</a>
+        <a href={secondary.href} class="rounded-full px-7 py-3.5 font-semibold text-white ring-2 ring-white/60 transition hover:bg-white/10">{secondary.label}</a>
       </div>
     </div>
   </div>

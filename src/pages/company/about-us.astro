@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Photo from '../../components/Photo.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { Image } from 'astro:assets';
+import { listImages } from '../../lib/images';
+import { pageFaqs } from '../../lib/page-faqs';
+import { providers, providerUrl } from '../../data/providers';
+import { categories, serviceUrl } from '../../data/services';
+import { breadcrumbLd, faqLd } from '../../lib/schema';
+
+const faqs = pageFaqs('/company/about-us/');
+const clinicPhotos = listImages('pages/about/clinic');
+const svc = (slug: string) => { for (const c of categories) { const s = c.services.find((x) => x.slug === slug); if (s) return serviceUrl(c, s); } return '/services/'; };
+
+const offers = [
+  { slug: 'arthritis', title: 'Arthritis', text: 'Specialized care for arthritis, emphasizing pain management, improved joint mobility, and a better quality of life through customized treatment approaches.', href: svc('arthritis-and-musculoskeletal-disorders') },
+  { slug: 'diabetes', title: 'Diabetes', text: 'Personalized care to manage diabetes, focusing on blood sugar control, medication, lifestyle adjustments, and regular monitoring to prevent complications.', href: svc('diabetes-and-endocrinology') },
+  { slug: 'geriatric-care', title: 'Geriatric care', text: 'Dedicated care for seniors, prioritizing chronic condition management, promoting independence, and improving quality of life.', href: svc('geriatric-care') },
+  { slug: 'hypertension', title: 'Hypertension', text: 'Expert care for high blood pressure, including medication, lifestyle changes, regular monitoring, nutrition guidance and stress management.', href: svc('hypertension') },
+  { slug: 'surgical-clearance', title: 'Surgical clearance', text: 'Surgical clearance and risk assessment make sure you are fit for anesthesia and surgery by identifying potential risks for safer outcomes.', href: svc('surgical-clearance') },
+  { slug: 'allergy-testing', title: 'Allergy testing & treatment', text: 'Comprehensive allergy testing to identify specific allergens, so we can build a treatment plan that relieves symptoms and improves daily comfort.', href: svc('allergy-testing') },
+];
+
+const conditions = [
+  { slug: 'preventive', title: 'Preventive and routine care', items: ['Physical exams / annual exams', 'Well woman exams', 'Immunizations', 'EKGs', 'Allergy testing / shots'] },
+  { slug: 'chronic', title: 'Chronic disease management', items: ['Diabetes management', 'High blood pressure (hypertension)', 'High cholesterol (hyperlipidemia)', 'Heart disease', 'Osteoarthritis / arthritis', 'Hypothyroidism (underactive thyroid)', 'Obesity'] },
+  { slug: 'womens', title: 'Women’s health', items: ['Breast exams', 'Pap smear', 'Vaginal infection', 'Birth control'] },
+  { slug: 'mens', title: 'Men’s health', items: ['Erectile dysfunction (ED)', 'Testosterone therapy (low T)', 'Prostate health (enlarged prostate, prostatitis, BPH)'] },
+  { slug: 'mental', title: 'Mental health', items: ['Anxiety / stress', 'Depression', 'Insomnia'] },
+  { slug: 'respiratory', title: 'Respiratory and allergy care', items: ['Asthma management', 'Bronchitis (COPD)', 'Upper respiratory infections (URI)', 'Sinus infections', 'Sore throat (pharyngitis)', 'Laryngitis', 'Allergies'] },
+  { slug: 'digestive', title: 'Digestive health', items: ['Gastroesophageal reflux (GERD)', 'Heartburn (acid reflux)', 'Constipation', 'Nausea, vomiting, and diarrhea'] },
+  { slug: 'pain', title: 'Pain management and musculoskeletal care', items: ['Back pain', 'Headaches and migraines', 'Joint injections', 'Minor aches, pains, and sprains', 'Gout'] },
+  { slug: 'infectious', title: 'Infectious diseases', items: ['Influenza (flu)', 'Pneumonia', 'Sexually transmitted illness (STI/STD)', 'Earaches and infections'] },
+  { slug: 'dermatology', title: 'Dermatology', items: ['Eczema / psoriasis', 'Rashes', 'Shingles'] },
+  { slug: 'substance', title: 'Substance abuse and addiction', items: ['Alcohol abuse', 'Tobacco abuse / smoking cessation'] },
+  { slug: 'specialty', title: 'Specialty services', items: ['Hormone therapy', 'Weight gain / weight loss / weight management'] },
+];
+
+const lone = providers.find((p) => p.slug === 'dr-jamal-lone-md');
+const team = providers.filter((p) => p.hasProfile).slice(0, 8);
+---
+<BaseLayout
+  title="About us"
+  description="WellGen Health offers compassionate family and internal medicine: primary care, chronic disease management, weight loss and more, with over 35 years serving Texas."
+  jsonLd={[breadcrumbLd([{ label: 'About us', href: '/company/about-us/' }]), ...(faqs.length ? [faqLd(faqs)] : [])]}
+>
+  <PageHero
+    title="Get real advice from real people"
+    lead="Your trusted partner in health, helping you find the right care for your health needs."
+    crumbs={[{ label: 'About us' }]}
+    image={{ folder: 'pages/about', name: 'hero', alt: 'WellGen Health care team with a patient' }}
+    highlights={['Over 35 years serving the community', 'Six clinics across Texas', 'Many insurance plans, including Medicaid']}
+  />
+
+  <!-- Who we are -->
+  <section class="mx-auto max-w-7xl px-6 pt-20 lg:pt-28">
+    <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">WellGen Health Internal & Family Medicine</h2>
+      <div class="space-y-5 text-[17px] leading-relaxed text-ink">
+        <p class="font-display text-2xl leading-snug text-navy">We believe personalized care is the cornerstone of lasting health. With over 35 years of experience serving the community, our team provides comprehensive, compassionate care tailored to your needs.</p>
+        <p>Our practice continues the tradition of excellence, offering a broad range of primary care services alongside innovative treatments in weight loss, hormone therapy, allergy management, joint injections, and regenerative medicine, including PRP treatments.</p>
+        <p>We understand the importance of having a healthcare provider who knows you, your history, and your family. Our team helps you stay healthy by diagnosing and treating minor issues before they become significant problems. Whether you need an annual physical, diabetes management, or specialized care for conditions like back pain or erectile dysfunction, we’re here to support you every step of the way.</p>
+        <p>We are contracted with a wide variety of insurance programs and have expanded to include several Medicaid options, so more patients can access our services. As your central point of contact for coordinating care with specialists and other providers, we work to make your experience as seamless as possible.</p>
+      </div>
+    </div>
+
+    {clinicPhotos.length > 0 && (
+      <div class="mt-14 -mx-6 overflow-x-auto px-6 pb-2 [scrollbar-width:thin]" tabindex="0" aria-label="Photos of our clinics and team">
+        <ul class="flex w-max gap-3">
+          {clinicPhotos.map((p, i) => (
+            <li class:list={['shrink-0 overflow-hidden rounded-2xl bg-mist', i % 3 === 0 ? 'h-72 w-96' : 'h-72 w-56']}>
+              <Image src={p.image} alt="" widths={[300, 600]} sizes="24rem" class="h-full w-full object-cover" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </section>
+
+  <!-- Leadership -->
+  <section class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+    <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Our leadership</h2>
+    <div class="mt-12 grid gap-8 lg:grid-cols-2">
+      <article class="grid gap-6 rounded-[2rem] bg-mist p-6 sm:grid-cols-[11rem_minmax(0,1fr)] sm:p-8">
+        <div class="aspect-[4/5] overflow-hidden rounded-2xl bg-white sm:aspect-auto sm:h-56">
+          <Photo folder="pages/about" name="ceo" alt="Max Alshomali, MPA-EHCA" widths={[300, 500]} sizes="11rem" />
+        </div>
+        <div>
+          <p class="text-sm font-medium text-brand-dark">CEO & Co-Founder</p>
+          <h3 class="mt-1 font-display text-3xl text-navy">Max Alshomali, MPA-EHCA</h3>
+          <div class="mt-4 space-y-3 text-[16px] leading-relaxed text-ink">
+            <p>Max Alshomali is committed to transforming healthcare through innovation, excellence, and patient-centric solutions. With a strong background in healthcare management and business leadership, he has played a pivotal role in shaping WellGen Health into a trusted name.</p>
+            <p>Under his guidance, WellGen Health has grown into a forward-thinking healthcare provider, delivering cutting-edge medical solutions, fostering strategic partnerships, and ensuring the highest standards of patient care. His leadership is driven by a passion for healthcare accessibility, modern technology, and a positive impact on patients and professionals alike.</p>
+          </div>
+        </div>
+      </article>
+      {lone && (
+        <article class="grid gap-6 rounded-[2rem] bg-mist p-6 sm:grid-cols-[11rem_minmax(0,1fr)] sm:p-8">
+          <div class="aspect-[4/5] overflow-hidden rounded-2xl bg-white sm:aspect-auto sm:h-56">
+            <Photo folder="providers" name={lone.slug} alt="Dr. Jamal Qamar Lone, MD" widths={[300, 500]} sizes="11rem" />
+          </div>
+          <div>
+            <p class="text-sm font-medium text-brand-dark">Founder & President</p>
+            <h3 class="mt-1 font-display text-3xl text-navy">Dr. Jamal Qamar Lone, MD</h3>
+            <div class="mt-4 space-y-3 text-[16px] leading-relaxed text-ink">
+              <p>A Board-Certified Internal Medicine specialist, Dr. Lone completed his residency and internship at Presbyterian Hospital Dallas in 2006. He focuses on managing complex medical and surgical cases, with additional expertise in age management and regenerative medicine.</p>
+              <p>His philosophy is simple: every patient deserves to feel heard, valued, and supported in their treatment plan. He built WellGen Health to be inclusive, accessible, and reliable for everyone it serves.</p>
+            </div>
+            <a href={providerUrl(lone)} class="mt-5 inline-block font-semibold text-brand-dark hover:text-navy">Read Dr. Lone’s profile</a>
+          </div>
+        </article>
+      )}
+    </div>
+  </section>
+
+  <!-- Providers -->
+  <section class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Meet our providers</h2>
+        <p class="mt-4 text-lg text-muted">Having a provider who knows you, your medical history, and your family’s needs is crucial for maintaining your health.</p>
+      </div>
+      <a href="/providers/" class="rounded-full bg-navy px-6 py-3 font-semibold text-white hover:bg-brand-dark">See all {providers.length} providers</a>
+    </div>
+    <ul class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-8">
+      {team.map((p) => (
+        <li class="group relative">
+          <div class="aspect-[4/5] overflow-hidden rounded-2xl bg-mist">
+            <Photo folder="providers" name={p.slug} alt="" widths={[200, 360]} sizes="(min-width: 1024px) 11vw, (min-width: 640px) 22vw, 45vw" hint={false} class="transition-transform duration-500 group-hover:scale-[1.04]" />
+          </div>
+          <a href={providerUrl(p)} class="mt-2 block text-[15px] font-medium leading-snug text-navy after:absolute after:inset-0 group-hover:text-brand-dark">{p.name}</a>
+          <p class="text-[13px] text-muted">{p.credentials}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- What we offer -->
+  <section class="mt-24 bg-mist py-20 lg:mt-32 lg:py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="max-w-2xl">
+        <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">What we offer</h2>
+        <p class="mt-4 text-lg text-muted">Thorough medical assessments and tailored care, using our expertise and modern techniques to meet your health needs with precision.</p>
+      </div>
+      <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {offers.map((o) => (
+          <li class="group relative flex flex-col overflow-hidden rounded-[1.75rem] bg-white ring-1 ring-ice transition hover:-translate-y-1 hover:ring-brand/50">
+            <div class="aspect-[16/10] overflow-hidden bg-mist">
+              <Photo folder="pages/about/offer" name={o.slug} alt="" widths={[400, 640]} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw" class="transition-transform duration-500 group-hover:scale-[1.04]" />
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="font-display text-2xl text-navy"><a href={o.href} class="after:absolute after:inset-0 group-hover:text-brand-dark">{o.title}</a></h3>
+              <p class="mt-2 text-[15px] leading-relaxed text-muted">{o.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <h3 class="mt-24 text-3xl font-medium text-navy lg:text-4xl">Conditions we treat</h3>
+      <ul class="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {conditions.map((c) => (
+          <li class="flex gap-4">
+            <div class="size-16 shrink-0 overflow-hidden rounded-2xl bg-white ring-1 ring-ice">
+              <Photo folder="pages/about/conditions" name={c.slug} alt="" widths={[128]} sizes="64px" hint={false} />
+            </div>
+            <div>
+              <h4 class="font-semibold text-navy">{c.title}</h4>
+              <ul class="mt-2 space-y-1 text-[15px] text-muted">
+                {c.items.map((x) => <li>{x}</li>)}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {faqs.length > 0 && (
+    <div class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+      <Faq faqs={faqs} title="Questions about WellGen Health" />
+    </div>
+  )}
+
+  <CtaBand />
+</BaseLayout>

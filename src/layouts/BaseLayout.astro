@@ -19,8 +19,8 @@ const props = Astro.props;
 const path = Astro.url.pathname;
 // SEO from src/data/seo.json wins when the page has an entry there.
 const seo = (seoData as Record<string, any>)[path];
-const title = seo?.title ?? props.title;
-const description = seo?.description ?? props.description ?? 'Primary and specialty care across six WellGen Health clinics in Texas.';
+const title = seo?.title || props.title;
+const description = seo?.description || props.description || 'Primary and specialty care across six WellGen Health clinics in Texas.';
 const fullTitle = title === site.name ? title : `${title} | ${site.name}`;
 const canonical = new URL(path, Astro.site);
 const allowIndexing = import.meta.env.PUBLIC_ALLOW_INDEXING === 'true';

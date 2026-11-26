@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Photo from '../../components/Photo.astro';
+import Faq from '../../components/Faq.astro';
+import FormNotConnected from '../../components/FormNotConnected.astro';
+import { pageFaqs } from '../../lib/page-faqs';
+import { site } from '../../data/site';
+import { breadcrumbLd, faqLd } from '../../lib/schema';
+
+const faqs = pageFaqs('/company/partner-with-us/');
+const partners = [
+  { title: 'LOP companies', text: 'Letter of Protection partnerships with clear documentation and coordinated care.' },
+  { title: 'Personal injury offices', text: 'Thorough injury evaluations, diagnostic testing and recovery plans for your clients.' },
+  { title: 'Nursing homes & facilities', text: 'Physicians who round regularly, with follow-up and medication management.' },
+  { title: 'Hospitals & providers', text: 'Seamless transitions of care, referrals and shared patient follow-up.' },
+];
+---
+<BaseLayout
+  title="Partner with us"
+  description="Partner with WellGen Health. We work with LOP companies, personal injury offices, nursing homes, hospitals and providers to improve patient care."
+  jsonLd={[breadcrumbLd([{ label: 'About', href: '/company/about-us/' }, { label: 'Partner with us', href: '/company/partner-with-us/' }]), ...(faqs.length ? [faqLd(faqs)] : [])]}
+>
+  <PageHero
+    title="Partner with us"
+    lead="Looking for a reliable partner in healthcare? Whether you’re an LOP company, a personal injury office, or another healthcare provider, WellGen Health is ready to work with you."
+    crumbs={[{ label: 'About', href: '/company/about-us/' }, { label: 'Partner with us' }]}
+    image={{ folder: 'pages/partner', name: 'hero', alt: 'WellGen Health partners in discussion' }}
+    bookHref="#partner-form"
+    bookLabel="Send us a message"
+  />
+
+  <section class="mx-auto max-w-7xl px-6 pt-20 lg:pt-28">
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {partners.map((p) => (
+        <li class="rounded-[1.5rem] bg-mist p-6">
+          <h2 class="font-display text-2xl text-navy">{p.title}</h2>
+          <p class="mt-2 text-[15px] leading-relaxed text-muted">{p.text}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mx-auto grid max-w-7xl gap-12 px-6 pt-20 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:pt-28">
+    <div>
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Let’s make a difference together</h2>
+      <div class="mt-6 space-y-4 text-[17px] leading-relaxed text-ink">
+        <p>We offer comprehensive care solutions, advanced technology, and a team of experienced medical professionals dedicated to improving patient outcomes through seamless coordination.</p>
+        <p>Join us in delivering exceptional healthcare services and innovative solutions to our community. Send us a message using the form to start the conversation.</p>
+      </div>
+      <div class="mt-8 overflow-hidden rounded-[2rem] bg-mist">
+        <Photo folder="pages/partner" name="photo" alt="" widths={[500, 800]} sizes="(min-width: 1024px) 40vw, 92vw" class="aspect-[4/3] w-full object-cover" />
+      </div>
+      <dl class="mt-8 grid gap-3 text-[16px]">
+        <div class="flex gap-3"><dt class="w-16 text-muted">Phone</dt><dd><a href={site.phone.href} class="font-medium text-navy hover:text-brand-dark">{site.phone.label}</a></dd></div>
+        <div class="flex gap-3"><dt class="w-16 text-muted">Email</dt><dd><a href={`mailto:${site.email}`} class="font-medium text-navy hover:text-brand-dark">{site.email}</a></dd></div>
+        <div class="flex gap-3"><dt class="w-16 text-muted">Office</dt><dd class="text-navy">{site.address}</dd></div>
+      </dl>
+    </div>
+
+    <form id="partner-form" class="scroll-mt-28 self-start rounded-[2rem] bg-white p-8 ring-1 ring-ice lg:p-10" data-pending-form>
+      <h3 class="font-display text-3xl text-navy">Start the conversation</h3>
+      <div class="mt-8 grid gap-5 sm:grid-cols-2">
+        <div class="sm:col-span-2">
+          <label for="pw-type" class="wg-label">Nature of message</label>
+          <select id="pw-type" name="nature" class="wg-input" required>
+            <option value="">Please select</option>
+            <option>LOP Partnership</option>
+            <option>Nursing Home</option>
+            <option>Hospital Services</option>
+            <option>All Other</option>
+          </select>
+        </div>
+        <div><label for="pw-first" class="wg-label">First name</label><input id="pw-first" name="first_name" class="wg-input" autocomplete="given-name" required /></div>
+        <div><label for="pw-last" class="wg-label">Last name</label><input id="pw-last" name="last_name" class="wg-input" autocomplete="family-name" required /></div>
+        <div class="sm:col-span-2"><label for="pw-org" class="wg-label">Organization <span class="font-normal text-muted">(optional)</span></label><input id="pw-org" name="organization" class="wg-input" autocomplete="organization" /></div>
+        <div><label for="pw-email" class="wg-label">Email</label><input id="pw-email" name="email" type="email" class="wg-input" autocomplete="email" required /></div>
+        <div><label for="pw-phone" class="wg-label">Phone</label><input id="pw-phone" name="phone" type="tel" class="wg-input" autocomplete="tel" required /></div>
+        <div class="sm:col-span-2"><label for="pw-msg" class="wg-label">Message</label><textarea id="pw-msg" name="message" rows="5" class="wg-input" required></textarea></div>
+      </div>
+      <button type="submit" class="mt-8 rounded-full bg-cta px-8 py-3.5 font-semibold text-white transition hover:bg-cta-dark">Send message</button>
+    </form>
+  </section>
+
+  {faqs.length > 0 && (
+    <div class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+      <Faq faqs={faqs} title="Questions about partnering" />
+    </div>
+  )}
+  <div class="pb-16"></div>
+  <FormNotConnected />
+</BaseLayout>

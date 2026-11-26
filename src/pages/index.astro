@@ -1,41 +1,364 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { categories, categoryUrl } from '../data/services';
-import { site } from '../data/site';
+import Photo from '../components/Photo.astro';
+import ClinicMap from '../components/ClinicMap.astro';
+import Faq from '../components/Faq.astro';
+import FormNotConnected from '../components/FormNotConnected.astro';
+import { Image } from 'astro:assets';
+import { listImages } from '../lib/images';
+import { pageFaqs } from '../lib/page-faqs';
+import { site, locations, locationUrl, telHref, careNavigation } from '../data/site';
+import { categories, categoryUrl, serviceUrl } from '../data/services';
+import { providers, providerUrl } from '../data/providers';
+import { events, eventDate } from '../data/events';
+import { faqLd } from '../lib/schema';
+
+const faqs = pageFaqs('/');
+const svcUrl = (slug: string) => {
+  for (const c of categories) { const s = c.services.find((x) => x.slug === slug); if (s) return serviceUrl(c, s); }
+  return '/services/';
+};
+
+// Slideshow: the five slides from the WordPress home page. Photos: src/assets/images/pages/home/slides/<slug>.*
+const slides = [
+  { slug: 'comprehensive', title: 'Comprehensive care for your health', text: 'Personalized, high-quality healthcare designed around your needs and your overall well-being.', cta: 'Schedule an appointment', href: '#book' },
+  { slug: 'preventive', title: 'Preventive and routine care', text: 'Stay ahead of health issues with annual exams, vaccinations, and routine screenings tailored to your lifestyle.', cta: 'Learn more', href: categoryUrl(categories[0]) },
+  { slug: 'chronic', title: 'Chronic disease management', text: 'Compassionate, expert care for diabetes, hypertension, arthritis and other long-term conditions, for better health outcomes.', cta: 'Get started', href: svcUrl('chronic-care-management') },
+  { slug: 'womens', title: 'Specialized women’s health services', text: 'From routine gynecological exams to family planning, care that supports you at every stage of life.', cta: 'Explore services', href: svcUrl('womens-health') },
+  { slug: 'diagnostic', title: 'Advanced diagnostic and therapeutic care', text: 'Modern diagnostic tools and therapies for complex medical needs, to help you toward a healthier future.', cta: 'Contact us', href: '/company/contact/' },
+];
+
+// "How can we help?" — routes by what the visitor came to do
+const intents = [
+  { title: 'I need a check-up or a sick visit', text: 'Annual physicals, screenings, vaccines, and care when you’re unwell.', href: '#book', action: 'Book an appointment', icon: 'M8 2v3M16 2v3M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z' },
+  { title: 'I’m living with a long-term condition', text: 'Diabetes, blood pressure, heart and lung, pain, and more.', href: categoryUrl(categories[0]), action: 'See chronic care', icon: 'M3 12h4l3-8 4 16 3-8h4' },
+  { title: 'I just left the hospital', text: 'Book a follow-up within 30 days and get help with your medicines.', href: '/care-navigation/', action: 'Care Navigation', icon: 'M12 21s-7-4.4-9.3-9A5.3 5.3 0 0 1 12 6a5.3 5.3 0 0 1 9.3 6c-2.3 4.6-9.3 9-9.3 9Z' },
+  { title: 'I’m looking for a provider', text: 'Physicians, nurse practitioners and physician assistants.', href: '/providers/', action: 'Find a provider', icon: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 21a8 8 0 0 1 16 0' },
+];
+
+const timeSlots = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'];
+const bookable = providers.filter((p) => p.location);
+const faces = providers.filter((p) => p.hasProfile).slice(0, 12);
+const latestEvents = events.slice(0, 3);
+const firstPhoto = (slug: string) => listImages(`events/${slug}`)[0]?.image;
+const today = new Date().toISOString().slice(0, 10);
 ---
-<BaseLayout title={site.name}>
-  <section class="bg-brand text-white">
-    <div class="mx-auto max-w-7xl px-6 py-20 lg:py-28">
-      <p class="text-white/85">Preview home page</p>
-      <h1 class="mt-3 max-w-2xl text-4xl font-medium leading-tight lg:text-5xl">{site.tagline}</h1>
-      <p class="mt-5 max-w-xl text-white/90">
-        The home page is built in phase 8. For now this page is here so you can check the header, menus and footer.
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a href={site.bookingUrl} class="rounded-full bg-cta px-6 py-3 font-semibold text-white hover:bg-cta-dark">Book Online</a>
-        <a href={site.phone.href} class="rounded-full border border-white/50 px-6 py-3 font-medium text-white hover:bg-white/10">Call {site.phone.label}</a>
+<BaseLayout
+  title="Expert primary care physician in Dallas, TX"
+  description="WellGen Health provides personalized primary care, preventive care and specialized treatments across six clinics in Dallas–Fort Worth and East Texas."
+  jsonLd={faqs.length ? [faqLd(faqs)] : []}
+>
+  <!-- ============ SLIDESHOW + CALL BACK ============ -->
+  <section class="relative isolate overflow-hidden bg-navy text-white" data-slideshow aria-roledescription="carousel" aria-label="WellGen Health care highlights">
+    {slides.map((s, i) => (
+      <div class:list={['slide absolute inset-0 -z-10 transition-opacity duration-[1200ms]', i !== 0 && 'opacity-0']} data-slide={i} aria-hidden={i !== 0 ? 'true' : undefined}>
+        <Photo folder="pages/home/slides" name={s.slug} alt="" widths={[800, 1400, 2000]} sizes="100vw" loading={i === 0 ? 'eager' : 'lazy'} hint={false} class="slide-img h-full w-full object-cover" />
+      </div>
+    ))}
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-navy/95 via-navy/75 to-navy/10"></div>
+
+    <div class="mx-auto grid min-h-[38rem] max-w-7xl items-center gap-10 px-6 pb-32 pt-14 lg:grid-cols-[1.25fr_0.75fr] lg:pb-36">
+      <div class="relative min-h-[17rem]" aria-live="polite">
+        {slides.map((s, i) => (
+          <div class:list={['slide-copy', i !== 0 && 'hidden']} data-copy={i} role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${slides.length}`}>
+            {i === 0
+              ? <h1 class="max-w-[16ch] text-5xl font-medium leading-[1.02] tracking-[-0.015em] sm:text-6xl lg:text-[4.4rem]">{s.title}</h1>
+              : <p class="max-w-[16ch] font-display text-5xl font-medium leading-[1.02] tracking-[-0.015em] sm:text-6xl lg:text-[4.4rem]">{s.title}</p>}
+            <p class="mt-6 max-w-[46ch] text-lg leading-relaxed text-white/85">{s.text}</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href={s.href} class="rounded-full bg-cta px-7 py-3.5 font-semibold text-white shadow-[0_10px_24px_-10px_rgba(227,28,37,0.8)] transition hover:-translate-y-0.5 hover:bg-cta-dark">{s.cta}</a>
+              <a href={site.phone.href} class="rounded-full px-7 py-3.5 font-semibold text-white ring-1 ring-white/40 transition hover:bg-white/10">Call {site.phone.label}</a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <form id="callback" class="rounded-[1.75rem] bg-white/95 p-6 text-ink shadow-2xl backdrop-blur lg:p-8" data-pending-form>
+        <h2 class="font-display text-[1.75rem] leading-tight text-navy">Schedule a call back</h2>
+        <p class="mt-1 text-[15px] text-muted">We’ll call you at your preferred time.</p>
+        <div class="mt-5 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          <div class="sm:col-span-2 lg:col-span-1 xl:col-span-2"><label for="cb-name" class="wg-label">Full name</label><input id="cb-name" name="full_name" class="wg-input" autocomplete="name" required /></div>
+          <div class="sm:col-span-2 lg:col-span-1 xl:col-span-2"><label for="cb-email" class="wg-label">Email</label><input id="cb-email" name="email" type="email" class="wg-input" autocomplete="email" required /></div>
+          <div><label for="cb-mobile" class="wg-label">Mobile</label><input id="cb-mobile" name="mobile" type="tel" class="wg-input" autocomplete="tel" required /></div>
+          <div><label for="cb-landline" class="wg-label">Landline <span class="font-normal text-muted">(optional)</span></label><input id="cb-landline" name="landline" type="tel" class="wg-input" /></div>
+          <div><label for="cb-date" class="wg-label">Preferred date</label><input id="cb-date" name="date" type="date" min={today} class="wg-input" required /></div>
+          <div>
+            <label for="cb-time" class="wg-label">Preferred time</label>
+            <select id="cb-time" name="time" class="wg-input" required>
+              <option value="">Select a time</option>
+              {timeSlots.map((t) => <option>{t}</option>)}
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="mt-5 w-full rounded-full bg-cta px-6 py-3.5 font-semibold text-white transition hover:bg-cta-dark">Schedule call back</button>
+      </form>
+    </div>
+
+    <!-- slide controls: one tab per slide with a progress line -->
+    <div class="absolute inset-x-0 bottom-0">
+      <div class="mx-auto flex max-w-7xl items-end gap-4 px-6 pb-10">
+        <ol class="grid flex-1 grid-cols-5 gap-3" role="tablist" aria-label="Choose a slide">
+          {slides.map((s, i) => (
+            <li>
+              <button type="button" role="tab" data-go={i} aria-selected={i === 0 ? 'true' : 'false'} aria-label={`Slide ${i + 1}: ${s.title}`} class="group block w-full text-left">
+                <span class="block h-1 overflow-hidden rounded-full bg-white/25"><span class="bar block h-full w-0 bg-white"></span></span>
+                <span class="mt-2 hidden truncate text-[13px] text-white/60 transition group-hover:text-white group-aria-selected:text-white md:block">{s.title}</span>
+              </button>
+            </li>
+          ))}
+        </ol>
+        <button type="button" data-pause aria-pressed="false" class="grid size-10 shrink-0 place-items-center rounded-full ring-1 ring-white/30 transition hover:bg-white/10" aria-label="Pause slideshow">
+          <svg data-icon-pause class="size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12" rx="1"/><rect x="9.5" y="2" width="3.5" height="12" rx="1"/></svg>
+          <svg data-icon-play class="hidden size-4" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5-9-5.5Z"/></svg>
+        </button>
       </div>
     </div>
   </section>
 
-  <section class="bg-surface">
-    <div class="mx-auto max-w-7xl px-6 py-16">
-      <h2 class="text-2xl font-medium text-navy">What to check in phase 1</h2>
-      <ul class="mt-6 grid gap-4 md:grid-cols-2">
-        <li class="rounded-lg bg-white p-5 shadow-sm"><strong class="text-navy">Services menu:</strong> hover or click Services; each category and service links to its new URL.</li>
-        <li class="rounded-lg bg-white p-5 shadow-sm"><strong class="text-navy">Mobile menu:</strong> narrow the window; open the menu and expand Services, then a category.</li>
-        <li class="rounded-lg bg-white p-5 shadow-sm"><strong class="text-navy">Keyboard:</strong> Tab through the header; Enter opens a menu, Escape closes it.</li>
-        <li class="rounded-lg bg-white p-5 shadow-sm"><strong class="text-navy">404 page:</strong> open <a class="text-brand-ink underline" href="/this-page-does-not-exist/">a page that does not exist</a>.</li>
-      </ul>
-      <h2 class="mt-12 text-2xl font-medium text-navy">Service categories</h2>
-      <div class="mt-6 grid gap-4 md:grid-cols-3">
-        {categories.map((c) => (
-          <a href={categoryUrl(c)} class="rounded-lg border border-navy/10 bg-white p-5 hover:border-brand">
-            <span class="block font-medium text-navy">{c.name}</span>
-            <span class="mt-1 block text-sm text-muted">{c.services.length} services</span>
-          </a>
+  <!-- ============ HOW CAN WE HELP ============ -->
+  <section class="relative z-10 mx-auto -mt-6 max-w-7xl px-6">
+    <div class="rounded-[2rem] bg-white p-6 shadow-[0_30px_60px_-30px_rgba(8,24,50,0.35)] ring-1 ring-ice lg:p-8">
+      <h2 class="font-display text-3xl text-navy">How can we help you today?</h2>
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {intents.map((x) => (
+          <li class="group relative flex flex-col rounded-2xl bg-mist p-5 transition hover:bg-navy hover:text-white">
+            <svg class="size-7 text-brand-dark transition group-hover:text-sky" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={x.icon} /></svg>
+            <h3 class="mt-4 text-[17px] font-semibold leading-snug text-navy group-hover:text-white">{x.title}</h3>
+            <p class="mt-1.5 text-[15px] leading-snug text-muted group-hover:text-white/75">{x.text}</p>
+            <a href={x.href} class="mt-auto pt-4 text-[15px] font-semibold text-brand-dark after:absolute after:inset-0 group-hover:text-sky">{x.action} →</a>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
+
+  <!-- ============ EVERYTHING WE TREAT ============ -->
+  <section class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+    <div class="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
+      <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">Everything we treat, in one place</h2>
+      <p class="text-lg text-muted">One team for your everyday care, your long-term conditions and the specialist services in between, with the same records at every clinic.</p>
+    </div>
+    <div class="mt-12 grid gap-px overflow-hidden rounded-[2rem] bg-ice ring-1 ring-ice lg:grid-cols-3">
+      {categories.map((c, i) => (
+        <div class="bg-white p-7 lg:p-9">
+          <p class="font-display text-5xl text-brand/40">0{i + 1}</p>
+          <h3 class="mt-3 font-display text-2xl text-navy"><a href={categoryUrl(c)} class="hover:text-brand-dark">{c.name}</a></h3>
+          <p class="mt-2 text-[15px] text-muted">{c.summary}</p>
+          <ul class="mt-6 space-y-1">
+            {c.services.map((s) => (
+              <li><a href={serviceUrl(c, s)} class="group flex items-center justify-between gap-3 rounded-lg py-2 text-[16px] text-ink transition hover:text-brand-dark">{s.name}<span aria-hidden="true" class="text-ice transition group-hover:translate-x-0.5 group-hover:text-brand">→</span></a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============ BOOK AN APPOINTMENT ============ -->
+  <section id="book" class="mt-24 scroll-mt-24 bg-navy text-white lg:mt-32">
+    <div class="mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:py-28">
+      <div>
+        <h2 class="text-4xl font-medium leading-tight lg:text-5xl">Book an appointment</h2>
+        <p class="mt-4 max-w-[42ch] text-lg text-white/80">Tell us when and where suits you. Our team confirms your visit by phone or text.</p>
+        <ol class="mt-10 space-y-6">
+          {[['Choose a clinic and provider', 'Or leave the provider open and we’ll match you.'], ['Pick a day and time', 'We’ll hold the closest available slot.'], ['We confirm with you', 'You’ll get a call or text to confirm the details.']].map(([t, d], i) => (
+            <li class="flex gap-4">
+              <span class="grid size-10 shrink-0 place-items-center rounded-full bg-white/10 font-display text-xl text-sky ring-1 ring-white/20">{i + 1}</span>
+              <span><span class="block font-semibold">{t}</span><span class="text-[15px] text-white/70">{d}</span></span>
+            </li>
+          ))}
+        </ol>
+        <div class="mt-10 hidden overflow-hidden rounded-[1.75rem] lg:block">
+          <Photo folder="pages/home" name="clinic" alt="Inside a WellGen Health clinic" widths={[500, 800]} sizes="30vw" class="aspect-[4/3] w-full object-cover" />
+        </div>
+        <p class="mt-8 text-[15px] text-white/70">Prefer to talk? Call <a href={site.phone.href} class="font-semibold text-white underline-offset-4 hover:underline">{site.phone.label}</a></p>
+      </div>
+
+      <form class="rounded-[2rem] bg-white p-7 text-ink lg:p-10" data-pending-form data-booking>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div><label for="bk-first" class="wg-label">First name</label><input id="bk-first" name="first_name" class="wg-input" autocomplete="given-name" required /></div>
+          <div><label for="bk-last" class="wg-label">Last name</label><input id="bk-last" name="last_name" class="wg-input" autocomplete="family-name" required /></div>
+          <div><label for="bk-email" class="wg-label">Email</label><input id="bk-email" name="email" type="email" class="wg-input" autocomplete="email" required /></div>
+          <div><label for="bk-phone" class="wg-label">Phone</label><input id="bk-phone" name="phone" type="tel" class="wg-input" autocomplete="tel" required /></div>
+          <div>
+            <label for="bk-location" class="wg-label">Clinic</label>
+            <select id="bk-location" name="location" class="wg-input" required>
+              <option value="">Select a clinic</option>
+              {locations.map((l) => <option value={l.slug}>WellGen Health {l.name}</option>)}
+            </select>
+          </div>
+          <div>
+            <label for="bk-provider" class="wg-label">Provider</label>
+            <select id="bk-provider" name="provider" class="wg-input">
+              <option value="">Any available provider</option>
+              {bookable.map((p) => <option value={p.slug} data-location={p.location}>{p.name}, {p.credentials}</option>)}
+            </select>
+          </div>
+          <div><label for="bk-date" class="wg-label">Preferred date</label><input id="bk-date" name="date" type="date" min={today} class="wg-input" required /></div>
+          <div>
+            <label for="bk-time" class="wg-label">Preferred time</label>
+            <select id="bk-time" name="time" class="wg-input" required>
+              <option value="">Select a time</option>
+              {timeSlots.map((t) => <option>{t}</option>)}
+            </select>
+          </div>
+          <div class="sm:col-span-2"><label for="bk-reason" class="wg-label">Reason for visit</label><textarea id="bk-reason" name="reason" rows="3" class="wg-input" placeholder="A short note is enough, for example “annual physical”."></textarea></div>
+          <div class="flex gap-3 rounded-xl bg-surface p-4 sm:col-span-2">
+            <input id="bk-sms" name="sms_opt_in" type="checkbox" class="mt-1 size-5 shrink-0 accent-brand-dark" />
+            <label for="bk-sms" class="text-sm leading-relaxed text-muted"><span class="font-medium text-navy">SMS opt-in.</span> By checking this box, I agree to receive SMS from WellGen Health. Message frequency may vary. Data rates may apply. Text HELP to {site.smsPhone.label} for help. Reply STOP to opt out. See our <a href="/legal/privacy-policy/" class="underline">Privacy Policy</a>.</label>
+          </div>
+        </div>
+        <button type="submit" class="mt-7 w-full rounded-full bg-cta px-8 py-4 text-lg font-semibold text-white transition hover:bg-cta-dark sm:w-auto">Request appointment</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ PROVIDERS ============ -->
+  <section class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+    <div class="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+      <div>
+        <h2 class="text-4xl font-medium leading-tight text-navy lg:text-5xl">A provider who knows you</h2>
+        <p class="mt-4 text-lg text-muted">{providers.length} physicians, nurse practitioners and physician assistants. Seeing the same provider means your history, your family and your goals are never starting from scratch.</p>
+        <p class="mt-8 text-sm font-medium text-navy">See who works at</p>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {locations.map((l) => <li><a href={`/providers/?clinic=${l.slug}`} class="inline-block rounded-full px-4 py-2 text-[15px] text-navy ring-1 ring-ice transition hover:bg-navy hover:text-white hover:ring-navy">{l.name}</a></li>)}
+        </ul>
+        <a href="/providers/" class="mt-8 inline-block rounded-full bg-navy px-6 py-3 font-semibold text-white hover:bg-brand-dark">Meet all providers</a>
+      </div>
+      <ul class="grid grid-cols-3 gap-3 sm:grid-cols-4">
+        {faces.map((p, i) => (
+          <li class:list={['group relative overflow-hidden rounded-2xl bg-mist', i % 5 === 1 && 'translate-y-6']}>
+            <Photo folder="providers" name={p.slug} alt="" widths={[200, 360]} sizes="(min-width: 1024px) 12vw, 30vw" hint={false} class="aspect-[4/5] h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" />
+            <a href={providerUrl(p)} class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/90 to-transparent px-3 pb-2.5 pt-8 text-[13px] font-medium leading-tight text-white opacity-0 transition group-hover:opacity-100 focus-visible:opacity-100">{p.name}<span class="absolute inset-0"></span></a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CLINICS ============ -->
+  <section class="mx-auto max-w-7xl px-6 pt-24 lg:pt-32">
+    <div class="grid overflow-hidden rounded-[2.5rem] bg-navy text-white lg:grid-cols-[0.9fr_1.1fr]">
+      <div class="p-8 lg:p-12">
+        <h2 class="text-4xl font-medium leading-tight lg:text-5xl">Six clinics, one team</h2>
+        <ul class="mt-8 divide-y divide-white/10 border-y border-white/10">
+          {locations.map((l) => (
+            <li class="group relative flex items-center justify-between gap-4 py-3.5">
+              <div>
+                <a href={locationUrl(l)} class="font-display text-xl after:absolute after:inset-0 group-hover:text-sky">{l.name}</a>
+                <p class="text-sm text-white/60">{l.street}, {l.city.replace(/ \d+$/, '')}</p>
+              </div>
+              <a href={telHref(l.phone)} class="relative z-10 shrink-0 text-[15px] font-semibold text-sky hover:text-white">{l.phone}</a>
+            </li>
+          ))}
+        </ul>
+        <a href="/locations/" class="mt-8 inline-block rounded-full bg-white px-6 py-3 font-semibold text-navy hover:bg-mist">Find my nearest clinic</a>
+      </div>
+      <div class="hidden self-center p-6 sm:block lg:p-8"><div class="overflow-hidden rounded-[1.75rem] ring-1 ring-white/15"><ClinicMap /></div></div>
+    </div>
+  </section>
+
+  <!-- ============ CARE NAVIGATION + EVENTS ============ -->
+  <section class="mx-auto grid max-w-7xl gap-6 px-6 pt-24 lg:grid-cols-[0.8fr_1.2fr] lg:pt-32">
+    <div class="flex flex-col rounded-[2rem] bg-mist p-8 lg:p-10">
+      <h2 class="font-display text-3xl text-navy">Just left the hospital?</h2>
+      <p class="mt-3 text-[17px] leading-relaxed text-ink">Our Care Navigation Center books your follow-up within 30 days, reviews your medicines and helps coordinate your recovery.</p>
+      <div class="mt-auto flex flex-wrap gap-3 pt-8">
+        <a href={careNavigation.href} class="rounded-full bg-cta px-6 py-3 font-semibold text-white hover:bg-cta-dark">Call {careNavigation.label}</a>
+        <a href="/care-navigation/" class="rounded-full bg-white px-6 py-3 font-semibold text-brand-dark ring-1 ring-ice hover:ring-brand">How it works</a>
+      </div>
+    </div>
+    <div>
+      <div class="flex items-end justify-between gap-4">
+        <h2 class="font-display text-3xl text-navy">In the community</h2>
+        <a href="/company/events/" class="font-semibold text-brand-dark hover:text-navy">All events</a>
+      </div>
+      <ul class="mt-6 grid gap-5 sm:grid-cols-3">
+        {latestEvents.map((e) => { const img = firstPhoto(e.slug); return (
+          <li class="group relative">
+            <div class="aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-mist">
+              {img && <Image src={img} alt="" widths={[300, 500]} sizes="(min-width: 640px) 20vw, 92vw" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />}
+            </div>
+            <time datetime={e.date} class="mt-3 block text-sm text-muted">{eventDate(e.date)}</time>
+            <a href={`/company/events/#${e.slug}`} class="mt-1 block font-medium leading-snug text-navy after:absolute after:inset-0 group-hover:text-brand-dark">{e.title}</a>
+          </li>
+        ); })}
+      </ul>
+    </div>
+  </section>
+
+  {faqs.length > 0 && (
+    <div class="mx-auto max-w-7xl px-6 py-24 lg:py-32"><Faq faqs={faqs} title="Got questions? We’ve got answers" /></div>
+  )}
+  <FormNotConnected />
 </BaseLayout>
+
+<style>
+  /* slow zoom on the visible slide */
+  .slide:not(.opacity-0) :global(.slide-img) { animation: kenburns 9s ease-out both; }
+  @keyframes kenburns { from { transform: scale(1.08); } to { transform: scale(1); } }
+  .slide-copy:not(.hidden) { animation: copy-in 0.7s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes copy-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  [data-go][aria-selected='true'] .bar { animation: fill var(--slide-ms, 4000ms) linear forwards; }
+  [data-slideshow].is-paused [data-go][aria-selected='true'] .bar { animation-play-state: paused; }
+  @keyframes fill { to { width: 100%; } }
+  @media (prefers-reduced-motion: reduce) {
+    .slide:not(.opacity-0) :global(.slide-img), .slide-copy:not(.hidden) { animation: none; }
+  }
+</style>
+
+<script>
+  // ---- Slideshow: moves on to the next slide every 4 seconds, always.
+  // It only stops when the visitor presses the pause button (needed for accessibility).
+  const show = document.querySelector<HTMLElement>('[data-slideshow]');
+  if (show) {
+    const MS = 4000; // time per slide, in milliseconds (1000 = 1 second)
+    const photos = [...show.querySelectorAll<HTMLElement>('[data-slide]')];
+    const copies = [...show.querySelectorAll<HTMLElement>('[data-copy]')];
+    const tabs = [...show.querySelectorAll<HTMLButtonElement>('[data-go]')];
+    const live = show.querySelector<HTMLElement>('[aria-live]');
+    const pauseBtn = show.querySelector<HTMLButtonElement>('[data-pause]');
+    let at = 0, timer: number | undefined, paused = false;
+    show.style.setProperty('--slide-ms', `${MS}ms`);
+
+    const schedule = () => {
+      clearTimeout(timer);
+      show.classList.toggle('is-paused', paused);
+      // screen readers only announce slide changes the visitor makes, not the automatic ones
+      live?.setAttribute('aria-live', paused ? 'polite' : 'off');
+      if (!paused) timer = window.setTimeout(() => go(at + 1), MS);
+    };
+    function go(i: number) {
+      at = (i + photos.length) % photos.length;
+      photos.forEach((p, j) => { p.classList.toggle('opacity-0', j !== at); p.toggleAttribute('aria-hidden', j !== at); });
+      copies.forEach((c, j) => c.classList.toggle('hidden', j !== at));
+      tabs.forEach((t, j) => {
+        t.setAttribute('aria-selected', String(j === at));
+        const bar = t.querySelector<HTMLElement>('.bar'); // restart the progress line
+        if (bar) { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; }
+      });
+      schedule();
+    }
+    tabs.forEach((t, i) => t.addEventListener('click', () => go(i)));
+    pauseBtn?.addEventListener('click', () => {
+      paused = !paused;
+      pauseBtn.setAttribute('aria-pressed', String(paused));
+      pauseBtn.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+      pauseBtn.querySelector('[data-icon-pause]')?.classList.toggle('hidden', paused);
+      pauseBtn.querySelector('[data-icon-play]')?.classList.toggle('hidden', !paused);
+      schedule();
+    });
+    // the browser tab is hidden: don't run the timer in the background
+    document.addEventListener('visibilitychange', () => { if (document.hidden) clearTimeout(timer); else schedule(); });
+    schedule();
+  }
+
+  // ---- Booking form: the provider list only shows people at the chosen clinic
+  const loc = document.querySelector<HTMLSelectElement>('#bk-location');
+  const prov = document.querySelector<HTMLSelectElement>('#bk-provider');
+  loc?.addEventListener('change', () => {
+    if (!prov) return;
+    [...prov.options].forEach((o) => { if (o.value) o.hidden = !!loc.value && o.dataset.location !== loc.value; });
+    if (prov.selectedOptions[0]?.hidden) prov.value = '';
+  });
+</script>

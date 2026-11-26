@@ -380,6 +380,122 @@ async function refreshAll({ seo, only }) {
   return { faqFiles, faqTotal, tagPages };
 }
 
+// ---------------------------------------------------------------- company pages, care navigation, charge capture
+// New page address → WordPress page. faqs: false skips FAQs that WordPress copied from another page.
+const PAGES = {
+  '/': { wp: '/' },
+  '/company/about-us/': { wp: '/company/about-us/' },
+  '/company/events/': { wp: '/company/events/', faqs: false },      // WordPress shows the THR Dallas clinic FAQs here
+  '/company/careers/': { wp: '/company/careers/' },
+  '/company/partner-with-us/': { wp: '/company/partner-with-us/' },
+  '/company/newsletter/': { wp: '/company/newsletter/' },
+  '/company/contact/': { wp: '/company/contact/', faqs: false },    // same: THR Dallas clinic FAQs
+  '/care-navigation/': { wp: '/care-navigation/' },
+  '/charge-capture/': { wp: '/charge-capture/' },
+};
+
+const range = (prefix, n, ext = 'jpg', skip = []) => Array.from({ length: n }, (_, i) => i + 1).filter((i) => !skip.includes(i)).map((i) => `${prefix}${i}.${ext}`);
+// Photo destination (folder/name, no extension) → file name on WordPress
+const PAGE_IMAGES = {
+  // home page slideshow (same five slides as WordPress)
+  'pages/home/slides/comprehensive': 'ComprehensiveCareforYourHealth.png', 'pages/home/slides/preventive': 'Preventive-and-Routine-Care-1.png',
+  'pages/home/slides/chronic': 'Chronic-Disease-Management.png', 'pages/home/slides/womens': 'Specialized-Womens-Health-Services-1.png',
+  'pages/home/slides/diagnostic': 'Advanced-Diagnostic-and-Therapeutic-Care-1.png',
+  'pages/home/clinic': 'WhatsApp-Image-2025-03-11-at-12.48.56-PM.jpeg',
+  'pages/about/hero': 'about-us.png',
+  'pages/about/ceo': 'MaxAlshomaliMPA-EHCA.jpeg',
+  ...Object.fromEntries(['image-12', 'image-14', 'image-15', 'image-16', 'image-17', 'image-18', 'image-19', 'image-20', 'image-21', 'image-22', 'image-23', 'image-24', 'image-25'].map((n, i) => [`pages/about/clinic/${i + 1}`, `${n}.jpg`])),
+  'pages/about/offer/arthritis': 'Arthritis.png', 'pages/about/offer/diabetes': 'diabetes.png', 'pages/about/offer/geriatric-care': 'geriatric-care.png',
+  'pages/about/offer/hypertension': 'hypertension.png', 'pages/about/offer/surgical-clearance': 'clinical-trail.png', 'pages/about/offer/allergy-testing': 'allergy-testing-and-training.png',
+  'pages/about/conditions/preventive': 'Preventive-and-Routine-Care.png', 'pages/about/conditions/chronic': 'Chronic-Disease-Management.png',
+  'pages/about/conditions/womens': 'Womens-Health.png', 'pages/about/conditions/mens': 'Mens-Health.png', 'pages/about/conditions/mental': 'Mental-Health.png',
+  'pages/about/conditions/respiratory': 'Respiratory-and-Allergy-Care.png', 'pages/about/conditions/digestive': 'Digestive-Health.png',
+  'pages/about/conditions/pain': 'Pain-Management-and-Musculoskeletal-Care.png', 'pages/about/conditions/infectious': 'Infectious-Diseases.png',
+  'pages/about/conditions/dermatology': 'Dermatology.png', 'pages/about/conditions/substance': 'Substance-Abuse-and-Addiction.png', 'pages/about/conditions/specialty': 'Specialty-Services.png',
+  'pages/careers/hero': 'careers.png', 'pages/careers/why': 'Pressmaster_Shutterstock_158366573_RV.jpg',
+  ...Object.fromEntries(['image.jpg', 'image-1.jpg', 'image-2.jpg', 'image-3.jpg', 'image-4.jpg'].map((n, i) => [`pages/careers/team/${i + 1}`, n])),
+  'pages/partner/hero': 'partner-with-us.png', 'pages/partner/photo': 'image-30.jpg',
+  'pages/newsletter/hero': 'stay-updated-with-wellgen-health.png', 'pages/newsletter/photo': 'image-32.jpg',
+  'pages/contact/hero': 'contact-us.png',
+  'pages/care-navigation/hero': 'Care-Navigation-Center.png', 'pages/care-navigation/post-discharge': 'Post-Discharge-Guidance-.png',
+  'pages/care-navigation/tcm': 'Transitional-Care-Management-.png', 'pages/care-navigation/directory': 'WellGen-Health-Clinic-Directory-1.png',
+  'pages/care-navigation/help': 'We-Can-Help-You.png',
+  'pages/care-navigation/facilities/collinwood': 'Collinwood-Electronic-1.png', 'pages/care-navigation/facilities/golden-acres': 'Golden-Acres-Living-and-Rehabilitation.png',
+  'pages/care-navigation/facilities/lakeside': 'Lakeside-in-Kemp-ML-Trifold-Brochures.png', 'pages/care-navigation/facilities/lakewest': 'Lakewest-Assisted-Living-Dining-Rm.webp',
+  'pages/care-navigation/facilities/simpson-place': 'Simpson-Place-ALF-SNF-Tri-Fold-1.png', 'pages/care-navigation/facilities/villages-on-macarthur': 'VMAC-back.png',
+  'pages/care-navigation/facilities/landmark-of-plano': 'WhatsApp-Image-2025-12-29-at-3.05.33-PM.jpeg',
+  'pages/charge-capture/hero': 'wellgen-charge-capture.jpg', 'pages/charge-capture/screen-login': 'page-1-1.png',
+  'pages/charge-capture/screen-patients': 'page-2-3.png', 'pages/charge-capture/screen-demographics': 'page-5-2.png',
+  'pages/charge-capture/screen-charges': 'page-6-2.png', 'pages/charge-capture/screen-diagnosis': 'page-7-1-1.png',
+  'pages/charge-capture/screen-procedures': 'page-8-2.png', 'pages/charge-capture/screen-follow-up': 'page-9-2.png',
+  ...Object.fromEntries(range('Triumph-Galas-event-', 8).map((n, i) => [`events/taste-of-triumph-gala/${i + 1}`, n])),
+  ...Object.fromEntries(range('Luncheon-', 4).map((n, i) => [`events/each-moment-matters-luncheon/${i + 1}`, n])),
+  ...Object.fromEntries(range('Presbyterian-Villages-North-', 16).map((n, i) => [`events/presbyterian-village-north-clinic/${i + 1}`, n])),
+  ...Object.fromEntries(range('Annual-Halloween-Luncheon-', 8).map((n, i) => [`events/halloween-luncheon-2024/${i + 1}`, n])),
+  ...Object.fromEntries(range('Greenville-', 11).map((n, i) => [`events/greenville-clinic-opening/${i + 1}`, n])),
+};
+// Bigger clinic photos from the Care Navigation page: used only if they're larger than what you have
+const LOCATION_UPGRADES = { arlington: 'Wellgen-Health-at-Arlington.jpg', greenville: 'Wellgen-Health-at-Greenville.jpg', canton: 'Wellgen-Health-at-Canton.jpg', 'thr-dallas': 'Wellgen-Health-at-THR-Dallas.jpg' };
+
+// Known mistakes in the WordPress FAQ answers, corrected on import
+const FACT_FIXES = [
+  ['Canton 214-398-4690', 'Canton 903-213-2957'],  // 214-398-4690 is the Care Navigation line, not Canton
+];
+const fixFacts = (t) => FACT_FIXES.reduce((x, [a, b]) => x.split(a).join(b), t);
+
+function findMedia(mediaFiles, name) {
+  const ext = path.extname(name), stem = name.slice(0, -ext.length);
+  return [name, `${stem}-scaled${ext}`, `${stem}-1${ext}`, `${stem}.bk${ext}`, `${name}.webp`].map((n) => mediaFiles.get(n.toLowerCase())).find(Boolean);
+}
+
+async function importPages({ force, mediaFiles, media, seo }) {
+  let photos = 0; const missing = [];
+  if (mediaFiles) {
+    for (const [dest, name] of Object.entries(PAGE_IMAGES)) {
+      const dir = path.dirname(`src/assets/images/${dest}`), base = path.basename(dest);
+      if (!force && fs.existsSync(dir) && fs.readdirSync(dir).some((f) => f.replace(/\.[^.]+$/, '') === base)) continue;
+      const found = findMedia(mediaFiles, name);
+      if (!found) { missing.push(`${dest}   (WordPress file: ${name})`); continue; }
+      fs.mkdirSync(dir, { recursive: true });
+      fs.copyFileSync(path.join(media, found), `${dir}/${base}${path.extname(found).toLowerCase()}`);
+      photos++;
+    }
+    const sharp = (await import('sharp')).default;
+    for (const [slug, name] of Object.entries(LOCATION_UPGRADES)) {
+      const found = findMedia(mediaFiles, name); if (!found) continue;
+      const dir = 'src/assets/images/locations';
+      const current = fs.existsSync(dir) && fs.readdirSync(dir).find((f) => f.replace(/\.[^.]+$/, '') === slug);
+      const width = async (f) => (await sharp(f).metadata()).width || 0;
+      if (current && (await width(path.join(dir, current))) >= (await width(path.join(media, found)))) continue;
+      if (current) fs.renameSync(path.join(dir, current), path.join(dir, `old-${current}`));
+      fs.copyFileSync(path.join(media, found), `${dir}/${slug}${path.extname(found).toLowerCase()}`);
+      console.log(`  Bigger photo used for the ${slug} clinic (old one kept as old-${current || ''})`);
+      photos++;
+    }
+  }
+
+  const faqPath = 'src/data/page-faqs.json';
+  const pageFaqs = fs.existsSync(faqPath) ? JSON.parse(fs.readFileSync(faqPath, 'utf8')) : {};
+  let faqPages = 0, tagPages = 0;
+  for (const [url, cfg] of Object.entries(PAGES)) {
+    const res = await fetch(SITE + cfg.wp, { headers: { 'User-Agent': 'Mozilla/5.0 (WellGen site import)' } });
+    if (!res.ok) { console.log(`  ! ${cfg.wp} returned ${res.status}, skipped`); continue; }
+    const { document } = parseHTML(await res.text());
+    const page = extract(document, cfg.wp);
+    if (cfg.faqs !== false && page.faqs.length) {
+      const seen = new Set();
+      pageFaqs[url] = page.faqs.map((f) => ({ q: cleanQ(f.q), a: fixFacts(clean(f.a)) })).filter((f) => f.q && !seen.has(f.q.toLowerCase()) && seen.add(f.q.toLowerCase()));
+      faqPages++;
+    }
+    seo[url] = seo[url] || { title: '', description: fitDesc(page.desc), focusKeyword: '', keywords: [] };
+    if (!seo[url].description) seo[url].description = fitDesc(page.desc);
+    if (page.tags.length) { seo[url].tags = page.tags; tagPages++; }
+    console.log(`  ${url}  ${cfg.faqs === false ? 'FAQs skipped' : `${page.faqs.length} FAQs`}, ${page.tags.length} keywords`);
+  }
+  fs.writeFileSync(faqPath, JSON.stringify(pageFaqs, null, 2) + '\n');
+  return { photos, missing, faqPages, tagPages };
+}
+
 // ---------------------------------------------------------------- run
 async function main() {
   const args = process.argv.slice(2);
@@ -387,6 +503,16 @@ async function main() {
   const force = args.includes('--force');
   const mi = args.indexOf('--media');
   const media = mi >= 0 ? args[mi + 1] : 'C:\\wellgen-media\\originals';
+  const mediaFiles = fs.existsSync(media) ? new Map(fs.readdirSync(media).map((f) => [f.toLowerCase(), f])) : null;
+  if (category === 'pages') {
+    const seoPath = 'src/data/seo.json';
+    const seo = JSON.parse(fs.readFileSync(seoPath, 'utf8'));
+    const r = await importPages({ force, mediaFiles, media, seo });
+    fs.writeFileSync(seoPath, JSON.stringify(seo, null, 2) + '\n');
+    console.log(`\nDone: ${r.photos} photos copied, FAQs for ${r.faqPages} pages, keyword box for ${r.tagPages} pages.`);
+    if (r.missing.length) console.log('\nNot found in your photo folder:\n  ' + r.missing.join('\n  '));
+    return;
+  }
   if (category === 'refresh') {
     const seoPath = 'src/data/seo.json';
     const seo = JSON.parse(fs.readFileSync(seoPath, 'utf8'));
@@ -396,11 +522,10 @@ async function main() {
     console.log(`\nDone: FAQs updated on ${r.faqFiles} pages (${r.faqTotal} questions), keyword box copied for ${r.tagPages} pages.`);
     return;
   }
-  if (!CATEGORIES[category] && category !== 'providers') {
-    console.log(`Usage: node scripts/import-wp.mjs <category>\nCategories: ${Object.keys(CATEGORIES).join(', ')}, providers\nOr: node scripts/import-wp.mjs refresh   (all FAQs + keyword boxes for pages you already have)`);
+  if (!CATEGORIES[category] && category !== 'providers') {  // 'pages' and 'refresh' are handled above
+    console.log(`Usage: node scripts/import-wp.mjs <category>\nCategories: ${Object.keys(CATEGORIES).join(', ')}, providers\nOr: node scripts/import-wp.mjs pages     (About, Events, Careers, Partner, Newsletter, Contact, Care Navigation, Charge Capture)\nOr: node scripts/import-wp.mjs refresh   (all FAQs + keyword boxes for pages you already have)`);
     process.exit(1);
   }
-  const mediaFiles = fs.existsSync(media) ? new Map(fs.readdirSync(media).map((f) => [f.toLowerCase(), f])) : null;
   if (category === 'providers') {
     const seoPath = 'src/data/seo.json';
     const seo = JSON.parse(fs.readFileSync(seoPath, 'utf8'));
